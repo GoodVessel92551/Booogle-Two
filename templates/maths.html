@@ -1,0 +1,161 @@
+<html lang="en-GB">
+    <head>
+        <title>Booogle</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="theme-color" content="#f60">
+        <link rel="apple-touch-icon" href="/static/logo_apple">
+        <link href="{{ url_for('static',filename='main.css')}}" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+        <link rel = "icon" href = "{{ url_for('static',filename='toplogo.png')}}" type = "image/x-icon">
+        <link rel="manifest" href="static/manifest.json">
+    </head>
+<body>
+    <input type="image" src="/static/logo.png" width="500" height="90" class="logo" onclick="window.open('/home','_self')">
+    <button id="name" class="profile" onclick="window.open('/home','_self')"></button>
+    <div class="calc">
+        <div class="screen" id="screen">Press or Type</div>
+        <button class="but3" onclick="calc('=')">=</button>
+        <br>
+        <button class="but1" onclick="calc('1')">1</button>
+        <button class="but1" onclick="calc('2')">2</button>
+        <button class="but1" onclick="calc('3')">3</button>
+        <button class="but2" onclick="calc('+')">+</button>
+        <br>
+        <button class="but1" onclick="calc('4')">4</button>
+        <button class="but1" onclick="calc('5')">5</button>
+        <button class="but1" onclick="calc('6')">6</button>
+        <button class="but2" onclick="calc('-')">-</button>
+        <br>
+        <button class="but1" onclick="calc('7')">7</button>
+        <button class="but1" onclick="calc('8')">8</button>
+        <button class="but1" onclick="calc('9')">9</button>
+        <button class="but2" onclick="calc('*')">x</button>
+        <br>
+        <button class="but2" onclick="calc('ac')">AC</button>
+        <button class="but1" onclick="calc('0')">0</button>
+        <button class="but2" onclick="calc('.')">.</button>
+        <button class="but2" onclick="calc('/')">÷</button>
+    </div>
+    
+    <script>
+        name = {{name|tojson}}
+        console.log(name)
+        document.getElementById("name").innerHTML = name
+        var num = ''
+        var screen = ''
+        var ans = 0
+        document.onkeyup = function() {
+            var key = event.key
+            if (key == "X" || key == "x" || key == "*"){
+                calc("*")
+            }
+            else if(key == "c"){
+                calc("ac")
+            }
+            else if(key == "=" || key == "Enter"){
+                calc("=")
+            }else{
+                calc(key)
+            }
+            key(key)
+        }
+        function calc(a) {
+            console.log(a)
+            switch(a){
+                case "ac":
+                    num = ""
+                    screen = ""
+                    document.getElementById("screen").innerHTML = "Press or Type"
+                    break
+                case "+":
+                    num = num +"+"
+                    screen += " + "
+                    document.getElementById("screen").innerHTML = screen
+                    break
+                case "-":
+                    num = num +"-"
+                    screen += " - "
+                    document.getElementById("screen").innerHTML = screen
+                    break
+                case "*":
+                    num = num +"*"
+                    screen += " x "
+                    document.getElementById("screen").innerHTML = screen
+                    break
+                case "/":
+                    num = num +"/"
+                    screen += " ÷ "
+                    document.getElementById("screen").innerHTML = screen
+                    break
+                case "0":
+                    num = num +"0"
+                    screen += "0"
+                    document.getElementById("screen").innerHTML = screen
+                    break
+                case "1":
+                    num = num +"1"
+                    screen += "1"
+                    document.getElementById("screen").innerHTML = screen
+                    break
+                case "2":
+                    num = num +"2"
+                    screen += "2"
+                    document.getElementById("screen").innerHTML = screen
+                    break
+                case "3":
+                    num = num +"3"
+                    screen += "3"
+                    document.getElementById("screen").innerHTML = screen
+                    break
+                case "4":
+                    num = num +"4"
+                    screen += "4"
+                    document.getElementById("screen").innerHTML = screen
+                    break
+                case "5":
+                    num = num +"5"
+                    screen += "5"
+                    document.getElementById("screen").innerHTML = screen
+                    break
+                case "6":
+                    num = num +"6"
+                    screen += "6"
+                    document.getElementById("screen").innerHTML = screen
+                    break
+                case "7":
+                    num = num +"7"
+                    screen += "7"
+                    document.getElementById("screen").innerHTML = screen
+                    break
+                case "8":
+                    num = num +"8"
+                    screen += "8"
+                    document.getElementById("screen").innerHTML = screen
+                    break
+                case "9":
+                    num = num +"9"
+                    screen += "9"
+                    document.getElementById("screen").innerHTML = screen
+                    break
+                case ".":
+                    num = num +"."
+                    screen += "."
+                    document.getElementById("screen").innerHTML = screen
+                    break
+                case "=":
+                    ans = eval(num)
+                    screen += " = " + ans
+                    document.getElementById("screen").innerHTML = screen
+                    num = ""
+                    screen = ""
+                    break
+                default:
+                    console.log("hello")
+            }
+        }
+    </script>
+</body>
+</html>

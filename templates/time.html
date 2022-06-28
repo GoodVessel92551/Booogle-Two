@@ -1,0 +1,83 @@
+<html lang="en-GB">
+    <head>
+        <title id=timetitle>Booogle</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="theme-color" content="#f60">
+        <link rel="apple-touch-icon" href="/static/logo_apple">
+        <link href="{{ url_for('static',filename='main.css')}}" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+        <link rel = "icon" href = "{{ url_for('static',filename='toplogo.png')}}" type = "image/x-icon">
+        <link rel="manifest" href="static/manifest.json">
+    </head>
+    <body>
+        <input type="image" src="{{url_for('static',filename='logo.png')}}" width="500" height="90" class="logo" onclick="window.open('/home','_self')">
+        <button id="name" class="profile" onclick="window.open('/home','_self')"></button>
+    <div class="time2" id="time2">
+    <b class="time" id="time"></b>
+    <b class="date" id="date"></b>
+    </div>
+    <div class="suggest2_box">
+        <input type="image" src="/static/fullscreen.png" width="20" height="20" class="suggest2" onclick="full()">
+    </div>
+    <script>
+        var full2 = false
+        function full() {
+            if (full2 != true){
+                document.body.requestFullscreen()
+                full2 = true
+            }
+            else{
+                console.log("exit")
+                document.exitFullscreen()
+                full2 = false
+            }
+        }
+        
+    name = {{name|tojson}};
+    document.getElementById("name").innerHTML = name
+    var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    function Time() {
+        const date = new Date()
+        var dateletter = ""
+        var hour = date.getHours()
+        var minute = date.getMinutes()
+        var second = date.getSeconds()
+        var datenum = date.getDate()
+        var fullyear = date.getFullYear()
+        if(datenum == 13 || datenum == 12 || datenum == 11){
+            dateletter = "th"
+        }else if (datenum == 1 || datenum == 21 || datenum == 31){
+            dateletter = "st"
+        }else if (datenum == 2 || datenum == 22){
+            dateletter = "nd"
+        }else if (datenum == 3 || datenum == 23){
+            dateletter = "rd"
+        }else{
+            dateletter = "th"
+        }
+        hour = update(hour);
+        minute = update(minute)
+        second = update(second)
+        datenum = update(datenum)
+        fullyear = update(fullyear)
+        document.getElementById("time").innerText = hour + " : " + minute + " : " + second
+        document.getElementById("timetitle").innerText = "Time: "+hour + " : " + minute
+        document.getElementById("date").innerText = days[date.getDay()] + " " + datenum + dateletter + " " + months[date.getMonth()] + " " + fullyear
+        setTimeout(Time, 1000)
+        }
+        function update(t) {
+        if (t < 10) {
+        return "0" + t
+        }
+        else {
+        return t
+        }
+    }
+    Time()
+    </script>
+</body>
+</html>

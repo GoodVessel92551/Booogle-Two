@@ -1,0 +1,53 @@
+<html lang="en-GB">
+    <head>
+        <title>Booogle</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="theme-color" content="#f60">
+        <link rel="apple-touch-icon" href="/static/logo_apple">
+        <link href="{{ url_for('static',filename='main.css')}}" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+        <link rel = "icon" href = "{{ url_for('static',filename='toplogo.png')}}" type = "image/x-icon">
+        <link rel="manifest" href="static/manifest.json">
+    </head>
+<body>
+    <input type="image" src="/static/logo.png" width="500" height="90" class="logo" onclick="window.open('/home','_self')">
+    <button id="name" class="profile" onclick="window.open('/home','_self')"></button>
+    <div id="howto">
+    <h2>How To Use Tasks</h2>
+    <h4>Making a task: Press the plus at the bottem right of the screen the type the title and description for the task.</h4>
+    <h4>Compleating a task: Press the tick at the bottem right of the screen then type the id for the  task you want to compleat.</h4>
+    </div>
+        <div class="suggest2_box">
+            <input type="image" src="{{url_for('static',filename='tick.png')}}" width="20" height="20" class="suggest2" onclick="window.open('/tasks/complete','_self')">
+            <input type="image" src="{{url_for('static',filename='plus.png')}}" width="20" height="20" class="suggest2" onclick="window.open('/tasks/make','_self')">
+        </div>
+    <div class="tasks" id="gettasks">
+    </div>
+    <script>
+        name = {{name|tojson}}
+        console.log(name)
+        document.getElementById("name").innerHTML = name
+        tasks = {{tasks|tojson}}
+        tasks_len = tasks.length
+        console.log(tasks)
+        var i = 0
+        if (tasks_len != 0){ 
+            function get_task() {
+                document.getElementById("howto").innerHTML = ""
+                var gettasks = document.getElementById("gettasks")
+                var task = document.createElement('a')
+                task.innerHTML="<h3>"+tasks[i++]+"</h3><p>"+tasks[i++]+"</p><p>ID:"+tasks[i++]+"</p>"
+                gettasks.appendChild(task)
+                console.log(i)
+                if (tasks_len>i){
+                    get_task()
+                }
+            }
+            get_task()
+        }
+    </script>
+</body>
+</html>

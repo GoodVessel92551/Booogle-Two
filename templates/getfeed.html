@@ -1,0 +1,56 @@
+<html lang="en-GB">
+    <head>
+        <title>Booogle</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="theme-color" content="#f60">
+        <link rel="apple-touch-icon" href="/static/logo_apple">
+        <link href="{{ url_for('static',filename='main.css')}}" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+        <link rel = "icon" href = "{{ url_for('static',filename='toplogo.png')}}" type = "image/x-icon">
+        <link rel="manifest" href="static/manifest.json">
+    </head>
+    <body>
+        <div class="navebarside">
+            <h4 class="header">Admin</h4>
+            <br><br><br>
+            <a href="/admin">Admin</a>
+            <a href="/admin/analytics">Analytics</a>
+            <a href="/admin/users">Users</a>
+            <a href="/admin/suggestions" class="navpick">Suggestions</a>
+            <a href="/settings">Settings</a>
+        </div>
+        <input type="image" src="{{url_for('static',filename='logo.png')}}" width="500" height="90" class="logo" onclick="window.open('/home','_self')">
+        <button id="name" class="profile" onclick="window.open('/home','_self')"></button>
+        <div class="getbug" id="getbug"></div>
+        <form method="post">
+            <input value="Clear" type="submit" class="clear">
+        </form>
+        <script>
+            name = {{name|tojson}}
+            console.log(name)
+            document.getElementById("name").innerHTML = name
+            bug2 = {{feed|tojson}}
+            bug_leg = bug2.length
+            console.log(bug2)
+            var i = 0
+            if (bug_leg != 0){ 
+                function get_bug() {
+                    var getbug = document.getElementById("getbug")
+                    var bug = document.createElement('a')
+                    bug.innerHTML="<h3>"+bug2[i++]+"</h3><p>"+bug2[i++]+"</p><p>By:"+bug2[i++]+"</p>"
+                    getbug.appendChild(bug)
+                    if (bug_leg>i){
+                        get_bug()
+                    }
+                }
+                get_bug()
+            }
+            
+        </script>
+        <style>
+        </style>
+    </body>
+</html>

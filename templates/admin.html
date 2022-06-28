@@ -1,0 +1,63 @@
+<html lang="en-GB">
+    <head>
+        <title>Booogle</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="theme-color" content="#f60">
+        <link rel="apple-touch-icon" href="/static/logo_apple">
+        <link href="{{ url_for('static',filename='main.css')}}" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+        <link rel = "icon" href = "{{ url_for('static',filename='toplogo.png')}}" type = "image/x-icon">
+        <link rel="manifest" href="static/manifest.json">
+    </head>
+    <body>
+        <input type="image" src="{{url_for('static',filename='admin.png')}}" width="500" height="90" class="logo" onclick="window.open('/home','_self')">
+        <button id="name" class="profile" onclick="window.open('/home','_self')"></button>
+        <div class="data">
+            <h2 class="name" id="hi"></h2>
+            <a id="usershover" href="/admin/users" class="data2">Users<br><br><br><br><br><b class="datatext" id="users"></b><p id="trend"></p></a>
+            <a class="data2">Views<br><br><br><br><br><b class="datatext" id="views"></b><p id="trend2"></p></a>
+        </div>
+        <div class="navebarside">
+            <h4 class="header">Admin</h4>
+            <br><br><br>
+            <a href="/admin" class="navpick">Admin</a>
+            <a href="/admin/analytics">Analytics</a>
+            <a href="/admin/users">Users</a>
+            <a href="/admin/suggestions">Suggestions</a>
+            <a href="/settings">Settings</a>
+        </div>
+        <script>
+            name = {{name|tojson}};
+            views = {{views|tojson}};
+            users = {{users|tojson}};
+            views2 = {{views2|tojson}};
+            users2 = {{users2|tojson}};
+            if (views2 < views){
+                let diffv = views-views2
+                document.getElementById("trend2").innerHTML = "+"+diffv+"<b class='icon2' > trending_up</b>";
+                document.getElementById("trend2").style.color = "#03fc35"
+            }else if(views2 == views){
+                let diffv = views-views2 
+                document.getElementById("trend2").innerHTML = diffv+"<b class='icon2' > trending_flat</b>";
+                document.getElementById("trend2").style.color = "#fc8c03"
+                
+            }
+            if (users2 > users){
+                let diffu = users-users2
+                document.getElementById("trend").innerHTML = "+"+diffu+"<b class='icon2' > trending_up</b>";
+                document.getElementById("trend").style.color = "#03fc35"
+            }else if(users2 == users){
+                let diffu = users-users2
+                document.getElementById("trend").innerHTML = diffu+"<b class='icon2' > trending_flat</b>";
+                document.getElementById("trend").style.color = "#fc8c03"
+            }
+            document.getElementById("name").innerHTML = name;
+            document.getElementById("hi").innerHTML = "Hi, "+name+"!";
+            document.getElementById("views").innerHTML = views;
+            document.getElementById("users").innerHTML = users;
+        </script>
+    </body>
+</html>

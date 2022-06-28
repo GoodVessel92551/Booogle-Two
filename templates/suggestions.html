@@ -1,0 +1,45 @@
+<html lang="en-GB">
+    <head>
+        <title>Booogle</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="theme-color" content="#f60">
+        <link rel="apple-touch-icon" href="/static/logo_apple">
+        <link href="{{ url_for('static',filename='main.css')}}" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+        <link rel = "icon" href = "{{ url_for('static',filename='toplogo.png')}}" type = "image/x-icon">
+        <link rel="manifest" href="static/manifest.json">
+    </head>
+    <body>
+        <div class="navebarside">
+            <h4 class="header">Admin</h4>
+            <br><br><br>
+            <a href="/admin">Admin</a>
+            <a href="/admin/analytics">Analytics</a>
+            <a href="/admin/users">Users</a>
+            <a href="/admin/suggestions" class="navpick">Suggestions</a>
+            <a href="/settings">Settings</a>
+        </div>
+        <input type="image" src="{{url_for('static',filename='logo.png')}}" width="500" height="90" class="logo" onclick="window.open('/home','_self')">
+        <button id="name" class="profile" onclick="window.open('/home','_self')"></button>
+        <div class="data">
+            <a id="usershover" href="/admin/suggestions/feedback/get" class="data2">Feedback<br><br><br><br><br><b class="datatext" id="feedback"></b><p id="trend"></p></a>
+            <a id="usershover" href="/admin/suggestions/bugs/get" class="data2">Bugs<br><br><br><br><br><b class="datatext" id="bugs"></b><p id="trend"></p></a>
+        
+        
+        </div>
+        <script>
+            name = {{name|tojson}};
+            feed = {{feed|tojson}};
+            bug = {{bug|tojson}};
+            console.log(name)
+            document.getElementById("name").innerHTML = name
+            document.getElementById("feedback").innerHTML = feed
+            document.getElementById("bugs").innerHTML = bug
+        </script>
+        <style>
+        </style>
+    </body>
+</html>

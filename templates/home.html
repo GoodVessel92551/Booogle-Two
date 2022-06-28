@@ -1,0 +1,42 @@
+<html lang="en-GB">
+    <head>
+        <title>Booogle</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="theme-color" content="#f60">
+        <link rel="apple-touch-icon" href="/static/logo_apple">
+        <link href="{{ url_for('static',filename='main.css')}}" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+        <link rel = "icon" href = "{{ url_for('static',filename='toplogo.png')}}" type = "image/x-icon">
+        <link rel="manifest" href="static/manifest.json">
+    </head>
+    <body>
+        <input type="image" src="{{url_for('static',filename='logo.png')}}" width="500" height="90" class="logo" onclick="window.open('/home','_self')">
+        <button id="name" class="profile" onclick="window.open('/settings','_self')"></button>
+        <div class="home">
+            <a href="/calculator"><input type="image" src="{{url_for('static',filename='maths2.png')}}" width="200" height="200"></a>
+            <a href="/time"><input type="image" src="{{url_for('static',filename='time2.png')}}" width="200" height="200"></a>
+            <a href="/tasks"><input type="image" src="{{url_for('static',filename='task2.png')}}" width="200" height="200"></a>
+            <a href="/number"><input type="image" src="{{url_for('static',filename='number2.png')}}" width="200" height="200"></a>
+            <a id="admin" class="hidden" href="/admin"><input type="image" src="{{url_for('static',filename='admin2.png')}}" width="200" height="200"></a>
+        
+        
+        </div>
+        <div class="suggest2_box">
+            <input type="image" src="{{url_for('static',filename='bug.png')}}" width="20" height="20" class="suggest2" onclick="window.open('/bugs','_self')">
+            <input type="image" src="{{url_for('static',filename='feedback.png')}}" width="20" height="20" class="suggest2" onclick="window.open('/feedback','_self')">
+        </div>
+        <script>
+            name = {{name|tojson}}
+            console.log(name)
+            if (name === "GoodVessel92551"){
+                document.getElementById("admin").style.display = "block"
+            }
+            document.getElementById("name").innerHTML = name
+        </script>
+        <style>
+        </style>
+    </body>
+</html>
