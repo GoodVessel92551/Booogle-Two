@@ -1,4 +1,4 @@
-from better_profanity import profanity
+git add .from better_profanity import profanity
 from datetime import datetime
 from flask import Flask, render_template, redirect, request, current_app
 from replit import web, db
@@ -219,7 +219,11 @@ def setfeed():
     bug = db["Feed"]
     now = datetime.now()
     now2 = now.strftime("%y%m%d%H%M")
-    now3 = now.strftime("%d/%m/%y %H:%M")
+    now3_5 = now.strftime("%d/%m/%y %H:%M UTC")
+    print(now3_5[9:11])
+    i=int(now3_5[9:11])+1
+    now3 = now3_5[0:7]+" "+str(i)+now3_5[11:]
+    print(now3)
     try:
         cooldown = users.current["cooldown"]
     except:
@@ -229,18 +233,18 @@ def setfeed():
     else:
         cooldown = users.current["cooldown"]
         if cooldown != "N/A":
-            if int(cooldown[0:9])-int(now2) < 100:
+            if int(now2)-int(cooldown[0:10]) < 100:
                 return "You recenty posted a bug report or feedback suggestion please try again at: "+cooldown[10:]
     if request.method == "POST":
         if len(bug)/3 > 100:
-            return "There are too meny suggestions in the system please try again later :("
+            return "There are too meny bugs in the system please try again later :("
         else:
             title2 = request.form["title"]
             description2 = request.form["description"]
             if len(title2) > 41 or len(description2) > 121:
                 return render_template("leng.html", name=name)
             elif len(title2) == 0 or len(description2) == 0:
-                return "Please put something in you suggestion"
+                return "Please put something in you feedback suggestion"
             else:
                 users.current["cooldown"] = now2+now3
                 
@@ -262,7 +266,7 @@ def get_feed():
     if request.method == "POST":
         feed = []
         db["Feed"] = feed
-        return render_template("getfeed.html", name=name, feed=feed)
+        return redirect("/admin/suggestions")
     elif name == "GoodVessel92551":
         return render_template("getfeed.html", name=name, feed=feed)
 
@@ -340,6 +344,7 @@ def task_remove():
 @app.route('/sw.js', methods=['GET'])
 def sw():
     return current_app.send_static_file('sw.js')
+
 
 
 web.run(app, port=8080, debug=True)

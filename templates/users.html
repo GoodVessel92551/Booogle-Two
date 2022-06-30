@@ -15,9 +15,8 @@
     <body>
         <input type="image" src="{{url_for('static',filename='admin.png')}}" width="500" height="90" class="logo" onclick="window.open('/home','_self')">
         <button id="name" class="profile" onclick="window.open('/home','_self')"></button>
-        <div class="data">
-            <h2 id="hi"></h2>
-            <h3>Booogle Users:</h3>
+		<div class="data">
+            <h3 class="booogle_users">Booogle Users:</h3>
             <ui id="users">
             </ui>
         </div>
@@ -28,13 +27,11 @@
             <a href="/admin/analytics">Analytics</a>
             <a href="/admin/users" class="navpick">Users</a>
             <a href="/admin/suggestions">Suggestions</a>
-            <a href="/settings">Settings</a>
         </div>
         <script>
             name = {{name|tojson}};
             users = {{users|tojson}};
             document.getElementById("name").innerHTML = name;
-            document.getElementById("hi").innerHTML = "Hi, "+name+"!";
             user = document.getElementById("users").innerHTML
             for (let i = 0;i<users.length;i++){
                 user = document.getElementById("users").innerHTML
@@ -42,5 +39,6 @@
                 document.getElementById("users").innerHTML = user+"<li>"+users[i]+"</li>"
             }
         </script>
+		<script src="static/app.js"></script>
     </body>
 </html>

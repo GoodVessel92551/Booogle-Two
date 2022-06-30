@@ -22,22 +22,26 @@
         <button class="but1" onclick="calc('1')">1</button>
         <button class="but1" onclick="calc('2')">2</button>
         <button class="but1" onclick="calc('3')">3</button>
-        <button class="but2" onclick="calc('+')">+</button>
+        <button class="but2" onclick="calc('ac')">Ac</button>
+		<button class="but2" onclick="calc('del')">Del</button>
         <br>
         <button class="but1" onclick="calc('4')">4</button>
         <button class="but1" onclick="calc('5')">5</button>
         <button class="but1" onclick="calc('6')">6</button>
-        <button class="but2" onclick="calc('-')">-</button>
+        <button class="but2" onclick="calc('(')">(</button>
+		<button class="but2" onclick="calc(')')">)</button>
         <br>
         <button class="but1" onclick="calc('7')">7</button>
         <button class="but1" onclick="calc('8')">8</button>
         <button class="but1" onclick="calc('9')">9</button>
-        <button class="but2" onclick="calc('*')">x</button>
+        <button class="but2" onclick="calc('+')">+</button>
+		<button class="but2" onclick="calc('*')">x</button>
         <br>
-        <button class="but2" onclick="calc('ac')">AC</button>
+        <button class="but2" onclick="calc('ans')">Ans</button>
         <button class="but1" onclick="calc('0')">0</button>
         <button class="but2" onclick="calc('.')">.</button>
-        <button class="but2" onclick="calc('/')">÷</button>
+        <button class="but2" onclick="calc('-')">-</button>
+		<button class="but2" onclick="calc('/')">÷</button>
     </div>
     
     <script>
@@ -57,37 +61,70 @@
             }
             else if(key == "=" || key == "Enter"){
                 calc("=")
-            }else{
+            }
+			else if(key == "("){
+				calc("(")
+			}
+			else if(key == ")"){
+				calc(")")
+			}
+			else if(key == "Backspace"){
+				calc("del")
+			}else{
                 calc(key)
             }
-            key(key)
         }
         function calc(a) {
-            console.log(a)
             switch(a){
                 case "ac":
                     num = ""
                     screen = ""
                     document.getElementById("screen").innerHTML = "Press or Type"
                     break
+                case "del":
+                    num = num.slice(0,-1)
+                    screen = screen.slice(0,-1)
+					if (screen == ""){
+						screen = ""
+						document.getElementById("screen").innerHTML = "Press or Type"
+					}
+					else{
+                    	document.getElementById("screen").innerHTML = screen
+					}
+                    break
+                case "ans":
+                    num += ans
+                    screen += ans
+                    document.getElementById("screen").innerHTML = screen
+                    break
                 case "+":
                     num = num +"+"
-                    screen += " + "
+                    screen += "+"
+                    document.getElementById("screen").innerHTML = screen
+                    break
+                case "(":
+                    num = num +"("
+                    screen += "("
+                    document.getElementById("screen").innerHTML = screen
+                    break
+                case ")":
+                    num = num +")"
+                    screen += ")"
                     document.getElementById("screen").innerHTML = screen
                     break
                 case "-":
                     num = num +"-"
-                    screen += " - "
+                    screen += "-"
                     document.getElementById("screen").innerHTML = screen
                     break
                 case "*":
                     num = num +"*"
-                    screen += " x "
+                    screen += "x"
                     document.getElementById("screen").innerHTML = screen
                     break
                 case "/":
                     num = num +"/"
-                    screen += " ÷ "
+                    screen += "÷"
                     document.getElementById("screen").innerHTML = screen
                     break
                 case "0":
@@ -153,9 +190,10 @@
                     screen = ""
                     break
                 default:
-                    console.log("hello")
+                    break
             }
         }
     </script>
+	<script src="static/app.js"></script>
 </body>
 </html>
