@@ -13,28 +13,20 @@
         <link rel="manifest" href="static/manifest.json">
     </head>
     <body>
-        <input type="image" src="{{url_for('static',filename='settings.png')}}" width="500" height="90" class="logo" onclick="window.open('/home','_self')">
-        <div class="navebarside">
-            <h4 class="header">Settings</h4>
-            <br><br><br>
-            <a href="/settings">Settings</a>
-            <a href="/settings/appearance">Appearance</a>
-            <a href="/settings/time">Date and Time</a>
-            <a href="/settings/about" class="navpick">About</a>
-        </div>
-        <div class="about">
-            <h3>Booogle</h3>
-            <a>Version        |        2.0</a><br><br>
-            <a>Dev Mode        |        Off</a><br><br>
-            <button onclick="window.open('/settings/bugs','_self')" class="report">Bugs</button>
-            <button onclick="window.open('/settings/feedback','_self')" class="report">Feedback</button>
-        </div>
+        <input type="image" src="{{url_for('static',filename='logo.png')}}" width="500" height="90" class="logo" onclick="window.open('/time','_self')">
         <button id="name" class="profile" onclick="window.open('/home','_self')"></button>
+            <form class="makebug" method="post">
+                <h2>Pick Time</h2>
+                <p><input class="title" max="24" min="0" type="number" name="hour" list="none" placeholder="Hours" required autofocus></p>
+                <p><input class="title" max="60" min="0" type="number" name="min" list="none" placeholder="Minutes" required></p>
+                 <p><input class="title" max="60" min="0" type="number" name="sec" list="none" placeholder="Seconds" required></p>
+                <p><input class="sumbmitbug" type="submit" value="Submit"></p>
+            </form>
         <script>
             name = {{name|tojson}}
             console.log(name)
             document.getElementById("name").innerHTML = name
         </script>
-		<script src="static/app.js"></script>
+        <script src="static/app.js"></script>
     </body>
 </html>

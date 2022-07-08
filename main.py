@@ -1,21 +1,24 @@
-git add .from better_profanity import profanity
+from better_profanity import profanity
 from datetime import datetime
 from flask import Flask, render_template, redirect, request, current_app
 from replit import web, db
 
 app = Flask(__name__)
 users = web.UserStore()
-
+version = "1.0.1"
 
 @app.route("/")
 def index():
     vists = db["vists"]
-    db["vists"] = vists + 1
     name = web.auth.name
     if name != "":
+        if name != "GoodVessel92551":
+            db["vists"] = vists + 1
         return redirect("/home")
     else:
+        db["vists"] = vists + 1
         return render_template("index.html")
+    
 
 
 @app.route("/home")
@@ -26,44 +29,10 @@ def home():
     if name in names:
         pass
     else:
+        users.current["time"] = [0,10,0]
         names.append(name)
         db["names"] = names
-    return render_template("home.html", name=name)
-
-
-#settings not added
-"""
-@app.route("/settings")
-@web.authenticated
-def settings():
-    name = web.auth.name
-    return render_template("settings.html", name=name)
-@app.route("/settings/time",)
-@web.authenticated
-def datetime():
-    name = web.auth.name
-    return render_template("date&time.html", name=name)
-
-
-@app.route("/settings/appearance", methods=["GET","POST"])
-@web.authenticated
-def appearance():
-    if request.method == "POST":
-        name = web.auth.name
-        mode = request.form["mode"]
-        users.current["mode"] = mode
-        mode = users.current["mode"]
-        return render_template("appearance.html", name=name, mode=mode)
-    else:
-        name = web.auth.name
-        mode = users.current["mode"]
-        return render_template("appearance.html", name=name, mode=mode)
-@app.route("/settings/about")
-@web.authenticated
-def about():
-    name = web.auth.name
-    return render_template("about.html", name=name)
-"""
+    return render_template("home.html", name=name, version=version)
 
 
 @app.route("/admin")
@@ -74,6 +43,7 @@ def admin():
     views = db["vists"]
     users2 = db["names2"]
     views2 = db["vists2"]
+    print(users)
     users = len(users)
     if name == "GoodVessel92551":
         db["names2"] = users
@@ -108,12 +78,7 @@ def analytics():
     if name == "GoodVessel92551":
         db["names2"] = users
         db["vists2"] = views
-        return render_template("analytics.html",
-                               name=name,
-                               users=users,
-                               views=views,
-                               bug=bug,
-                               feed=feed)
+        return render_template("analytics.html",name=name,users=users,views=views,bug=bug,feed=feed)
     else:
         return render_template("no.html")
 
@@ -128,11 +93,7 @@ def feedback():
     bug = len(bug) / 3
     feed = len(feed) / 3
     if name == "GoodVessel92551":
-        return render_template("suggestions.html",
-                               name=name,
-                               users=users,
-                               bug=bug,
-                               feed=feed)
+        return render_template("suggestions.html",name=name, users=users,bug=bug,feed=feed)
     else:
         return render_template("no.html")
 
@@ -271,7 +232,7 @@ def get_feed():
         return render_template("getfeed.html", name=name, feed=feed)
 
 
-@app.route("/time")
+@app.route("/time/time")
 @web.authenticated
 def time():
     name = web.auth.name
@@ -345,6 +306,65 @@ def task_remove():
 def sw():
     return current_app.send_static_file('sw.js')
 
+@app.route("/time/countdown")
+@web.authenticated
+def countdown():
+    name = web.auth.name
+    time = users.current["time"]
+    print(time)
+    return render_template("countdown.html", name=name, time=time)
 
+@app.route("/time/countdown/make", methods=["GET", "POST"])
+@web.authenticated
+def countdown_make():
+    name = web.auth.name
+    if request.method == "POST":
+        time = []
+        hour = request.form["hour"]
+        min = request.form["min"]
+        sec = request.form["sec"]
+        if hour == "":
+            hour = 0
+        elif min == "":
+            min = 0
+        elif sec == "":
+            sec = 0
+        elif int(hour) > 24:
+            hour = 24
+        elif int(min) > 60:
+            min = 60
+        elif int(sec) > 60:
+            sec = 60
+        time.append(hour)
+        time.append(min)
+        time.append(sec)
+        print(time)
+        users.current["time"]=time
+        return redirect("/time/countdown")
+    else:
+        return render_template("makecoutdown.html", name=name)
 
+@app.route("/time/stopwatch")
+@web.authenticated
+def stopwatch():
+    name = web.auth.name
+    return render_template("stopwatch.html", name=name)
+
+@app.route("/time")
+@web.authenticated
+def time_home():
+    name = web.auth.name
+    return render_template("time_home.html", name=name, version=version)
+    
+@app.route("/changelog")
+@web.authenticated
+def changelog():
+    name = web.auth.name
+    return render_template("change.html", name=name, version=version)
+
+@app.route("/shell")
+@web.authenticated
+def shell():
+    name = web.auth.name
+    return render_template("shell.html", name=name)
 web.run(app, port=8080, debug=True)

@@ -1,0 +1,54 @@
+<html lang="en-GB">
+    <head>
+        <title>Booogle</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="theme-color" content="#f60">
+        <link rel="apple-touch-icon" href="/static/logo_apple">
+        <link href="{{ url_for('static',filename='main.css')}}" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+        <link rel = "icon" href = "{{ url_for('static',filename='toplogo.png')}}" type = "image/x-icon">
+        <link rel="manifest" href="static/manifest.json">
+    </head>
+    <body>
+        <div id="shell"></div>
+        <input type="text" id="shell_input" class="shell" placeholder="Type">
+        <button onclick="enter()">Enter</button>
+        <script>
+            name = {{name|tojson}}
+            function enter() {
+                var shell = document.getElementById("shell")
+                var shell_input = document.getElementById("shell_input").value
+                if (shell_input == "/help"){
+                    shell.innerHTML = shell.innerHTML + "<br><br> $ "+name+"> /help"
+                    shell.innerHTML = shell.innerHTML + "<br> /help > See help information<br> /time > See the current time<br> /home > Go to the home of Booogle<br> /name > See your name<br> /bug > Open a bug report<br> /feedback > Open a feedback suggestion"
+                }
+                else if (shell_input == "/time"){
+                    shell.innerHTML = shell.innerHTML + "<br><br> $ "+name+"> /time"
+                    shell.innerHTML = shell.innerHTML + "<br> "+ new Date()
+                }
+                else if (shell_input == "/home"){
+                    shell.innerHTML = shell.innerHTML + "<br><br> $ "+name+"> /home"
+                    window.open("https://booogle-two.goodvessel92551.repl.co","_self")
+                }
+                else if (shell_input == "/name"){
+                    shell.innerHTML = shell.innerHTML + "<br><br> $ "+name+"> /name"
+                    shell.innerHTML = shell.innerHTML + "<br>"+name
+                }
+                else if (shell_input == "/feedback"){
+                    shell.innerHTML = shell.innerHTML + "<br><br> $ "+name+"> /feedback"
+                    window.open("https://booogle-two.goodvessel92551.repl.co/feedback","_self")
+                }
+                else if (shell_input == "/bug"){
+                    shell.innerHTML = shell.innerHTML + "<br><br> $ "+name+"> /bug"
+                    window.open("https://booogle-two.goodvessel92551.repl.co/bug","_self")
+                }else{
+                    console.log("help")
+                }
+            }
+        </script>
+        <script src="static/app.js"></script>
+    </body>
+</html>

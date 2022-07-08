@@ -1,0 +1,84 @@
+<html lang="en-GB">
+    <head>
+        <title id=timetitle>Booogle</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="theme-color" content="#f60">
+        <link rel="apple-touch-icon" href="/static/logo_apple">
+        <link href="{{ url_for('static',filename='main.css')}}" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+        <link rel = "icon" href = "{{ url_for('static',filename='toplogo.png')}}" type = "image/x-icon">
+        <link rel="manifest" href="static/manifest.json">
+    </head>
+    <body>
+        <button class="start" id="start" onclick="start()">Start</button>
+        <input type="image" src="{{url_for('static',filename='logo.png')}}" width="500" height="90" class="logo" onclick="window.open('/time','_self')">
+        <button id="name" class="profile" onclick="window.open('/home','_self')"></button>
+    <div class="time2" id="time2">
+    <b class="time" id="time"></b>
+    </div>
+    <div class="suggest2_box">
+        <input type="image" src="/static/edit.png" width="20" height="20" class="suggest2" onclick="window.open('/time/countdown/make','_self')">
+        <input type="image" src="/static/fullscreen.png" width="20" height="20" class="suggest2" onclick="full()">
+    </div>
+    <script>
+        var full2 = false
+        function full() {
+            if (full2 != true){
+                document.body.requestFullscreen()
+                full2 = true
+            }
+            else{
+                console.log("exit")
+                document.exitFullscreen()
+                full2 = false
+            }
+        }
+        name = {{name|tojson}};
+        time = {{time|tojson}};
+        document.getElementById("name").innerHTML = name
+        document.getElementById("time").innerHTML = time[0]+" : "+time[1]+" : "+time[2]
+        document.getElementById("timetitle").innerHTML = "Timer: "+time[0]+" : "+time[1]+" : "+time[2]
+        let id
+        let alarm
+        let start2 = true
+        function start() {
+            if (start2 == true){
+                document.getElementById("start").innerHTML = "Stop"
+                id = setInterval(countdown, 1000)
+                alarm = new Audio('static/alarm.wav')
+                start2 = false
+            }else{
+                stop()
+            }
+        }
+        function stop() {
+            document.getElementById("start").innerHTML = "Start"
+            start2 = true
+            clearInterval(id)
+        }
+        function countdown() {
+            if (time[2] == 0 && time[1] != 0){
+                time[2] = 60
+                time[1] -= 1
+            }
+            else if (time[1] == 0 && time[0] != 0){
+                time[1] = 60
+                time[0] -= 1
+            }
+            else if (time[0] == 0 && time[1] == 0 && time[2] == 0){
+                clearInterval(id)
+                alarm.play()
+            }else{
+                time[2] -= 1
+                document.getElementById("time").innerHTML = time[0]+" : "+time[1]+" : "+time[2]
+                document.getElementById("timetitle").innerHTML = "Timer: "+time[0]+" : "+time[1]+" : "+time[2]
+            }
+            }
+
+    </script>
+		<script src="static/app.js"></script>
+</body>
+</html>

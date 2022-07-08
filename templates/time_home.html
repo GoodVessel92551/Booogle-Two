@@ -16,11 +16,9 @@
         <input type="image" src="{{url_for('static',filename='logo.png')}}" width="500" height="90" class="logo" onclick="window.open('/home','_self')">
         <button id="name" class="profile" onclick="window.open('/settings','_self')"></button>
         <div class="home">
-            <a href="/calculator"><input type="image" src="{{url_for('static',filename='maths2.png')}}" width="200" height="200"></a>
-            <a href="/time"><input type="image" src="{{url_for('static',filename='time2.png')}}" width="200" height="200"></a>
-            <a href="/tasks"><input type="image" src="{{url_for('static',filename='task2.png')}}" width="200" height="200"></a>
-            <a href="/number"><input type="image" src="{{url_for('static',filename='number2.png')}}" width="200" height="200"></a>
-            <a id="admin" class="hidden" href="/admin"><input type="image" src="{{url_for('static',filename='admin2.png')}}" width="200" height="200"></a>
+            <a href="/time/time"><input type="image" src="{{url_for('static',filename='time2.png')}}" width="200" height="200"></a>
+            <a href="/time/countdown"><input type="image" src="{{url_for('static',filename='timer.png')}}" width="200" height="200"></a>
+            <a href="/time/stopwatch"><input type="image" src="{{url_for('static',filename='stopwatch.png')}}" width="200" height="200"></a>
         
         
         </div>
@@ -29,15 +27,11 @@
             <input type="image" src="{{url_for('static',filename='feedback.png')}}" width="20" height="20" class="suggest2" onclick="window.open('/feedback','_self')">
         </div>
 		<footer>
-			<div id="version" class="version" onclick="window.open('/changelog','_self')"></div>
+			<div id="version" class="version" onclick="window.open('/changelog','_self')></div>
 		</footer>
         <script>
             name = {{name|tojson}};
             version = {{version|tojson}};
-            console.log(name)
-            if (name === "GoodVessel92551"){
-                document.getElementById("admin").style.display = "block"
-            }
             document.getElementById("name").innerHTML = name
             document.getElementById("version").innerHTML = "Version "+version
         </script>

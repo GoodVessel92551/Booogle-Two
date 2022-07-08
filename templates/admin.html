@@ -34,6 +34,7 @@
             users = {{users|tojson}};
             views2 = {{views2|tojson}};
             users2 = {{users2|tojson}};
+            console.log(views)
             if (views2 < views){
                 let diffv = views-views2
                 document.getElementById("trend2").innerHTML = "+"+diffv+"<b class='icon2' > trending_up</b>";
@@ -44,7 +45,7 @@
                 document.getElementById("trend2").style.color = "#fc8c03"
                 
             }
-            if (users2 > users){
+            if (users2 < users){
                 let diffu = users-users2
                 document.getElementById("trend").innerHTML = "+"+diffu+"<b class='icon2' > trending_up</b>";
                 document.getElementById("trend").style.color = "#03fc35"
