@@ -1,17 +1,16 @@
 from better_profanity import profanity
-from datetime import datetime
 from flask import Flask, render_template, redirect, request, current_app
 from replit import web, db
 
 app = Flask(__name__)
 users = web.UserStore()
-version = "1.0.1"
+version = "1.0.2"
 
 @app.route("/")
 def index():
     vists = db["vists"]
     name = web.auth.name
-    if name != "":
+    if name == "":
         if name != "GoodVessel92551":
             db["vists"] = vists + 1
         return redirect("/home")
@@ -100,27 +99,14 @@ def feedback():
 
 @app.route("/bugs", methods=["POST", "GET"])
 @web.authenticated
+@web.per_user_ratelimit(
+    max_requests = 1,
+    period = 1800,
+    get_ratelimited_res=(lambda left: f"Too many requests, try again after {left} sec"),
+)
 def setbugs():
     name = web.auth.name
     bug = db["Bug"]
-    now = datetime.now()
-    now2 = now.strftime("%y%m%d%H%M")
-    now3_5 = now.strftime("%d/%m/%y %H:%M UTC")
-    print(now3_5[9:11])
-    i=int(now3_5[9:11])+1
-    now3 = now3_5[0:7]+" "+str(i)+now3_5[11:]
-    print(now3)
-    try:
-        cooldown = users.current["cooldown"]
-    except:
-        users.current["cooldown"]="N/A"
-        cooldown = users.current["cooldown"]
-        print("new")
-    else:
-        cooldown = users.current["cooldown"]
-        if cooldown != "N/A":
-            if int(now2)-int(cooldown[0:10]) < 100:
-                return "You recenty posted a bug report or feedback suggestion please try again at: "+cooldown[10:]
     if request.method == "POST":
         if len(bug)/3 > 100:
             return "There are too meny bugs in the system please try again later :("
@@ -132,8 +118,6 @@ def setbugs():
             elif len(title2) == 0 or len(description2) == 0:
                 return "Please put something in you bug report"
             else:
-                users.current["cooldown"] = now2+now3
-                
                 bug.append(profanity.censor(title2))
                 bug.append(profanity.censor(description2))
                 name2 = web.auth.name
@@ -175,40 +159,25 @@ def number():
 
 @app.route("/feedback", methods=["POST", "GET"])
 @web.authenticated
+@web.per_user_ratelimit(
+    max_requests = 1,
+    period = 1800,
+    get_ratelimited_res=(lambda left: f"Too many requests, try again after {left} sec"),
+)
 def setfeed():
     name = web.auth.name
     bug = db["Feed"]
-    now = datetime.now()
-    now2 = now.strftime("%y%m%d%H%M")
-    now3_5 = now.strftime("%d/%m/%y %H:%M UTC")
-    print(now3_5[9:11])
-    i=int(now3_5[9:11])+1
-    now3 = now3_5[0:7]+" "+str(i)+now3_5[11:]
-    print(now3)
-    try:
-        cooldown = users.current["cooldown"]
-    except:
-        users.current["cooldown"]="N/A"
-        cooldown = users.current["cooldown"]
-        print("new")
-    else:
-        cooldown = users.current["cooldown"]
-        if cooldown != "N/A":
-            if int(now2)-int(cooldown[0:10]) < 100:
-                return "You recenty posted a bug report or feedback suggestion please try again at: "+cooldown[10:]
     if request.method == "POST":
         if len(bug)/3 > 100:
-            return "There are too meny bugs in the system please try again later :("
+            return "There are too much feedback in the system please try again later :("
         else:
             title2 = request.form["title"]
             description2 = request.form["description"]
             if len(title2) > 41 or len(description2) > 121:
                 return render_template("leng.html", name=name)
             elif len(title2) == 0 or len(description2) == 0:
-                return "Please put something in you feedback suggestion"
+                return "Please put something in you feedback report"
             else:
-                users.current["cooldown"] = now2+now3
-                
                 bug.append(profanity.censor(title2))
                 bug.append(profanity.censor(description2))
                 name2 = web.auth.name
