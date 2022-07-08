@@ -10,7 +10,7 @@ version = "1.0.2"
 def index():
     vists = db["vists"]
     name = web.auth.name
-    if name == "":
+    if name != "":
         if name != "GoodVessel92551":
             db["vists"] = vists + 1
         return redirect("/home")
