@@ -292,24 +292,22 @@ def countdown_make():
         hour = request.form["hour"]
         min = request.form["min"]
         sec = request.form["sec"]
-        if hour == "":
-            hour = 0
-        elif min == "":
-            min = 0
-        elif sec == "":
-            sec = 0
-        elif int(hour) > 24:
-            hour = 24
-        elif int(min) > 60:
-            min = 60
-        elif int(sec) > 60:
-            sec = 60
-        time.append(hour)
-        time.append(min)
-        time.append(sec)
-        print(time)
-        users.current["time"]=time
-        return redirect("/time/countdown")
+        try:
+            int(hour,min,sec)
+        except:
+            return "You need to enter a number"
+        else:
+            if hour == "" or min == "" or sec == "":
+                return "You need to enter a number"
+            elif int(hour) > 24 or int(sec) > 60 or int(min) > 60:
+                return "One of the numbers you entered is to big"
+            else:
+                time.append(hour)
+                time.append(min)
+                time.append(sec)
+                print(time)
+                users.current["time"]=time
+                return redirect("/time/countdown")
     else:
         return render_template("makecoutdown.html", name=name)
 
