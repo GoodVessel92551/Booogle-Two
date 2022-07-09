@@ -43,10 +43,13 @@
         <button class="but2" onclick="calc('-')">-</button>
 		<button class="but2" onclick="calc('/')">÷</button>
     </div>
-    
+		<footer>
+			<div id="version" class="version" onclick="window.open('/changelog','_self')"></div>
+		</footer>
     <script>
-        name = {{name|tojson}}
-        console.log(name)
+        name = {{name|tojson}};
+        version = {{version|tojson}};
+        document.getElementById("version").innerHTML = "Version "+version
         document.getElementById("name").innerHTML = name
         var num = ''
         var screen = ''

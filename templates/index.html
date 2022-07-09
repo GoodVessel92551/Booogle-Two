@@ -13,7 +13,12 @@
     <body>
         <h1>Welcome To <b>Booogle 2</b></h1>
         <h5>You Have To Log In With Replit For Booogle To Work</h5>
+		<footer>
+			<div id="version" class="version" onclick="window.open('/changelog','_self')"></div>
+		</footer>
         <script>
+            version = {{version|tojson}};
+            document.getElementById("version").innerHTML = "Version "+version
             ;(function() {
   var selem = document.currentScript;
 
@@ -62,7 +67,6 @@
 })();
             
         </script>
-
         <script src="https://replit.com/public/js/replit-badge.js" theme="orange" defer></script>
         <script src="static/app.js"></script>
     </body>

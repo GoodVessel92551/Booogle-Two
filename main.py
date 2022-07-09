@@ -4,7 +4,7 @@ from replit import web, db
 
 app = Flask(__name__)
 users = web.UserStore()
-version = "1.0.2"
+version = "1.2"
 
 @app.route("/")
 def index():
@@ -100,8 +100,8 @@ def feedback():
 @app.route("/bugs", methods=["POST", "GET"])
 @web.authenticated
 @web.per_user_ratelimit(
-    max_requests = 1,
-    period = 1800,
+    max_requests = 2,
+    period = 600,
     get_ratelimited_res=(lambda left: f"Too many requests, try again after {left} sec"),
 )
 def setbugs():
@@ -125,7 +125,7 @@ def setbugs():
                 db["Bug"] = bug
                 return redirect("/home")
     else:
-        return render_template("makebug.html", name=name)
+        return render_template("makebug.html", name=name, version=version)
 
 
 @app.route("/admin/suggestions/bugs/get", methods=["GET", "POST"])
@@ -154,14 +154,14 @@ def alive():
 @web.authenticated
 def number():
     name = web.auth.name
-    return render_template("number.html", name=name)
+    return render_template("number.html", name=name, version=version)
 
 
 @app.route("/feedback", methods=["POST", "GET"])
 @web.authenticated
 @web.per_user_ratelimit(
-    max_requests = 1,
-    period = 1800,
+    max_requests = 2,
+    period = 600,
     get_ratelimited_res=(lambda left: f"Too many requests, try again after {left} sec"),
 )
 def setfeed():
@@ -185,7 +185,7 @@ def setfeed():
                 db["Feed"] = bug
                 return redirect("/home")
     else:
-        return render_template("makefeed.html", name=name)
+        return render_template("makefeed.html", name=name, version=version)
 
 
 @app.route("/admin/suggestions/feedback/get", methods=["GET", "POST"])
@@ -205,14 +205,14 @@ def get_feed():
 @web.authenticated
 def time():
     name = web.auth.name
-    return render_template("time.html", name=name)
+    return render_template("time.html", name=name, version=version)
 
 
 @app.route("/calculator")
 @web.authenticated
 def maths():
     name = web.auth.name
-    return render_template("maths.html", name=name)
+    return render_template("maths.html", name=name, version=version)
 
 
 @app.route("/tasks", methods=["GET", "POST"])
@@ -249,7 +249,7 @@ def task_make():
         else:
             return "You have reached your max amount of tasks"
     else:
-        return render_template("maketasks.html", name=name)
+        return render_template("maketasks.html", name=name, version=version)
 
 
 @app.route("/tasks/complete", methods=["GET", "POST"])
@@ -268,7 +268,7 @@ def task_remove():
                 break
         return redirect("/tasks")
     else:
-        return render_template("removetasks.html", name=name)
+        return render_template("removetasks.html", name=name, version=version)
 
 
 @app.route('/sw.js', methods=['GET'])
@@ -281,7 +281,7 @@ def countdown():
     name = web.auth.name
     time = users.current["time"]
     print(time)
-    return render_template("countdown.html", name=name, time=time)
+    return render_template("countdown.html", name=name, time=time, version=version)
 
 @app.route("/time/countdown/make", methods=["GET", "POST"])
 @web.authenticated
@@ -309,13 +309,13 @@ def countdown_make():
                 users.current["time"]=time
                 return redirect("/time/countdown")
     else:
-        return render_template("makecoutdown.html", name=name)
+        return render_template("makecoutdown.html", name=name, version=version)
 
 @app.route("/time/stopwatch")
 @web.authenticated
 def stopwatch():
     name = web.auth.name
-    return render_template("stopwatch.html", name=name)
+    return render_template("stopwatch.html", name=name, version=version)
 
 @app.route("/time")
 @web.authenticated

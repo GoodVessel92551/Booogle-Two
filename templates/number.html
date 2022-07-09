@@ -29,10 +29,14 @@
         <button class="sumbmitnum" onclick="ran()">Generate</button>
         <div class="number3" id="num">6</div>
     </div>
+		<footer>
+			<div id="version" class="version" onclick="window.open('/changelog','_self')"></div>
+		</footer>
     <script>
         ran()
-        name = {{name|tojson}}
-        console.log(name)
+        name = {{name|tojson}};
+        version = {{version|tojson}};
+        document.getElementById("version").innerHTML = "Version "+version
         document.getElementById("name").innerHTML = name
     </script>
 	<script src="static/app.js"></script>

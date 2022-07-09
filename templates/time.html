@@ -22,6 +22,9 @@
     <div class="suggest2_box">
         <input type="image" src="/static/fullscreen.png" width="20" height="20" class="suggest2" onclick="full()">
     </div>
+		<footer>
+			<div id="version" class="version" onclick="window.open('/changelog','_self')"></div>
+		</footer>
     <script>
         var full2 = false
         function full() {
@@ -37,6 +40,8 @@
         }
         
     name = {{name|tojson}};
+    version = {{version|tojson}};
+    document.getElementById("version").innerHTML = "Version "+version
     document.getElementById("name").innerHTML = name
     var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]

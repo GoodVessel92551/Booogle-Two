@@ -26,9 +26,13 @@
         </div>
     <div class="tasks" id="gettasks">
     </div>
+		<footer>
+			<div id="version" class="version" onclick="window.open('/changelog','_self')"></div>
+		</footer>
     <script>
         name = {{name|tojson}}
-        console.log(name)
+        version = {{version|tojson}};
+        document.getElementById("version").innerHTML = "Version "+version
         document.getElementById("name").innerHTML = name
         tasks = {{tasks|tojson}}
         tasks_len = tasks.length

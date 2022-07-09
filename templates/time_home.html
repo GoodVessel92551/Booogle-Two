@@ -27,13 +27,13 @@
             <input type="image" src="{{url_for('static',filename='feedback.png')}}" width="20" height="20" class="suggest2" onclick="window.open('/feedback','_self')">
         </div>
 		<footer>
-			<div id="version" class="version" onclick="window.open('/changelog','_self')></div>
+			<div id="version" class="version" onclick="window.open('/changelog','_self')"></div>
 		</footer>
         <script>
             name = {{name|tojson}};
             version = {{version|tojson}};
-            document.getElementById("name").innerHTML = name
             document.getElementById("version").innerHTML = "Version "+version
+            document.getElementById("name").innerHTML = name
         </script>
         <script src="static/app.js"></script>
     </body>

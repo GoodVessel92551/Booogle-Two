@@ -23,6 +23,9 @@
         <input type="image" src="/static/edit.png" width="20" height="20" class="suggest2" onclick="window.open('/time/countdown/make','_self')">
         <input type="image" src="/static/fullscreen.png" width="20" height="20" class="suggest2" onclick="full()">
     </div>
+		<footer>
+			<div id="version" class="version" onclick="window.open('/changelog','_self')"></div>
+		</footer>
     <script>
         var full2 = false
         function full() {
@@ -38,6 +41,8 @@
         }
         name = {{name|tojson}};
         time = {{time|tojson}};
+        version = {{version|tojson}};
+        document.getElementById("version").innerHTML = "Version "+version
         document.getElementById("name").innerHTML = name
         document.getElementById("time").innerHTML = time[0]+" : "+time[1]+" : "+time[2]
         document.getElementById("timetitle").innerHTML = "Timer: "+time[0]+" : "+time[1]+" : "+time[2]

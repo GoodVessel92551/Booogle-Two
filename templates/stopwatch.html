@@ -26,6 +26,9 @@
         <div id="lap" class="laps">
             <h2>Laps</h2>
         </div>
+		<footer>
+			<div id="version" class="version" onclick="window.open('/changelog','_self')"></div>
+		</footer>
     <script>
         var full2 = false
         function full() {
@@ -40,6 +43,8 @@
             }
         }
         name = {{name|tojson}};
+        version = {{version|tojson}};
+        document.getElementById("version").innerHTML = "Version "+version
         time = [0,0,0,0]
         document.getElementById("name").innerHTML = name
         document.getElementById("time").innerHTML = time[0]+" : "+time[1]+" : "+time[2]+" : "+time[3]

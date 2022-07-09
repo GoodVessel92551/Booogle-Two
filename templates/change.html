@@ -18,18 +18,21 @@
         <div class="change">
             <h1>Change Log</h1>
             <h3 id="version"></h3>
+        </div>
+		<footer>
+			<div id="version" class="version" onclick="window.open('/changelog','_self')"></div>
+		</footer>
             <p>
-                What is new in v1.0:
-                <li>The time apps which includes a stopwatch, timer and the current time</li>
-                <li>The calculator app so you can do maths on Booogle</li>
-                <li>The task app so you can now set you self tasks</li>
-                <li>The random number generator app</li>
-                Thank you for all the people that are using Booogle.
+                What is new in v1.2:
+                <li>The icons on the home screen are now slightly curved.</li>
+                <li>The calculator app theme has been improved to fit the site more.</li>
+                Thank you for all the people that use Booogle.
             </p>
         </div>
         <script>
             name = {{name|tojson}};
             version = {{version|tojson}};
+            document.getElementById("version").innerHTML = "Version "+version
             document.getElementById("name").innerHTML = name;
             document.getElementById("version").innerHTML = "Version "+version
         </script>

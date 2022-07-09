@@ -28,8 +28,7 @@ body{
 }
 .profile{
     margin:20px;
-    position:absolute;
-
+    position:fixed;
     color: #242424;
     background-color: #ff6600;
     border: none;
@@ -39,16 +38,21 @@ body{
     top:20px;
     width: 220px;
     height: 44px;
-    outline: 0;
+    outline: none;
     text-align: center;
     cursor: pointer;
     transition: all .2s;
+}
+
+.profile_test{
+    background-color: #ff6600;
 }
 .profile:hover{
     opacity:.8;
 }
 
 .logo{
+    border-radius:10px;
     background-color:#ff6600;
     transition: all .2s;
     position:absolute;
@@ -160,6 +164,7 @@ body{
 }
 
 .home a{
+    border-radius:10px;
     position:relative;
     background-color: #ff6600;
     margin:5px;
@@ -179,11 +184,7 @@ body{
 }
 @media (max-width: 1040px) {
   .profile {
-    position:absolute;
-    top:140px;
-    right:50%;
-    -ms-transform: translate(59%, -50%);
-    transform: translate(59%,-50%); 
+    display:none;
   }
 }
 
@@ -719,44 +720,44 @@ body{
     border:2px solid #c24e00;
 }
 .but2{
+    color:#292929;
     cursor: pointer;
-    background: #36a32e;
+    background: #ff6600;
     border-radius:5px;
-    border:2px solid #33862d;
+    border:2px solid #c24e00; 
     height: 75px;
     width: 75px;
     margin:2px .2px;
     line-hight:50px;
     transition:.2s all;
-    color:#fff;
 }
 
 .but2:hover{
-    border:2px solid #11ff00;
+    border:2px solid #ff8800;
 }
 .but2:active{
     opacity: 0.8;
-    border:2px solid #0a8f00;
+    border:2px solid #b34700;
 }
 .but3{
     cursor: pointer;
     margin:2px 0px;
-    background: #2e67a3;
+    background: #ff6600;
     border-radius:5px;
-    border:2px solid #255383;
+    border:2px solid #c24e00;
     height: 50px;
-    width: 393px;
+    width: 390px;
     line-hight:50px;
     transition:.2s all;
-    color:#fff;
+    color:#292929;
 }
 
 .but3:hover{
-    border:2px solid #007bff;
+    border:2px solid #ff8800;
 }
 .but3:active{
     opacity: 0.8;
-    border:2px solid #005bbd;
+    border:2px solid #b34700;
 }
 
 .add{
@@ -946,9 +947,31 @@ body{
 }
 
 .change{
-    position:absolute;
+    position:fixed;
     top:300px;
     left: 50%;
     -ms-transform: translate(-50%, 0%);
     transform: translate(-50%, 0%);
+}
+
+.winner{
+    text-align:left;
+    cursor:pointer;
+    background:#292929;
+    border:2px  solid #1a1a1a;
+    padding:5px 5px;
+	line-height:25px;
+	width:250px;
+	position:fixed;
+	bottom:0px;
+	left:0px;
+	border-radius: 0px 5px 0px 0px;
+    transition: .2s all;
+    color:#fff;
+    text-decoration:none;
+}
+
+.winner:hover{
+    border:2px solid #ff6600;
+    opacity:.8;
 }

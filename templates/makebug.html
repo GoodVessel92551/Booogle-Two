@@ -21,9 +21,13 @@
                 <p><textarea class="desc" placeholder="Description" name="description" list="none" maxlength="250" spellcheck="true"required ></textarea></p>
                 <p><input class="sumbmitbug" type="submit" value="Submit"></p>
             </form>
+		<footer>
+			<div id="version" class="version" onclick="window.open('/changelog','_self')"></div>
+		</footer>
         <script>
-            name = {{name|tojson}}
-            console.log(name)
+            name = {{name|tojson}};
+            version = {{version|tojson}};
+            document.getElementById("version").innerHTML = "Version "+version
             document.getElementById("name").innerHTML = name
         </script>
         <script src="static/app.js"></script>
