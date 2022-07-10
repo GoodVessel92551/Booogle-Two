@@ -28,7 +28,7 @@ body{
 }
 .profile{
     margin:20px;
-    position:fixed;
+    position:absolute;
     color: #242424;
     background-color: #ff6600;
     border: none;
@@ -948,30 +948,43 @@ body{
 
 .change{
     position:fixed;
-    top:300px;
+    top:200px;
     left: 50%;
     -ms-transform: translate(-50%, 0%);
     transform: translate(-50%, 0%);
 }
 
-.winner{
-    text-align:left;
-    cursor:pointer;
+.game{
     background:#292929;
-    border:2px  solid #1a1a1a;
-    padding:5px 5px;
-	line-height:25px;
-	width:250px;
-	position:fixed;
-	bottom:0px;
-	left:0px;
-	border-radius: 0px 5px 0px 0px;
-    transition: .2s all;
-    color:#fff;
-    text-decoration:none;
+    border:2px solid #1a1a1a;
+    padding:5px;
+    text-align:left;
+    height:600px;
+    width:75%;
+    margin:20px;
+    border-radius: 10px;
+    position:relative;
+    left: 50%;
+    -ms-transform: translate(-50%, 0%);
+    transform: translate(-50%, 0%);
 }
 
-.winner:hover{
-    border:2px solid #ff6600;
-    opacity:.8;
+.game2{
+    position:absolute;
+    width:75%;
+    top:200px;
+    left: 50%;
+    -ms-transform: translate(-50%, 0%);
+    transform: translate(-50%, 0%);
+}
+
+.game a iframe{
+    border-radius: 10px;
+    border:none;
+    height:550px;
+    width:100%;
+    left: 50%;
+    position:absolute;
+    -ms-transform: translate(-50%, 0%);
+    transform: translate(-50%, 0%);
 }

@@ -4,7 +4,7 @@ from replit import web, db
 
 app = Flask(__name__)
 users = web.UserStore()
-version = "1.2"
+version = "1.2.1"
 
 @app.route("/")
 def index():
@@ -16,7 +16,7 @@ def index():
         return redirect("/home")
     else:
         db["vists"] = vists + 1
-        return render_template("index.html")
+        return render_template("index.html", version=version)
     
 
 
@@ -47,7 +47,7 @@ def admin():
     if name == "GoodVessel92551":
         db["names2"] = users
         db["vists2"] = views
-        return render_template("admin.html",name=name,users=users,views=views,users2=users2,views2=views2)
+        return render_template("admin.html",name=name,users=users,views=views,users2=users2,views2=views2, version=version)
     else:
         return render_template("no.html")
 
@@ -58,7 +58,7 @@ def adminusers():
     name = web.auth.name
     users = db["names"]
     if name == "GoodVessel92551":
-        return render_template("users.html", name=name, users=users)
+        return render_template("users.html", name=name, users=users, version=version)
     else:
         return render_template("no.html")
 
@@ -77,7 +77,7 @@ def analytics():
     if name == "GoodVessel92551":
         db["names2"] = users
         db["vists2"] = views
-        return render_template("analytics.html",name=name,users=users,views=views,bug=bug,feed=feed)
+        return render_template("analytics.html",name=name,users=users,views=views,bug=bug,feed=feed, version=version)
     else:
         return render_template("no.html")
 
@@ -92,7 +92,7 @@ def feedback():
     bug = len(bug) / 3
     feed = len(feed) / 3
     if name == "GoodVessel92551":
-        return render_template("suggestions.html",name=name, users=users,bug=bug,feed=feed)
+        return render_template("suggestions.html",name=name, users=users,bug=bug,feed=feed, version=version)
     else:
         return render_template("no.html")
 
@@ -227,7 +227,7 @@ def tasks():
         tasks = users.current["tasks"]
     else:
         tasks = users.current["tasks"]
-    return render_template("tasks.html", name=name, tasks=tasks)
+    return render_template("tasks.html", name=name, tasks=tasks, version=version)
 
 
 @app.route("/tasks/make", methods=["GET", "POST"])
@@ -334,4 +334,10 @@ def changelog():
 def shell():
     name = web.auth.name
     return render_template("shell.html", name=name)
+
+@app.route("/games")
+@web.authenticated
+def games():
+    name = web.auth.name
+    return render_template("game.html", name=name, version=version)
 web.run(app, port=8080, debug=True)

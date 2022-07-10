@@ -1,6 +1,6 @@
 <html lang="en-GB">
     <head>
-        <title>Booogle</title>
+        <title id=timetitle>Booogle</title>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,26 +13,33 @@
         <link rel="manifest" href="static/manifest.json">
     </head>
     <body>
-        <input type="image" src="{{url_for('static',filename='admin.png')}}" width="500" height="90" class="logo" onclick="window.open('/home','_self')">
+        <input type="image" src="{{url_for('static',filename='logo.png')}}" width="500" height="90" class="logo" onclick="window.open('/time','_self')">
         <button id="name" class="profile" onclick="window.open('/home','_self')"></button>
-        <div class="change">
-            <h1>Change Log</h1>
-            <h3 id="version"></h3>
-                What is new in v1.2.1:
-                <li>Booogle Games has been added this includes two games</li>
-                <li>Booogle Games is still in testing so things will change and also more games will be added</li>
-                Thank you for all the people that use Booogle.
+        <div class="game2">
+        <a>
+        <div class="game">
+            <a><h2>Parkour Game</h2></a>
+            <a><iframe src="https://parkour-game.goodvessel92551.repl.co/"></iframe></a>
+        </div>
+        </a>
+        <a>
+            <div class="game">
+                <a><h2>The Maze</h2></a>
+                <a><iframe src="https://maze-game.goodvessel92551.repl.co/"></iframe></a>
+            </div>
+        </a>
         </div>
 		<footer>
 			<div id="version" class="version" onclick="window.open('/changelog','_self')"></div>
 		</footer>
-        <script>
-            name = {{name|tojson}};
-            version = {{version|tojson}};
-            document.getElementById("version").innerHTML = "Version "+version
-            document.getElementById("name").innerHTML = name;
-            document.getElementById("version").innerHTML = "Version "+version
-        </script>
+    <script>
+        name = {{name|tojson}};
+        version = {{version|tojson}};
+        document.getElementById("version").innerHTML = "Version "+version
+        document.getElementById("name").innerHTML = name
+
+
+    </script>
 		<script src="static/app.js"></script>
-    </body>
+</body>
 </html>
