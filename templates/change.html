@@ -18,9 +18,9 @@
         <div class="change">
             <h1>Change Log</h1>
             <h3 id="version"></h3>
-                What is new in v1.2.1:
-                <li>Booogle Games has been added this includes two games</li>
-                <li>Booogle Games is still in testing so things will change and also more games will be added</li>
+                What is new in v1.2.2:
+                <li>Small bug fixes</li>
+                <li>Impoved Booogle Game but there is still more to come<li>
                 Thank you for all the people that use Booogle.
         </div>
 		<footer>
@@ -29,9 +29,9 @@
         <script>
             name = {{name|tojson}};
             version = {{version|tojson}};
-            document.getElementById("version").innerHTML = "Version "+version
-            document.getElementById("name").innerHTML = name;
-            document.getElementById("version").innerHTML = "Version "+version
+            document.getElementById("version").innerText = "Version "+version
+            document.getElementById("name").innerText = name;
+            document.getElementById("version").innerText = "Version "+version
         </script>
 		<script src="static/app.js"></script>
     </body>

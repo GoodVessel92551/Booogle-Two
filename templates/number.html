@@ -17,7 +17,7 @@
         min = Math.ceil(mininput.value)
         max = Math.floor(maxinput.value)
         number = Math.floor(Math.random() * (max - min + 1) + min)
-        document.getElementById("num").innerHTML = number
+        document.getElementById("num").innerText = number
     }
 </script>
 <body>
@@ -36,8 +36,8 @@
         ran()
         name = {{name|tojson}};
         version = {{version|tojson}};
-        document.getElementById("version").innerHTML = "Version "+version
-        document.getElementById("name").innerHTML = name
+        document.getElementById("version").innerText = "Version "+version
+        document.getElementById("name").innerText = name
     </script>
 	<script src="static/app.js"></script>
 </body>

@@ -44,17 +44,17 @@
         }
         name = {{name|tojson}};
         version = {{version|tojson}};
-        document.getElementById("version").innerHTML = "Version "+version
+        document.getElementById("version").innerText = "Version "+version
         time = [0,0,0,0]
-        document.getElementById("name").innerHTML = name
-        document.getElementById("time").innerHTML = time[0]+" : "+time[1]+" : "+time[2]+" : "+time[3]
-        document.getElementById("timetitle").innerHTML = "Time: "+time[0]+" : "+time[1]+" : "+time[2]
+        document.getElementById("name").innerText = name
+        document.getElementById("time").innerText = time[0]+" : "+time[1]+" : "+time[2]+" : "+time[3]
+        document.getElementById("timetitle").innerText = "Time: "+time[0]+" : "+time[1]+" : "+time[2]
         let id
         let alarm
         let start2 = true
         function start() {
             if (start2 == true){
-                document.getElementById("start").innerHTML = "Stop"
+                document.getElementById("start").innerText = "Stop"
                 id = setInterval(countup, 100)
                 start2 = false
             }else{
@@ -62,7 +62,7 @@
             }
         }
         function stop() {
-            document.getElementById("start").innerHTML = "Start"
+            document.getElementById("start").innerText = "Start"
             start2 = true
             clearInterval(id)
         }
@@ -70,7 +70,7 @@
             if (time[3] == 9){
                 time[3] = 0
                 time[2] += 1
-                document.getElementById("timetitle").innerHTML = "Time: "+time[0]+" : "+time[1]+" : "+time[2]
+                document.getElementById("timetitle").innerText = "Time: "+time[0]+" : "+time[1]+" : "+time[2]
             }
             else if (time[2] == 60){
                 
@@ -82,13 +82,13 @@
                 time[0] += 1
             }else{
                 time[3] += 1
-                document.getElementById("time").innerHTML = time[0]+" : "+time[1]+" : "+time[2]+" : "+time[3]
+                document.getElementById("time").innerText = time[0]+" : "+time[1]+" : "+time[2]+" : "+time[3]
             }
             }
         function lap() {
             var gettime = document.getElementById("lap")
             var lap_it = document.createElement('li')
-            lap_it.innerHTML = time[0]+" : "+time[1]+" : "+time[2]+" : "+time[3]
+            lap_it.innerText = time[0]+" : "+time[1]+" : "+time[2]+" : "+time[3]
             gettime.appendChild(lap_it)
         }
 

@@ -30,17 +30,17 @@
 			<div id="version" class="version" onclick="window.open('/changelog','_self')"></div>
 		</footer>
     <script>
-        name = {{name|tojson}}
+        name = {{name|tojson}};
         version = {{version|tojson}};
-        document.getElementById("version").innerHTML = "Version "+version
-        document.getElementById("name").innerHTML = name
+        document.getElementById("version").innerText = "Version "+version
+        document.getElementById("name").innerText = name
         tasks = {{tasks|tojson}}
         tasks_len = tasks.length
         console.log(tasks)
         var i = 0
         if (tasks_len != 0){ 
             function get_task() {
-                document.getElementById("howto").innerHTML = ""
+                document.getElementById("howto").innerText = ""
                 var gettasks = document.getElementById("gettasks")
                 var task = document.createElement('a')
                 task.innerHTML="<h3>"+tasks[i++]+"</h3><p>"+tasks[i++]+"</p><p>ID:"+tasks[i++]+"</p>"

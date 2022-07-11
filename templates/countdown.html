@@ -42,16 +42,16 @@
         name = {{name|tojson}};
         time = {{time|tojson}};
         version = {{version|tojson}};
-        document.getElementById("version").innerHTML = "Version "+version
-        document.getElementById("name").innerHTML = name
-        document.getElementById("time").innerHTML = time[0]+" : "+time[1]+" : "+time[2]
-        document.getElementById("timetitle").innerHTML = "Timer: "+time[0]+" : "+time[1]+" : "+time[2]
+        document.getElementById("version").innerText = "Version "+version
+        document.getElementById("name").innerText = name
+        document.getElementById("time").innerText = time[0]+" : "+time[1]+" : "+time[2]
+        document.getElementById("timetitle").innerText = "Timer: "+time[0]+" : "+time[1]+" : "+time[2]
         let id
         let alarm
         let start2 = true
         function start() {
             if (start2 == true){
-                document.getElementById("start").innerHTML = "Stop"
+                document.getElementById("start").innerText = "Stop"
                 id = setInterval(countdown, 1000)
                 alarm = new Audio('static/alarm.wav')
                 start2 = false
@@ -60,7 +60,7 @@
             }
         }
         function stop() {
-            document.getElementById("start").innerHTML = "Start"
+            document.getElementById("start").innerText = "Start"
             start2 = true
             clearInterval(id)
         }
@@ -78,8 +78,8 @@
                 alarm.play()
             }else{
                 time[2] -= 1
-                document.getElementById("time").innerHTML = time[0]+" : "+time[1]+" : "+time[2]
-                document.getElementById("timetitle").innerHTML = "Timer: "+time[0]+" : "+time[1]+" : "+time[2]
+                document.getElementById("time").innerText = time[0]+" : "+time[1]+" : "+time[2]
+                document.getElementById("timetitle").innerText = "Timer: "+time[0]+" : "+time[1]+" : "+time[2]
             }
             }
 

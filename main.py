@@ -4,7 +4,7 @@ from replit import web, db
 
 app = Flask(__name__)
 users = web.UserStore()
-version = "1.2.1"
+version = "1.2.2"
 
 @app.route("/")
 def index():
@@ -109,14 +109,14 @@ def setbugs():
     bug = db["Bug"]
     if request.method == "POST":
         if len(bug)/3 > 100:
-            return "There are too meny bugs in the system please try again later :("
+            return render_template("error.html",error="There are too meny bugs reports at the moment")
         else:
             title2 = request.form["title"]
             description2 = request.form["description"]
             if len(title2) > 41 or len(description2) > 121:
                 return render_template("leng.html", name=name)
             elif len(title2) == 0 or len(description2) == 0:
-                return "Please put something in you bug report"
+                return render_template("error.html",error="Put something in you bug report")
             else:
                 bug.append(profanity.censor(title2))
                 bug.append(profanity.censor(description2))
@@ -169,14 +169,14 @@ def setfeed():
     bug = db["Feed"]
     if request.method == "POST":
         if len(bug)/3 > 100:
-            return "There are too much feedback in the system please try again later :("
+            return render_template("error.html",error="There are too meny feedback suggestions at the moment")
         else:
             title2 = request.form["title"]
             description2 = request.form["description"]
             if len(title2) > 41 or len(description2) > 121:
                 return render_template("leng.html", name=name)
             elif len(title2) == 0 or len(description2) == 0:
-                return "Please put something in you feedback report"
+                return render_template("error.html",error="Please put something in you feedback suggestion")
             else:
                 bug.append(profanity.censor(title2))
                 bug.append(profanity.censor(description2))
@@ -247,7 +247,7 @@ def task_make():
             users.current["tasks"] = tasks
             return redirect("/tasks")
         else:
-            return "You have reached your max amount of tasks"
+            return render_template("error.html",error="You have used up all of your task slots")
     else:
         return render_template("maketasks.html", name=name, version=version)
 
@@ -298,9 +298,9 @@ def countdown_make():
             return "You need to enter a number"
         else:
             if hour == "" or min == "" or sec == "":
-                return "You need to enter a number"
-            elif int(hour) > 24 or int(sec) > 60 or int(min) > 60:
-                return "One of the numbers you entered is to big"
+                return render_template("error.html",error="Enter a number")
+            elif int(hour) > 24 or int(sec) > 60 or int(min) > 60 or int(hour) < 24 or int(sec) < 60 or int(min) < 60:
+                return render_template("error.html",error="One of the numbers is to big or small")
             else:
                 time.append(hour)
                 time.append(min)

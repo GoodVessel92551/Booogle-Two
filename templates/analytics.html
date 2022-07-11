@@ -36,12 +36,12 @@
             users = {{users|tojson}};
             feed = {{feed|tojson}};
             bug = {{bug|tojson}};
-            document.getElementById("name").innerHTML = name;
-            document.getElementById("hi").innerHTML = "Hi, "+name+"!";
-            document.getElementById("views").innerHTML = views;
-            document.getElementById("users").innerHTML = users;
-            document.getElementById("feedback").innerHTML = feed
-            document.getElementById("bugs").innerHTML = bug
+            document.getElementById("name").innerText = name;
+            document.getElementById("hi").innerText = "Hi, "+name+"!";
+            document.getElementById("views").innerText = views;
+            document.getElementById("users").innerText = users;
+            document.getElementById("feedback").innerText = feed
+            document.getElementById("bugs").innerText = bug
         </script>
 		<script src="static/app.js"></script>
     </body>
