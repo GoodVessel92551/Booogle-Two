@@ -11,10 +11,10 @@
 }
 @media (prefers-color-scheme: light){
     :root{
-        --border:#bababa;
+        --border:#d4d4d4;
         --light:#242424;
         --dark:#242424;
-        --backborder:#ccc;
+        --backborder:#f2f2f2;
         --back:#fff;
         --color:#f60;
     }
@@ -27,7 +27,7 @@ body{
 }
 .replit-auth-button{
     color: var(--dark);
-    background-color: #f2f2f2;
+    background-color: var(--backborder);
     background-size: 18px;
     background-position: 16px;
     background-repeat: no-repeat;
@@ -1002,7 +1002,7 @@ body{
 .game a iframe{
     border-radius: 10px;
     border:none;
-    height:500px;
+    height:489px;
     width:100%;
     left: 50%;
     position:absolute;
