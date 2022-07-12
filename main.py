@@ -275,13 +275,12 @@ def task_remove():
 def sw():
     return current_app.send_static_file('sw.js')
 
-@app.route("/time/countdown")
+@app.route("/time/countdown-timer")
 @web.authenticated
-def countdown():
+def countdown_timer():
     name = web.auth.name
-    time = users.current["time"]
-    print(time)
-    return render_template("countdown.html", name=name, time=time, version=version)
+    countdown = users.current["time"]
+    return render_template("countdown.html", name=name,time=countdown, version=version)
 
 @app.route("/time/countdown/make", methods=["GET", "POST"])
 @web.authenticated
@@ -293,13 +292,15 @@ def countdown_make():
         min = request.form["min"]
         sec = request.form["sec"]
         try:
-            int(hour,min,sec)
+            int(hour)
+            int(min)
+            int(sec)
         except:
             return "You need to enter a number"
         else:
             if hour == "" or min == "" or sec == "":
                 return render_template("error.html",error="Enter a number")
-            elif int(hour) > 24 or int(sec) > 60 or int(min) > 60 or int(hour) < 24 or int(sec) < 60 or int(min) < 60:
+            elif int(hour) > 24 or int(sec) > 60 or int(min) > 60 or int(hour) < 0 or int(sec) < 0 or int(min) < 0:
                 return render_template("error.html",error="One of the numbers is to big or small")
             else:
                 time.append(hour)
