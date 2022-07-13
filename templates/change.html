@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="theme-color" content="#f60">
+        <meta name="theme-color" id="theme" content="#ff6600">
         <link rel="apple-touch-icon" href="/static/logo_apple">
         <link href="{{ url_for('static',filename='main.css')}}" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -19,8 +19,9 @@
             <h1>Change Log</h1>
             <h3 id="version"></h3>
                 What is new in v1.2.2:
-                <li>Small bug fixes</li>
-                <li>Impoved Booogle Game but there is still more to come<li>
+                <li>Added light and dark mode based on your system theme</li>
+                <li>Booogle Games has been fully released<li>
+                <li>Bug fixes</li>
                 Thank you for all the people that use Booogle.
         </div>
 		<footer>
@@ -29,6 +30,11 @@
         <script>
             name = {{name|tojson}};
             version = {{version|tojson}};
+            color = {{color|tojson}};
+            document.getElementById("theme").content=color[0]
+            var r = document.querySelector(":root")
+            r.style.setProperty("--color",color[0])
+            r.style.setProperty("--color2",color[1])
             document.getElementById("version").innerText = "Version "+version
             document.getElementById("name").innerText = name;
             document.getElementById("version").innerText = "Version "+version

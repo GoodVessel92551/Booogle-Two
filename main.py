@@ -4,7 +4,7 @@ from replit import web, db
 
 app = Flask(__name__)
 users = web.UserStore()
-version = "1.2.2"
+version = "1.3"
 
 @app.route("/")
 def index():
@@ -25,29 +25,33 @@ def index():
 def home():
     name = web.auth.name
     names = db["names"]
-    if name in names:
-        pass
-    else:
+    try:
+        color = users.current["color"]
+    except:
+        users.current["color"] = ["#f6600","#a8531a"]
+    if name not in names:
+        users.current["color"] = ["#f6600","#a8531a"]
         users.current["time"] = [0,10,0]
         names.append(name)
         db["names"] = names
-    return render_template("home.html", name=name, version=version)
+    return render_template("home.html", name=name, version=version, color=color)
 
 
 @app.route("/admin")
 @web.authenticated
 def admin():
     name = web.auth.name
-    users = db["names"]
+    user = db["names"]
     views = db["vists"]
     users2 = db["names2"]
     views2 = db["vists2"]
-    print(users)
-    users = len(users)
+    print(user)
+    user = len(user)
     if name == "GoodVessel92551":
-        db["names2"] = users
+        db["names2"] = user
         db["vists2"] = views
-        return render_template("admin.html",name=name,users=users,views=views,users2=users2,views2=views2, version=version)
+        color = users.current["color"]
+        return render_template("admin.html", color=color,name=name,users=user,views=views,users2=users2,views2=views2, version=version)
     else:
         return render_template("no.html")
 
@@ -56,9 +60,10 @@ def admin():
 @web.authenticated
 def adminusers():
     name = web.auth.name
-    users = db["names"]
+    user = db["names"]
     if name == "GoodVessel92551":
-        return render_template("users.html", name=name, users=users, version=version)
+        color = users.current["color"]
+        return render_template("users.html", color=color, name=name, users=user, version=version)
     else:
         return render_template("no.html")
 
@@ -67,17 +72,18 @@ def adminusers():
 @web.authenticated
 def analytics():
     name = web.auth.name
-    users = db["names"]
+    user = db["names"]
     views = db["vists"]
     bug = db["Bug"]
     feed = db["Feed"]
     bug = len(bug) / 3
     feed = len(feed) / 3
-    users = len(users)
+    user = len(user)
     if name == "GoodVessel92551":
-        db["names2"] = users
+        db["names2"] = user
         db["vists2"] = views
-        return render_template("analytics.html",name=name,users=users,views=views,bug=bug,feed=feed, version=version)
+        color = users.current["color"]
+        return render_template("analytics.html", color=color,name=name,users=user,views=views,bug=bug,feed=feed, version=version)
     else:
         return render_template("no.html")
 
@@ -86,13 +92,14 @@ def analytics():
 @web.authenticated
 def feedback():
     name = web.auth.name
-    users = db["names"]
+    user = db["names"]
     bug = db["Bug"]
     feed = db["Feed"]
     bug = len(bug) / 3
     feed = len(feed) / 3
     if name == "GoodVessel92551":
-        return render_template("suggestions.html",name=name, users=users,bug=bug,feed=feed, version=version)
+        color = users.current["color"]
+        return render_template("suggestions.html", color=color,name=name, users=user,bug=bug,feed=feed, version=version)
     else:
         return render_template("no.html")
 
@@ -107,6 +114,7 @@ def feedback():
 def setbugs():
     name = web.auth.name
     bug = db["Bug"]
+    color = users.current["color"]
     if request.method == "POST":
         if len(bug)/3 > 100:
             return render_template("error.html",error="There are too meny bugs reports at the moment")
@@ -123,14 +131,16 @@ def setbugs():
                 name2 = web.auth.name
                 bug.append(name2)
                 db["Bug"] = bug
+                
                 return redirect("/home")
     else:
-        return render_template("makebug.html", name=name, version=version)
+        return render_template("makebug.html", color=color, name=name, version=version)
 
 
 @app.route("/admin/suggestions/bugs/get", methods=["GET", "POST"])
 @web.authenticated
 def get_bugs():
+    color = users.current["color"]
     bug = db["Bug"]
     name = web.auth.name
     if request.method == "POST":
@@ -138,7 +148,7 @@ def get_bugs():
         db["Bug"] = bug
         return redirect("/admin/suggestions")
     elif name == "GoodVessel92551":
-        return render_template("getbug.html", name=name, bug=bug)
+        return render_template("getbug.html", color=color, name=name, bug=bug)
 
     else:
         return render_template("no.html")
@@ -153,8 +163,9 @@ def alive():
 @app.route("/number")
 @web.authenticated
 def number():
+    color = users.current["color"]
     name = web.auth.name
-    return render_template("number.html", name=name, version=version)
+    return render_template("number.html", color=color, name=name, version=version)
 
 
 @app.route("/feedback", methods=["POST", "GET"])
@@ -165,6 +176,7 @@ def number():
     get_ratelimited_res=(lambda left: f"Too many requests, try again after {left} sec"),
 )
 def setfeed():
+    color = users.current["color"]
     name = web.auth.name
     bug = db["Feed"]
     if request.method == "POST":
@@ -185,12 +197,13 @@ def setfeed():
                 db["Feed"] = bug
                 return redirect("/home")
     else:
-        return render_template("makefeed.html", name=name, version=version)
+        return render_template("makefeed.html", color=color, name=name, version=version)
 
 
 @app.route("/admin/suggestions/feedback/get", methods=["GET", "POST"])
 @web.authenticated
 def get_feed():
+    color = users.current["color"]
     feed = db["Feed"]
     name = web.auth.name
     if request.method == "POST":
@@ -198,26 +211,29 @@ def get_feed():
         db["Feed"] = feed
         return redirect("/admin/suggestions")
     elif name == "GoodVessel92551":
-        return render_template("getfeed.html", name=name, feed=feed)
+        return render_template("getfeed.html", color=color, name=name, feed=feed)
 
 
 @app.route("/time/time")
 @web.authenticated
 def time():
+    color = users.current["color"]
     name = web.auth.name
-    return render_template("time.html", name=name, version=version)
+    return render_template("time.html", color=color, name=name, version=version)
 
 
 @app.route("/calculator")
 @web.authenticated
 def maths():
+    color = users.current["color"]
     name = web.auth.name
-    return render_template("maths.html", name=name, version=version)
+    return render_template("maths.html", color=color, name=name, version=version)
 
 
 @app.route("/tasks", methods=["GET", "POST"])
 @web.authenticated
 def tasks():
+    color = users.current["color"]
     name = web.auth.name
     try:
         users.current["tasks"]
@@ -227,12 +243,13 @@ def tasks():
         tasks = users.current["tasks"]
     else:
         tasks = users.current["tasks"]
-    return render_template("tasks.html", name=name, tasks=tasks, version=version)
+    return render_template("tasks.html", color=color, name=name, tasks=tasks, version=version)
 
 
 @app.route("/tasks/make", methods=["GET", "POST"])
 @web.authenticated
 def task_make():
+    color = users.current["color"]
     name = web.auth.name
     if request.method == "POST":
         if len(users.current["tasks"]) / 3 < 2:
@@ -249,12 +266,13 @@ def task_make():
         else:
             return render_template("error.html",error="You have used up all of your task slots")
     else:
-        return render_template("maketasks.html", name=name, version=version)
+        return render_template("maketasks.html", color=color, name=name, version=version)
 
 
 @app.route("/tasks/complete", methods=["GET", "POST"])
 @web.authenticated
 def task_remove():
+    color = users.current["color"]
     name = web.auth.name
     if request.method == "POST":
         tasks = users.current["tasks"]
@@ -268,7 +286,7 @@ def task_remove():
                 break
         return redirect("/tasks")
     else:
-        return render_template("removetasks.html", name=name, version=version)
+        return render_template("removetasks.html", color=color, name=name, version=version)
 
 
 @app.route('/sw.js', methods=['GET'])
@@ -278,13 +296,15 @@ def sw():
 @app.route("/time/countdown-timer")
 @web.authenticated
 def countdown_timer():
+    color = users.current["color"]
     name = web.auth.name
     countdown = users.current["time"]
-    return render_template("countdown.html", name=name,time=countdown, version=version)
+    return render_template("countdown.html", color=color, name=name,time=countdown, version=version)
 
 @app.route("/time/countdown/make", methods=["GET", "POST"])
 @web.authenticated
 def countdown_make():
+    color = users.current["color"]
     name = web.auth.name
     if request.method == "POST":
         time = []
@@ -310,35 +330,55 @@ def countdown_make():
                 users.current["time"]=time
                 return redirect("/time/countdown")
     else:
-        return render_template("makecoutdown.html", name=name, version=version)
+        return render_template("makecoutdown.html", color=color, name=name, version=version)
 
 @app.route("/time/stopwatch")
 @web.authenticated
 def stopwatch():
+    color = users.current["color"]
     name = web.auth.name
-    return render_template("stopwatch.html", name=name, version=version)
+    return render_template("stopwatch.html", color=color, name=name, version=version)
 
 @app.route("/time")
 @web.authenticated
 def time_home():
+    color = users.current["color"]
     name = web.auth.name
-    return render_template("time_home.html", name=name, version=version)
+    return render_template("time_home.html", color=color, name=name, version=version)
     
 @app.route("/changelog")
 @web.authenticated
 def changelog():
+    color = users.current["color"]
     name = web.auth.name
-    return render_template("change.html", name=name, version=version)
+    return render_template("change.html", color=color, name=name, version=version)
 
 @app.route("/shell")
 @web.authenticated
 def shell():
+    color = users.current["color"]
     name = web.auth.name
-    return render_template("shell.html", name=name)
+    return render_template("shell.html", color=color, name=name)
 
 @app.route("/games")
 @web.authenticated
 def games():
+    color = users.current["color"]
     name = web.auth.name
-    return render_template("game.html", name=name, version=version)
+    return render_template("game.html", color=color, name=name, version=version)
+
+
+@app.route("/color", methods=["GET", "POST"])
+@web.authenticated
+def color():
+    color = users.current["color"]
+    name = web.auth.name
+    if request.method == "POST":
+        color_1 = request.form["color1"]
+        color_2 = request.form["color2"]
+        print(color_1+" "+color_2)
+        users.current["color"] = [color_1,color_2]
+        return redirect("/home")
+    else:
+        return render_template("make_color.html", color=color, name=name, version=version)
 web.run(app, port=8080, debug=True)

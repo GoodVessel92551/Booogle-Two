@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en-GB">
     <head>
         <title>Booogle</title>
@@ -13,34 +14,37 @@
         <link rel="manifest" href="static/manifest.json">
     </head>
     <body>
-        <div class="navebarside">
-            <h4 class="header">Admin</h4>
-            <br><br><br>
-            <a href="/admin">Admin</a>
-            <a href="/admin/analytics">Analytics</a>
-            <a href="/admin/users">Users</a>
-            <a href="/admin/suggestions" class="navpick">Suggestions</a>
-        </div>
         <input type="image" src="{{url_for('static',filename='logo.png')}}" width="500" height="90" class="logo" onclick="window.open('/home','_self')">
         <button id="name" class="profile" onclick="window.open('/home','_self')"></button>
-        <div class="data">
-            <a id="usershover" href="/admin/suggestions/feedback/get" class="data2">Feedback<br><br><br><br><br><b class="datatext" id="feedback"></b><p id="trend"></p></a>
-            <a id="usershover" href="/admin/suggestions/bugs/get" class="data2">Bugs<br><br><br><br><br><b class="datatext" id="bugs"></b><p id="trend"></p></a>
-        
-        </div>
+            <form class="makebug" method="post">
+                <h2>Pick Color</h2>
+                <label>Main Color</label>
+                <p><input class="color" id="color1" type="color" value="#ffffff" name="color1" autofocus></p>
+                <label>Second Color (This is recommended to be slightly darker than the main color)</label>
+                <p><input class="color" id="color2" type="color" value="#ffffff" name="color2"></p>
+                <p><input class="colorbut colorbut1" type="submit" value="Submit">
+                <input class="colorbut colorbut2" type="button" onclick="reset_it()" value="Reset"></p>
+            </form> 
+		<footer>
+			<div id="version" class="version" onclick="window.open('/changelog','_self')"></div>
+		</footer>
         <script>
             name = {{name|tojson}};
-            feed = {{feed|tojson}};
-            bug = {{bug|tojson}};
+            version = {{version|tojson}};
             color = {{color|tojson}};
             document.getElementById("theme").content=color[0]
             var r = document.querySelector(":root")
             r.style.setProperty("--color",color[0])
             r.style.setProperty("--color2",color[1])
-            console.log(name)
+            var col1 = document.getElementById("color1")
+            document.getElementById("color1").value = color[0]
+            document.getElementById("color2").value = color[1]
+            document.getElementById("version").innerText = "Version "+version
             document.getElementById("name").innerText = name
-            document.getElementById("feedback").innerText = feed
-            document.getElementById("bugs").innerText = bug
+            function reset_it() {
+                document.getElementById("color1").value = "#ff6600"
+                document.getElementById("color2").value = "#a8531a"
+            }
         </script>
         <script src="static/app.js"></script>
     </body>

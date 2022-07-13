@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="theme-color" content="#f60">
+        <meta name="theme-color" id="theme" content="#ff6600">
         <link rel="apple-touch-icon" href="/static/logo_apple">
         <link href="{{ url_for('static',filename='main.css')}}" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -39,50 +39,55 @@
             }
         }
         
-    name = {{name|tojson}};
-    version = {{version|tojson}};
-    document.getElementById("version").innerText = "Version "+version
-    document.getElementById("name").innerText = name
-    var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-    function Time() {
-        const date = new Date()
-        var dateletter = ""
-        var hour = date.getHours()
-        var minute = date.getMinutes()
-        var second = date.getSeconds()
-        var datenum = date.getDate()
-        var fullyear = date.getFullYear()
-        if(datenum == 13 || datenum == 12 || datenum == 11){
-            dateletter = "th"
-        }else if (datenum == 1 || datenum == 21 || datenum == 31){
-            dateletter = "st"
-        }else if (datenum == 2 || datenum == 22){
-            dateletter = "nd"
-        }else if (datenum == 3 || datenum == 23){
-            dateletter = "rd"
-        }else{
-            dateletter = "th"
+        name = {{name|tojson}};
+        version = {{version|tojson}};
+        color = {{color|tojson}};
+        document.getElementById("theme").content=color[0]
+        var r = document.querySelector(":root")
+        r.style.setProperty("--color",color[0])
+        r.style.setProperty("--color2",color[1])
+        document.getElementById("version").innerText = "Version "+version
+        document.getElementById("name").innerText = name
+        var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+        function Time() {
+            const date = new Date()
+            var dateletter = ""
+            var hour = date.getHours()
+            var minute = date.getMinutes()
+            var second = date.getSeconds()
+            var datenum = date.getDate()
+            var fullyear = date.getFullYear()
+            if(datenum == 13 || datenum == 12 || datenum == 11){
+                dateletter = "th"
+            }else if (datenum == 1 || datenum == 21 || datenum == 31){
+                dateletter = "st"
+            }else if (datenum == 2 || datenum == 22){
+                dateletter = "nd"
+            }else if (datenum == 3 || datenum == 23){
+                dateletter = "rd"
+            }else{
+                dateletter = "th"
+            }
+            hour = update(hour);
+            minute = update(minute)
+            second = update(second)
+            datenum = update(datenum)
+            fullyear = update(fullyear)
+            document.getElementById("time").innerText = hour + " : " + minute + " : " + second
+            document.getElementById("timetitle").innerText = "Time: "+hour + " : " + minute
+            document.getElementById("date").innerText = days[date.getDay()] + " " + datenum + dateletter + " " + months[date.getMonth()] + " " + fullyear
+            setTimeout(Time, 1000)
+            }
+            function update(t) {
+            if (t < 10) {
+            return "0" + t
+            }
+            else {
+            return t
+            }
         }
-        hour = update(hour);
-        minute = update(minute)
-        second = update(second)
-        datenum = update(datenum)
-        fullyear = update(fullyear)
-        document.getElementById("time").innerText = hour + " : " + minute + " : " + second
-        document.getElementById("timetitle").innerText = "Time: "+hour + " : " + minute
-        document.getElementById("date").innerText = days[date.getDay()] + " " + datenum + dateletter + " " + months[date.getMonth()] + " " + fullyear
-        setTimeout(Time, 1000)
-        }
-        function update(t) {
-        if (t < 10) {
-        return "0" + t
-        }
-        else {
-        return t
-        }
-    }
-    Time()
+        Time()
     </script>
 		<script src="static/app.js"></script>
 </body>
