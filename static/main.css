@@ -422,7 +422,14 @@ body{
     outline:none;
     border:2px solid var(--color);
 }
-
+@media (max-width: 500px){
+    .title{
+        width:300px
+    }
+    .desc{
+        width:300px;
+    }
+}
 
 
 .sumbmitbug{
@@ -485,6 +492,12 @@ body{
     outline:none;
     transition:.2s all;
     border:2px solid var(--border);
+}
+
+@media (max-width: 400px){
+    .color{
+        width:200px;
+    }
 }
 
 .color:hover{

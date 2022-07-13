@@ -10,7 +10,7 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
         <link rel = "icon" href = "{{ url_for('static',filename='toplogo.png')}}" type = "image/x-icon">
-        <link rel="manifest" href="static/manifest.json">
+        <link rel="manifest" href="/static/manifest.json">
     </head>
     <body>
         <input type="image" src="{{url_for('static',filename='admin.png')}}" width="500" height="90" class="logo" onclick="window.open('/home','_self')">
@@ -18,14 +18,13 @@
         <div class="change">
             <h1>Change Log</h1>
             <h3 id="version"></h3>
-                What is new in v1.2.2:
-                <li>Added light and dark mode based on your system theme</li>
-                <li>Booogle Games has been fully released<li>
-                <li>Bug fixes</li>
+                What is new in v1.3.1:
+                <li>Added custom colors this is still in testing so please report any bugs that you find</li>
+                <li>Fixed some bugs<li>
                 Thank you for all the people that use Booogle.
         </div>
 		<footer>
-			<div id="version" class="version" onclick="window.open('/changelog','_self')"></div>
+			<div id="version2" class="version" onclick="window.open('/changelog','_self')"></div>
 		</footer>
         <script>
             name = {{name|tojson}};
@@ -37,8 +36,8 @@
             r.style.setProperty("--color2",color[1])
             document.getElementById("version").innerText = "Version "+version
             document.getElementById("name").innerText = name;
-            document.getElementById("version").innerText = "Version "+version
+            document.getElementById("version2").innerText = "Version "+version
         </script>
-		<script src="static/app.js"></script>
+		<script src="/static/app.js"></script>
     </body>
 </html>

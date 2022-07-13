@@ -10,7 +10,7 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
         <link rel = "icon" href = "{{ url_for('static',filename='toplogo.png')}}" type = "image/x-icon">
-        <link rel="manifest" href="static/manifest.json">
+        <link rel="manifest" href="/static/manifest.json">
     </head>
     <body>
         <input type="image" src="{{url_for('static',filename='logo.png')}}" width="500" height="90" class="logo" onclick="window.open('/time','_self')">
@@ -36,6 +36,6 @@
             document.getElementById("version").innerText = "Version "+version
             document.getElementById("name").innerText = name
         </script>
-        <script src="static/app.js"></script>
+        <script src="/static/app.js"></script>
     </body>
 </html>
