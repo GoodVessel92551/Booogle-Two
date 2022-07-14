@@ -4,7 +4,7 @@ from replit import web, db
 
 app = Flask(__name__)
 users = web.UserStore()
-version = "1.3.1"
+version = "1.4"
 
 @app.route("/")
 def index():
@@ -381,4 +381,8 @@ def color():
         return redirect("/home")
     else:
         return render_template("make_color.html", color=color, name=name, version=version)
+
+
+
+
 web.run(app, port=8080, debug=True)
