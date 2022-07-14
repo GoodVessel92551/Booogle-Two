@@ -15,10 +15,10 @@
     <body>
         <input type="image" src="{{url_for('static',filename='admin.png')}}" width="500" height="90" class="logo" onclick="window.open('/home','_self')">
         <button id="name" class="profile" onclick="window.open('/home','_self')"></button>
-		<div class="data">
             <h3 class="booogle_users">Booogle Users:</h3>
-            <ui id="users">
-            </ui>
+            <button onclick="which()" id="last_online_but" class="last_online">Last Online</button>
+        <div class="user_list">
+            <a id="users"></a>
         </div>
         <div class="navebarside">
             <h4 class="header">Admin</h4>
@@ -32,17 +32,45 @@
             name = {{name|tojson}};
             users = {{users|tojson}};
             color = {{color|tojson}};
+            online = {{online|tojson}};
+            var which_y_n = true
+            console.log(online)
             document.getElementById("theme").content=color[0]
             var r = document.querySelector(":root")
             r.style.setProperty("--color",color[0])
             r.style.setProperty("--color2",color[1])
             document.getElementById("name").innerText = name;
-            user = document.getElementById("users").innerText
-            for (let i = 0;i<users.length;i++){
-                user = document.getElementById("users").innerHTML
-                console.log(users[i])
-                document.getElementById("users").innerHTML = user+"<li>"+users[i]+"</li>"
+            function users_print() {
+                document.getElementById("users").innerHTML = ""
+                document.getElementById("last_online_but").innerText = "Last Online"
+                for (let i = 0;i<users.length;i++){
+                    var user = document.getElementById("users").innerHTML
+                    console.log(users[i])
+                    document.getElementById("users").innerHTML = user+"<li>"+users[i]+"</li>"
+                }
             }
+            function online_print() {
+                online = online.reverse()
+                document.getElementById("users").innerHTML = ""
+                document.getElementById("last_online_but").innerText = "All Users"
+                for (let i = 0;i<online.length;i++){
+                    var user = document.getElementById("users").innerHTML
+                    console.log(online[i])
+                    document.getElementById("users").innerHTML = user+"<li>"+online[i]+"</li>"
+                }
+            }
+            function which() {
+                console.log("hi")
+                if (which_y_n == true){
+                    users_print()
+                    which_y_n = false
+                }
+                else if(which_y_n == false){
+                    which_y_n = true
+                    online_print()
+                }
+            }
+            which()
         </script>
 		<script src="/static/app.js"></script>
     </body>

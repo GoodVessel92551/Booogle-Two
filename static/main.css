@@ -24,6 +24,7 @@
     }
 }
 body{
+    height:auto;
     background:var(--back);
     text-align:center;
     font-family: IBM Plex Sans;
@@ -31,8 +32,8 @@ body{
     transition: background 1s;
 }
 .replit-auth-button{
-    color: var(--dark);
-    background-color: var(--backborder);
+    color: var(--back);
+    background-color: var(--light);
     background-size: 18px;
     background-position: 16px;
     background-repeat: no-repeat;
@@ -49,7 +50,7 @@ body{
 }
 
 .replit-auth-button:hover{
-    background-color:#d4d4d4;
+    opacity:.8;
 }
 .profile{
     margin:20px;
@@ -103,7 +104,15 @@ body{
 .logo:hover{
     opacity:.8;
 }
-
+.user_list{
+    text-align:center;
+    position:absolute;
+	text-align:left;
+    top:260px;
+    left: 50%;
+    -ms-transform: translate(-50%, 0%);
+    transform: translate(-50%, 0%);  
+}
 .data{
     display:flex;
     text-align:center;
@@ -121,7 +130,6 @@ body{
     left: 50%;
     -ms-transform: translate(-50%, 0%);
     transform: translate(-50%, 0%);  
-    flex-direction: row;
 }
 
 .data2{
@@ -143,7 +151,7 @@ body{
 	transition: all .2s;
 }
 @media (max-width: 800px) {
-  .data {
+  .data2 {
     flex-direction: column;
   }
 }
@@ -154,11 +162,30 @@ body{
 }
 
 .booogle_users{
-    position:relative;
-    top:200px;
+    position:absolute;
+    top:160px;
     left: 50%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+}
+.last_online{
+    cursor:pointer;
+    position:absolute;
+    top:220px;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    height:40px;
+    width:100px;
+    background:var(--backborder);
+    color:var(--light);
+    border: 2px solid var(--border);
+    border-radius:10px;
+	transition: all .2s;
+}
+.last_online:hover{
+    border: 2px solid var(--color);
+    opacity:.8;
 }
 
 .datatext{
@@ -180,9 +207,9 @@ body{
 .name{
     position:absolute;
     top:200px;
-	left:30%;
-	-ms-transform: translate(-50%, -50%)
-	transform: translate(-50%, -50%)
+    left: 50%;
+    -ms-transform: translate(-50%, 0%);
+    transform: translate(-50%, 0%);  
 }
 
 .name2{
@@ -553,7 +580,7 @@ body{
 
 
 .suggest{
-    position: relative;
+    position: absolute;
     height: 50px;
     width: 300px;
     background: var(--light)fff;
@@ -827,18 +854,18 @@ body{
 }
 @media (max-width: 550px){
     .but1{
-        height: 70px;
-        width: 70px;
+        height: 60px;
+        width: 60px;
     }
     .but2{
-        height: 70px;
-        width: 70px;
+        height: 60px;
+        width: 60px;
     }
     .but3{
-    width: 368px;
+        width: 316px;
     }
     .screen{
-        width: 365px;
+        width: 312px;
     }
 }
 .add{

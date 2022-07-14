@@ -4,7 +4,7 @@ from replit import web, db
 
 app = Flask(__name__)
 users = web.UserStore()
-version = "1.4"
+version = "1.4.2"
 
 @app.route("/")
 def index():
@@ -25,6 +25,7 @@ def index():
 def home():
     name = web.auth.name
     names = db["names"]
+    online = db["online"]
     try:
         color = users.current["color"]
     except:
@@ -34,6 +35,12 @@ def home():
         users.current["time"] = [0,10,0]
         names.append(name)
         db["names"] = names
+    else:
+        if name in online:
+            online.remove(name)
+        online.append(name)
+        print(online)
+        db["online"] = online
     return render_template("home.html", name=name, version=version, color=color)
 
 
@@ -41,13 +48,12 @@ def home():
 @web.authenticated
 def admin():
     name = web.auth.name
-    user = db["names"]
-    views = db["vists"]
-    users2 = db["names2"]
-    views2 = db["vists2"]
-    print(user)
-    user = len(user)
     if name == "GoodVessel92551":
+        user = db["names"]
+        views = db["vists"]
+        users2 = db["names2"]
+        views2 = db["vists2"]
+        user = len(user)
         db["names2"] = user
         db["vists2"] = views
         color = users.current["color"]
@@ -61,9 +67,10 @@ def admin():
 def adminusers():
     name = web.auth.name
     user = db["names"]
+    online = db["online"]
     if name == "GoodVessel92551":
         color = users.current["color"]
-        return render_template("users.html", color=color, name=name, users=user, version=version)
+        return render_template("users.html", color=color, name=name,online=online, users=user, version=version)
     else:
         return render_template("no.html")
 
