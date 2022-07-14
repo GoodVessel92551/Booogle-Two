@@ -728,8 +728,9 @@ body{
 
 
 .time2{
+    text-align:center;
     height:260px;
-    width:1100px;
+    width:90%;
     position: absolute;
     left: 50%;
     top:300px;
@@ -1002,28 +1003,7 @@ body{
 .version:hover{
     border:2px solid var(--color);
 }
-.start{
-    margin:20px;
-    position:absolute;
-    color: var(--dark);
-    background-color: var(--color);
-    border: none;
-    border-radius: 44px;
-    font-weight: 600;
-    width: 220px;
-    height: 44px;
-    outline: none;
-    text-align: center;
-    cursor: pointer;
-    transition: all .2s;
-    top:500px;
-    left: 50%;
-    -ms-transform: translate(-59%, -50%);
-    transform: translate(-59%, -50%); 
-}
-.start:hover{
-    opacity:.8;
-}
+
 
 .laps{
     overflow-y:scroll;
@@ -1111,7 +1091,6 @@ body{
     background-color: var(--color);
     background-size: 18px;
     background-position: 16px;
-    background-repeat: no-repeat;
     border: none;
     font-weight: 600;
     line-height: 40px;
@@ -1120,16 +1099,25 @@ body{
     text-align: center;
     cursor: pointer;
     transition: all .2s;
-}
-.colorbut1{
-    border-radius: 44px 5px 5px 44px;
-    width: 150px;
-}
-.colorbut2{
-    border-radius: 5px 44px 44px 5px;
     width: 150px;
 }
 
 .colorbut:hover{
     opacity:.8;
+}
+
+.start{
+    position:absolute;
+    width:310px;
+    text-align:center;
+    top:500px;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); 
+}
+.colorbut1{
+    border-radius: 44px 5px 5px 44px;
+}
+.colorbut2{
+    border-radius: 5px 44px 44px 5px;
 }

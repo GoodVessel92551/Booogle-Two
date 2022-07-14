@@ -4,7 +4,7 @@ from replit import web, db
 
 app = Flask(__name__)
 users = web.UserStore()
-version = "1.4.2"
+version = "1.4.3"
 
 @app.route("/")
 def index():

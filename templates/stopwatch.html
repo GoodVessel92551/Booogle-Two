@@ -13,8 +13,10 @@
         <link rel="manifest" href="/static/manifest.json">
     </head>
     <body>
-    <button class="start" id="start" onclick="start()">Start</button>
-    <button class="start" onclick="lap()" style="top:550px">Lap</button>
+        <div class="start">
+            <input class="colorbut colorbut1" type="button" value="Start" id="start" onclick="start()" />
+            <input class="colorbut colorbut2" type="button" value="Lap" onclick="lap()"/>
+        </div>
     <input type="image" src="{{url_for('static',filename='logo.png')}}" width="500" height="90" class="logo" onclick="window.open('/time','_self')">
     <button id="name" class="profile" onclick="window.open('/home','_self')"></button>
     <div class="time2" id="time2">
@@ -59,7 +61,7 @@
         let start2 = true
         function start() {
             if (start2 == true){
-                document.getElementById("start").innerText = "Stop"
+                document.getElementById("start").value = "Stop"
                 id = setInterval(countup, 100)
                 start2 = false
             }else{
@@ -67,7 +69,7 @@
             }
         }
         function stop() {
-            document.getElementById("start").innerText = "Start"
+            document.getElementById("start").value = "Start"
             start2 = true
             clearInterval(id)
         }
@@ -76,6 +78,7 @@
                 time[3] = 0
                 time[2] += 1
                 document.getElementById("timetitle").innerText = "Time: "+time[0]+" : "+time[1]+" : "+time[2]
+                document.getElementById("time").innerText = time[0]+" : "+time[1]+" : "+time[2]+" : "+time[3]
             }
             else if (time[2] == 60){
                 
