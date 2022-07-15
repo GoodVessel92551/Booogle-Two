@@ -1,6 +1,7 @@
 from better_profanity import profanity
 from flask import Flask, render_template, redirect, request, current_app
 from replit import web, db
+from datetime import datetime
 
 app = Flask(__name__)
 users = web.UserStore()
@@ -27,21 +28,35 @@ def home():
     names = db["names"]
     online = db["online"]
     try:
+        users.current["theme"]
+    except:
+        users.current["theme"] = "system"
+    try:
         color = users.current["color"]
     except:
-        users.current["color"] = ["#f6600","#a8531a"]
+        users.current["color"] = ["#ff6600","#a8531a"]
+    if users.current["color"] == "" or users.current["color"] == ["#f6600","#a8531a"]:
+        users.current["color"] = ["#ff6600","#a8531a"]
     if name not in names:
-        users.current["color"] = ["#f6600","#a8531a"]
+        users.current["color"] = ["#ff6600","#a8531a"]
         users.current["time"] = [0,10,0]
         names.append(name)
         db["names"] = names
     else:
-        if name in online:
-            online.remove(name)
-        online.append(name)
         print(online)
+        if name in online:
+            for i in range(len(online)):
+                if online[i] == name:
+                    online.pop(i)
+                    online.pop(i)
+                    break
+        now = datetime.now()
+        now = now.strftime("%d/%m/%y %H:%M UTC")
+        online.append(name)
+        online.append(now)
         db["online"] = online
-    return render_template("home.html", name=name, version=version, color=color)
+    color = users.current["color"]
+    return render_template("home.html", name=name, version=version, color=color, theme=users.current["theme"])
 
 
 @app.route("/admin")
@@ -57,7 +72,7 @@ def admin():
         db["names2"] = user
         db["vists2"] = views
         color = users.current["color"]
-        return render_template("admin.html", color=color,name=name,users=user,views=views,users2=users2,views2=views2, version=version)
+        return render_template("admin.html", color=color, theme=users.current["theme"],name=name,users=user,views=views,users2=users2,views2=views2, version=version)
     else:
         return render_template("no.html")
 
@@ -70,7 +85,7 @@ def adminusers():
     online = db["online"]
     if name == "GoodVessel92551":
         color = users.current["color"]
-        return render_template("users.html", color=color, name=name,online=online, users=user, version=version)
+        return render_template("users.html", color=color, theme=users.current["theme"], name=name,online=online, users=user, version=version)
     else:
         return render_template("no.html")
 
@@ -90,7 +105,7 @@ def analytics():
         db["names2"] = user
         db["vists2"] = views
         color = users.current["color"]
-        return render_template("analytics.html", color=color,name=name,users=user,views=views,bug=bug,feed=feed, version=version)
+        return render_template("analytics.html", color=color, theme=users.current["theme"],name=name,users=user,views=views,bug=bug,feed=feed, version=version)
     else:
         return render_template("no.html")
 
@@ -106,7 +121,7 @@ def feedback():
     feed = len(feed) / 3
     if name == "GoodVessel92551":
         color = users.current["color"]
-        return render_template("suggestions.html", color=color,name=name, users=user,bug=bug,feed=feed, version=version)
+        return render_template("suggestions.html", color=color, theme=users.current["theme"],name=name, users=user,bug=bug,feed=feed, version=version)
     else:
         return render_template("no.html")
 
@@ -141,7 +156,7 @@ def setbugs():
                 
                 return redirect("/home")
     else:
-        return render_template("makebug.html", color=color, name=name, version=version)
+        return render_template("makebug.html", color=color, theme=users.current["theme"], name=name, version=version)
 
 
 @app.route("/admin/suggestions/bugs/get", methods=["GET", "POST"])
@@ -155,7 +170,7 @@ def get_bugs():
         db["Bug"] = bug
         return redirect("/admin/suggestions")
     elif name == "GoodVessel92551":
-        return render_template("getbug.html", color=color, name=name, bug=bug)
+        return render_template("getbug.html", color=color, theme=users.current["theme"], name=name, bug=bug)
 
     else:
         return render_template("no.html")
@@ -172,7 +187,7 @@ def alive():
 def number():
     color = users.current["color"]
     name = web.auth.name
-    return render_template("number.html", color=color, name=name, version=version)
+    return render_template("number.html", color=color, theme=users.current["theme"], name=name, version=version)
 
 
 @app.route("/feedback", methods=["POST", "GET"])
@@ -204,7 +219,7 @@ def setfeed():
                 db["Feed"] = bug
                 return redirect("/home")
     else:
-        return render_template("makefeed.html", color=color, name=name, version=version)
+        return render_template("makefeed.html", color=color, theme=users.current["theme"], name=name, version=version)
 
 
 @app.route("/admin/suggestions/feedback/get", methods=["GET", "POST"])
@@ -218,7 +233,7 @@ def get_feed():
         db["Feed"] = feed
         return redirect("/admin/suggestions")
     elif name == "GoodVessel92551":
-        return render_template("getfeed.html", color=color, name=name, feed=feed)
+        return render_template("getfeed.html", color=color, theme=users.current["theme"], name=name, feed=feed)
 
 
 @app.route("/time/time")
@@ -226,7 +241,7 @@ def get_feed():
 def time():
     color = users.current["color"]
     name = web.auth.name
-    return render_template("time.html", color=color, name=name, version=version)
+    return render_template("time.html", color=color, theme=users.current["theme"], name=name, version=version)
 
 
 @app.route("/calculator")
@@ -234,7 +249,7 @@ def time():
 def maths():
     color = users.current["color"]
     name = web.auth.name
-    return render_template("maths.html", color=color, name=name, version=version)
+    return render_template("maths.html", color=color, theme=users.current["theme"], name=name, version=version)
 
 
 @app.route("/tasks", methods=["GET", "POST"])
@@ -250,7 +265,7 @@ def tasks():
         tasks = users.current["tasks"]
     else:
         tasks = users.current["tasks"]
-    return render_template("tasks.html", color=color, name=name, tasks=tasks, version=version)
+    return render_template("tasks.html", color=color, theme=users.current["theme"], name=name, tasks=tasks, version=version)
 
 
 @app.route("/tasks/make", methods=["GET", "POST"])
@@ -273,7 +288,7 @@ def task_make():
         else:
             return render_template("error.html",error="You have used up all of your task slots")
     else:
-        return render_template("maketasks.html", color=color, name=name, version=version)
+        return render_template("maketasks.html", color=color, theme=users.current["theme"], name=name, version=version)
 
 
 @app.route("/tasks/complete", methods=["GET", "POST"])
@@ -293,12 +308,12 @@ def task_remove():
                 break
         return redirect("/tasks")
     else:
-        return render_template("removetasks.html", color=color, name=name, version=version)
+        return render_template("removetasks.html", color=color, theme=users.current["theme"], name=name, version=version)
 
 
-@app.route('/sw.js', methods=['GET'])
+@app.route("/sw.js", methods=["GET"])
 def sw():
-    return current_app.send_static_file('sw.js')
+    return current_app.send_static_file("sw.js")
 
 @app.route("/time/countdown-timer")
 @web.authenticated
@@ -306,7 +321,7 @@ def countdown_timer():
     color = users.current["color"]
     name = web.auth.name
     countdown = users.current["time"]
-    return render_template("countdown.html", color=color, name=name,time=countdown, version=version)
+    return render_template("countdown.html", color=color, theme=users.current["theme"], name=name,time=countdown, version=version)
 
 @app.route("/time/countdown/make", methods=["GET", "POST"])
 @web.authenticated
@@ -337,42 +352,42 @@ def countdown_make():
                 users.current["time"]=time
                 return redirect("/time/countdown")
     else:
-        return render_template("makecoutdown.html", color=color, name=name, version=version)
+        return render_template("makecoutdown.html", color=color, theme=users.current["theme"], name=name, version=version)
 
 @app.route("/time/stopwatch")
 @web.authenticated
 def stopwatch():
     color = users.current["color"]
     name = web.auth.name
-    return render_template("stopwatch.html", color=color, name=name, version=version)
+    return render_template("stopwatch.html", color=color, theme=users.current["theme"], name=name, version=version)
 
 @app.route("/time")
 @web.authenticated
 def time_home():
     color = users.current["color"]
     name = web.auth.name
-    return render_template("time_home.html", color=color, name=name, version=version)
+    return render_template("time_home.html", color=color, theme=users.current["theme"], name=name, version=version)
     
 @app.route("/changelog")
 @web.authenticated
 def changelog():
     color = users.current["color"]
     name = web.auth.name
-    return render_template("change.html", color=color, name=name, version=version)
+    return render_template("change.html", color=color, theme=users.current["theme"], name=name, version=version)
 
 @app.route("/shell")
 @web.authenticated
 def shell():
     color = users.current["color"]
     name = web.auth.name
-    return render_template("shell.html", color=color, name=name)
+    return render_template("shell.html", color=color, theme=users.current["theme"], name=name)
 
 @app.route("/games")
 @web.authenticated
 def games():
     color = users.current["color"]
     name = web.auth.name
-    return render_template("game.html", color=color, name=name, version=version)
+    return render_template("game.html", color=color, theme=users.current["theme"], name=name, version=version)
 
 
 @app.route("/color", methods=["GET", "POST"])
@@ -387,9 +402,19 @@ def color():
         users.current["color"] = [color_1,color_2]
         return redirect("/home")
     else:
-        return render_template("make_color.html", color=color, name=name, version=version)
+        return render_template("make_color.html", color=color, theme=users.current["theme"], name=name, version=version)
 
-
+@app.route("/theme", methods=["GET", "POST"])
+@web.authenticated
+def theme():
+    color = users.current["color"]
+    name = web.auth.name
+    if request.method == "POST":
+        theme = request.form["theme_list"]
+        users.current["theme"] = theme
+        return redirect("/home")
+    else:
+        return render_template("theme.html", color=color, theme=users.current["theme"], name=name, version=version)
 
 
 web.run(app, port=8080, debug=True)

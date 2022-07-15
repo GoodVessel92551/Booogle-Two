@@ -33,10 +33,26 @@
             users = {{users|tojson}};
             color = {{color|tojson}};
             online = {{online|tojson}};
+            theme = {{theme|tojson}};
+            var r = document.querySelector(":root")
+            if (theme == "dark"){
+                r.style.setProperty("--border","#1a1a1a")
+                r.style.setProperty("--light","#fff")
+                r.style.setProperty("--dark","#242424")
+                r.style.setProperty("--backborder","#292929")
+                r.style.setProperty("--back","#202124")
+            }
+            else if (theme == "light"){
+                r.style.setProperty("--border","#d4d4d4")
+                r.style.setProperty("--light","#242424")
+                r.style.setProperty("--dark","#242424")
+                r.style.setProperty("--backborder","#f2f2f2")
+                r.style.setProperty("--back","#fff")
+            }
             var which_y_n = true
             console.log(online)
+            online = online.reverse()
             document.getElementById("theme").content=color[0]
-            var r = document.querySelector(":root")
             r.style.setProperty("--color",color[0])
             r.style.setProperty("--color2",color[1])
             document.getElementById("name").innerText = name;
@@ -50,13 +66,13 @@
                 }
             }
             function online_print() {
-                online = online.reverse()
                 document.getElementById("users").innerHTML = ""
                 document.getElementById("last_online_but").innerText = "All Users"
                 for (let i = 0;i<online.length;i++){
                     var user = document.getElementById("users").innerHTML
                     console.log(online[i])
-                    document.getElementById("users").innerHTML = user+"<li>"+online[i]+"</li>"
+                    document.getElementById("users").innerHTML = user+"<li>"+online[i+1]+" > "+online[i]+"</li>"
+                    i++
                 }
             }
             function which() {

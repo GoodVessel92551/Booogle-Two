@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en-GB">
     <head>
         <title>Booogle</title>
@@ -10,18 +11,22 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
         <link rel = "icon" href = "{{ url_for('static',filename='toplogo.png')}}" type = "image/x-icon">
-        <link rel="manifest" href="/static/manifest.json">
+        <link rel="manifest" href=/"static/manifest.json">
     </head>
     <body>
-        <input type="image" src="{{url_for('static',filename='logo.png')}}" width="500" height="90" class="logo" onclick="window.open('/time','_self')">
+        <input type="image" src="{{url_for('static',filename='logo.png')}}" width="500" height="90" class="logo" onclick="window.open('/home','_self')">
         <button id="name" class="profile" onclick="window.open('/home','_self')"></button>
             <form class="makebug" method="post">
-                <h2>Pick Time</h2>
-                <p><input class="title" max="24" min="0" type="number" name="hour" list="none" placeholder="Hours" required autofocus></p>
-                <p><input class="title" max="60" min="0" type="number" name="min" list="none" placeholder="Minutes" required></p>
-                 <p><input class="title" max="60" min="0" type="number" name="sec" list="none" placeholder="Seconds" required></p>
-                <p><input class="sumbmitbug" type="submit" value="Submit"></p>
-            </form>
+                <h2>Pick Theme</h2>
+                <select name="theme_list">
+                    <optgroup label="Theme" class="theme">
+                        <option value="system">System Theme</option>
+                        <option value="dark">Dark Theme</option>
+                        <option value="light">Light Theme</option>
+                    </optgroup>
+                </select>
+                <p><input class="sumbitbug" type="submit" value="Submit">
+            </form> 
 		<footer>
 			<div id="version" class="version" onclick="window.open('/changelog','_self')"></div>
 		</footer>
