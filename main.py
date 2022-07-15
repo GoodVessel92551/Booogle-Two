@@ -410,7 +410,7 @@ def theme():
     color = users.current["color"]
     name = web.auth.name
     if request.method == "POST":
-        theme = request.form["theme_list"]
+        theme = request.form["theme"]
         users.current["theme"] = theme
         return redirect("/home")
     else:
