@@ -18,7 +18,6 @@
         <h2 class="name" id="hi"></h2>
 		<div class="data">
             <a id="usershover" href="/admin/users" class="data2">Users<br><br><br><br><br><br><b class="datatext" id="users"></b><p id="trend"></p></a>
-            <a class="data2">Views<br><br><br><br><br><br><b class="datatext" id="views"></b><p id="trend2"></p></a>
             <a class="data2">Theme Changes<br><br><br><br><br><br><b class="datatext" id="themes"></b><p id="trend2"></p></a>
             <a id="usershover" href="/admin/suggestions/feedback/get" class="data2">Feedback<br><br><br><br><br><br><b class="datatext" id="feedback"></b><p id="trend"></p></a>
             <a id="usershover" href="/admin/suggestions/bugs/get" class="data2">Bugs<br><br><br><br><br><br><b class="datatext" id="bugs"></b><p id="trend"></p></a>
@@ -60,7 +59,7 @@
             r.style.setProperty("--color2",color[1])
             document.getElementById("name").innerText = name;
             document.getElementById("hi").innerText = "Hi, "+name+"!";
-            document.getElementById("views").innerText = views;
+            //document.getElementById("views").innerText = views;
             document.getElementById("users").innerText = users;
             document.getElementById("feedback").innerText = feed
             document.getElementById("bugs").innerText = bug

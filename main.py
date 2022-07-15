@@ -350,7 +350,7 @@ def countdown_make():
                 time.append(sec)
                 print(time)
                 users.current["time"]=time
-                return redirect("/time/countdown")
+                return redirect("/time/countdown-timer")
     else:
         return render_template("makecoutdown.html", color=color, theme=users.current["theme"], name=name, version=version)
 
