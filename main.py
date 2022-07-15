@@ -5,7 +5,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 users = web.UserStore()
-version = "1.4.3"
+version = "1.5"
 
 @app.route("/")
 def index():
@@ -43,7 +43,6 @@ def home():
         names.append(name)
         db["names"] = names
     else:
-        print(online)
         if name in online:
             for i in range(len(online)):
                 if online[i] == name:
@@ -98,6 +97,7 @@ def analytics():
     views = db["vists"]
     bug = db["Bug"]
     feed = db["Feed"]
+    theme_count = db["theme_count"]
     bug = len(bug) / 3
     feed = len(feed) / 3
     user = len(user)
@@ -105,7 +105,7 @@ def analytics():
         db["names2"] = user
         db["vists2"] = views
         color = users.current["color"]
-        return render_template("analytics.html", color=color, theme=users.current["theme"],name=name,users=user,views=views,bug=bug,feed=feed, version=version)
+        return render_template("analytics.html", color=color, theme=users.current["theme"],name=name,users=user,views=views,bug=bug,feed=feed, version=version, theme_count=theme_count)
     else:
         return render_template("no.html")
 
@@ -412,6 +412,8 @@ def theme():
     if request.method == "POST":
         theme = request.form["theme"]
         users.current["theme"] = theme
+        if name != "GoodVessel92551":
+            db["theme_count"] += 1
         return redirect("/home")
     else:
         return render_template("theme.html", color=color, theme=users.current["theme"], name=name, version=version)

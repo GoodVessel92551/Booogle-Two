@@ -91,13 +91,13 @@ body{
 
 @media (max-width: 520px){
     .logo{
-        width:400;
+        width:400px;
         height:auto;
     }
 }
 @media (max-width: 420px){
     .logo{
-        width:300;
+        width:300px;
         height:auto;
     }
 }
