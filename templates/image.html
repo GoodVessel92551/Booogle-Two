@@ -16,15 +16,16 @@
         <input type="image" src="{{url_for('static',filename='logo.png')}}" width="500" height="90" class="logo" onclick="window.open('/time','_self')">
         <button id="name" class="profile" onclick="window.open('/home','_self')"></button>
         <div class="backgroundpick_box">
-            <input type="image" class="backgroundpick" src="/static/background/bush.jpg">
-            <input type="image" class="backgroundpick" src="/static/background/flower.jpg">
-            <input type="image" class="backgroundpick" src="/static/background/flowers.jpg">
-            <input type="image" class="backgroundpick" src="/static/background/grass.jpg">
-            <input type="image" class="backgroundpick" src="/static/background/leaf.jpg">
-            <input type="image" class="backgroundpick" src="/static/background/wall.jpg">
-            <input type="image" class="backgroundpick" src="/static/background/wall2.jpg">
-            <input type="image" class="backgroundpick" src="/static/background/water.jpg">
+            <form method="post" action="/background/bush"><input type="submit" value="" class="backgroundpick bush"></form>
+            <form method="post" action="/background/flower"><input type="submit" value="" class="backgroundpick flower"></form>
+            <form method="post" action="/background/flowers"><input type="submit" value="" class="backgroundpick flowers"></form>
+            <form method="post" action="/background/grass"><input type="submit" value="" class="backgroundpick grass"></form>
+            <form method="post" action="/background/leaf"><input type="submit" value="" class="backgroundpick leaf"></form>
+            <form method="post" action="/background/wall"><input type="submit" value="" class="backgroundpick wall"></form>
+            <form method="post" action="/background/wall2"><input type="submit" value="" class="backgroundpick wall2"></form>
+            <form method="post" action="/background/water"><input type="submit" value="" class="backgroundpick water"></form>
 		</div>
+        <input type="text" name="photo" value="none" id="photo" class="hidden">
         <footer>
 			<div id="version" class="version" onclick="window.open('/changelog','_self')"></div>
 		</footer>
@@ -34,6 +35,7 @@
             color = {{color|tojson}};
             theme = {{theme|tojson}};
             var r = document.querySelector(":root")
+            var photo = document.getElementById("photo")
             if (theme == "dark"){
                 r.style.setProperty("--border","#1a1a1a")
                 r.style.setProperty("--light","#fff")
@@ -53,6 +55,10 @@
             r.style.setProperty("--color2",color[1])
             document.getElementById("version").innerText = "Version "+version
             document.getElementById("name").innerText = name
+            function pick(a) {
+                console.log(a)
+                photo.value = a
+            }
         </script>
         <script src="/static/app.js"></script>
     </body>

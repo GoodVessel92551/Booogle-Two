@@ -35,6 +35,10 @@ def home():
         color = users.current["color"]
     except:
         users.current["color"] = ["#ff6600","#a8531a"]
+    try:
+        users.current["photo"]
+    except:
+        users.current["photo"] = "none"
     if users.current["color"] == "" or users.current["color"] == ["#f6600","#a8531a"]:
         users.current["color"] = ["#ff6600","#a8531a"]
     if name not in names:
@@ -55,7 +59,7 @@ def home():
         online.append(now)
         db["online"] = online
     color = users.current["color"]
-    return render_template("home.html", name=name, version=version, color=color, theme=users.current["theme"])
+    return render_template("home.html", name=name, version=version, color=color, theme=users.current["theme"], photo=users.current["photo"])
 
 
 @app.route("/admin")
@@ -418,11 +422,66 @@ def theme():
     else:
         return render_template("theme.html", color=color, theme=users.current["theme"], name=name, version=version)
 
-@app.route("/backgound")
+@app.route("/background")
 @web.authenticated
 def background():
     color = users.current["color"]
     name = web.auth.name
     return render_template("image.html", color=color, theme=users.current["theme"], name=name,version=version)
 
+@app.route("/background/bush", methods=["GET", "POST"])
+@web.authenticated
+def bush():
+    if request.method == "POST":
+        users.current["photo"] = "bush.jpg"
+    return redirect("/home")
+
+@app.route("/background/flower", methods=["GET", "POST"])
+@web.authenticated
+def flower():
+    if request.method == "POST":
+        users.current["photo"] = "flower.jpg"
+    return redirect("/home")
+
+@app.route("/background/flowers", methods=["GET", "POST"])
+@web.authenticated
+def flowers():
+    if request.method == "POST":
+        users.current["photo"] = "flowers.jpg"
+    return redirect("/home")
+
+@app.route("/background/leaf", methods=["GET", "POST"])
+@web.authenticated
+def leaf():
+    if request.method == "POST":
+        users.current["photo"] = "leaf.jpg"
+    return redirect("/home")
+
+@app.route("/background/grass", methods=["GET", "POST"])
+@web.authenticated
+def grass():
+    if request.method == "POST":
+        users.current["photo"] = "bugrasssh.jpg"
+    return redirect("/home")
+
+@app.route("/background/wall", methods=["GET", "POST"])
+@web.authenticated
+def wall():
+    if request.method == "POST":
+        users.current["photo"] = "wall.jpg"
+    return redirect("/home")
+
+@app.route("/background/wall1", methods=["GET", "POST"])
+@web.authenticated
+def wall1():
+    if request.method == "POST":
+        users.current["photo"] = "wall1.jpg"
+    return redirect("/home")
+
+@app.route("/background/water", methods=["GET", "POST"])
+@web.authenticated
+def water():
+    if request.method == "POST":
+        users.current["photo"] = "water.jpg"
+    return redirect("/home")
 web.run(app, port=8080, debug=True)

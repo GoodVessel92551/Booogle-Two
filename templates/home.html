@@ -40,6 +40,8 @@
             version = {{version|tojson}};
             color = {{color|tojson}};
             theme = {{theme|tojson}};
+            photo = {{photo|tojson}};
+            console.log(photo)
             var j = true
             var r = document.querySelector(":root")
             if (theme == "dark"){
@@ -63,7 +65,7 @@
             r.style.setProperty("--color2",color[1])
             if (name === "GoodVessel92551"){
                 document.getElementById("admin").style.display = "block"
-                document.querySelector("body").style.setProperty("background-image","url(/static/background/wall.jpg)")
+                document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+")")
             }
             function show() {
                 if (j == true){
