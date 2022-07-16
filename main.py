@@ -418,5 +418,11 @@ def theme():
     else:
         return render_template("theme.html", color=color, theme=users.current["theme"], name=name, version=version)
 
+@app.route("/backgound")
+@web.authenticated
+def background():
+    color = users.current["color"]
+    name = web.auth.name
+    return render_template("image.html", color=color, theme=users.current["theme"], name=name,version=version)
 
 web.run(app, port=8080, debug=True)
