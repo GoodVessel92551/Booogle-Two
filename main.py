@@ -5,7 +5,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 users = web.UserStore()
-version = "1.5"
+version = "1.5.3"
 
 @app.route("/")
 def index():
@@ -370,7 +370,7 @@ def stopwatch():
 def time_home():
     color = users.current["color"]
     name = web.auth.name
-    return render_template("time_home.html", color=color, theme=users.current["theme"], name=name, version=version)
+    return render_template("time_home.html", name=name, version=version, color=color, theme=users.current["theme"], photo=users.current["photo"])
     
 @app.route("/changelog")
 @web.authenticated
@@ -429,53 +429,12 @@ def background():
     name = web.auth.name
     return render_template("image.html", color=color, theme=users.current["theme"], name=name,version=version)
 
-@app.route("/background/bush", methods=["GET", "POST"])
+@app.route("/background/pick", methods=["GET", "POST"])
 @web.authenticated
-def bush():
+def pick():
     if request.method == "POST":
-        users.current["photo"] = "bush.jpg"
-    return redirect("/home")
-
-@app.route("/background/flower", methods=["GET", "POST"])
-@web.authenticated
-def flower():
-    if request.method == "POST":
-        users.current["photo"] = "flower.jpg"
-    return redirect("/home")
-
-@app.route("/background/flowers", methods=["GET", "POST"])
-@web.authenticated
-def flowers():
-    if request.method == "POST":
-        users.current["photo"] = "flowers.jpg"
-    return redirect("/home")
-
-@app.route("/background/leaf", methods=["GET", "POST"])
-@web.authenticated
-def leaf():
-    if request.method == "POST":
-        users.current["photo"] = "leaf.jpg"
-    return redirect("/home")
-
-@app.route("/background/grass", methods=["GET", "POST"])
-@web.authenticated
-def grass():
-    if request.method == "POST":
-        users.current["photo"] = "bugrasssh.jpg"
-    return redirect("/home")
-
-@app.route("/background/wall", methods=["GET", "POST"])
-@web.authenticated
-def wall():
-    if request.method == "POST":
-        users.current["photo"] = "wall.jpg"
-    return redirect("/home")
-
-@app.route("/background/wall1", methods=["GET", "POST"])
-@web.authenticated
-def wall1():
-    if request.method == "POST":
-        users.current["photo"] = "wall1.jpg"
+        url = request.full_path
+        users.current["photo"]=url[17:]
     return redirect("/home")
 
 @app.route("/background/water", methods=["GET", "POST"])

@@ -30,6 +30,7 @@
             <input type="image" id="suggest1" src="{{url_for('static',filename='feedback.png')}}" width="20" height="20" class="suggest2 hide" onclick="window.open('/feedback','_self')">
             <input type="image" id="suggest2" src="{{url_for('static',filename='color.png')}}" width="20" height="20" class="suggest2 hide" onclick="window.open('/color','_self')">
             <input type="image" id="suggest3" src="{{url_for('static',filename='darkandlight.png')}}" width="20" height="20" class="suggest2 hide" onclick="window.open('/theme','_self')">
+            <input type="image" id="suggest4" src="{{url_for('static',filename='background.png')}}" width="20" height="20" class="suggest2 hide" onclick="window.open('/background','_self')">
             <input type="image" src="{{url_for('static',filename='settings2.png')}}" width="20" height="20" class="suggest2 settings" onclick="show()">
         </div>
 		<footer>
@@ -63,9 +64,9 @@
             document.getElementById("theme").content=color[0]
             r.style.setProperty("--color",color[0])
             r.style.setProperty("--color2",color[1])
+            document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
             if (name === "GoodVessel92551"){
                 document.getElementById("admin").style.display = "block"
-                document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+")")
             }
             function show() {
                 if (j == true){
@@ -76,14 +77,14 @@
                         console.log(i)
                         document.getElementById("suggest"+i).style.display = "inline"
                         i++
-                        if(i >= 4){
+                        if(i >= 5){
                             clearInterval(time)
                         }
                     }
                 }
                 else{
                     const time2 = setInterval(hide, 200);
-                    var i = 3
+                    var i = 4
                     j=true
                     function hide() {
                         console.log(i)

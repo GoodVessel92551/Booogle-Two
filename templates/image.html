@@ -16,14 +16,26 @@
         <input type="image" src="{{url_for('static',filename='logo.png')}}" width="500" height="90" class="logo" onclick="window.open('/time','_self')">
         <button id="name" class="profile" onclick="window.open('/home','_self')"></button>
         <div class="backgroundpick_box">
-            <form method="post" action="/background/bush"><input type="submit" value="" class="backgroundpick bush"></form>
-            <form method="post" action="/background/flower"><input type="submit" value="" class="backgroundpick flower"></form>
-            <form method="post" action="/background/flowers"><input type="submit" value="" class="backgroundpick flowers"></form>
-            <form method="post" action="/background/grass"><input type="submit" value="" class="backgroundpick grass"></form>
-            <form method="post" action="/background/leaf"><input type="submit" value="" class="backgroundpick leaf"></form>
-            <form method="post" action="/background/wall"><input type="submit" value="" class="backgroundpick wall"></form>
-            <form method="post" action="/background/wall2"><input type="submit" value="" class="backgroundpick wall2"></form>
-            <form method="post" action="/background/water"><input type="submit" value="" class="backgroundpick water"></form>
+            <form method="post" action="/background/pick?bush"><input type="submit" value="" class="backgroundpick" style="background-image: url(/static/background_low/bush.jpg);"></form>
+            <form method="post" action="/background/pick?flower"><input type="submit" value="" class="backgroundpick" style="background-image: url(/static/background_low/flower.jpg);"></form>
+            <form method="post" action="/background/pick?flowers"><input type="submit" value="" class="backgroundpick" style="background-image: url(/static/background_low/flowers.jpg);"></form>
+            <form method="post" action="/background/pick?grass"><input type="submit" value="" class="backgroundpick" style="background-image: url(/static/background_low/grass.jpg);"></form>
+            <form method="post" action="/background/pick?leaf"><input type="submit" value="" class="backgroundpick" style="background-image: url(/static/background_low/leaf.jpg);"></form>
+            <form method="post" action="/background/pick?wall"><input type="submit" value="" class="backgroundpick" style="background-image: url(/static/background_low/wall.jpg);"></form>
+            <form method="post" action="/background/pick?wall2"><input type="submit" value="" class="backgroundpick" style="background-image: url(/static/background_low/wall2.jpg);"></form>
+            <form method="post" action="/background/pick?water"><input type="submit" value="" class="backgroundpick" style="background-image: url(/static/background_low/water.jpg);"></form>
+            <form method="post" action="/background/pick?fern"><input type="submit" value="" class="backgroundpick" style="background-image: url(/static/background_low/fern.jpg);"></form>
+            <form method="post" action="/background/pick?fern2"><input type="submit" value="" class="backgroundpick" style="background-image: url(/static/background_low/fern2.jpg);"></form>
+            <form method="post" action="/background/pick?fern3"><input type="submit" value="" class="backgroundpick" style="background-image: url(/static/background_low/fern3.jpg);"></form>
+            <form method="post" action="/background/pick?flower2"><input type="submit" value="" class="backgroundpick" style="background-image: url(/static/background_low/flower2.jpg);"></form>
+            <form method="post" action="/background/pick?flower3"><input type="submit" value="" class="backgroundpick" style="background-image: url(/static/background_low/flower3.jpg);"></form>
+            <form method="post" action="/background/pick?flower4"><input type="submit" value="" class="backgroundpick" style="background-image: url(/static/background_low/flower4.jpg);"></form>
+            <form method="post" action="/background/pick?flower5"><input type="submit" value="" class="backgroundpick" style="background-image: url(/static/background_low/flower5.jpg);"></form>
+            <form method="post" action="/background/pick?flower6"><input type="submit" value="" class="backgroundpick" style="background-image: url(/static/background_low/flower6.jpg);"></form>
+            <form method="post" action="/background/pick?flowers2"><input type="submit" value="" class="backgroundpick" style="background-image: url(/static/background_low/flowers2.jpg);"></form>
+            <form method="post" action="/background/pick?leaf2"><input type="submit" value="" class="backgroundpick" style="background-image: url(/static/background_low/leaf2.jpg);"></form>
+            <form method="post" action="/background/pick?rock"><input type="submit" value="" class="backgroundpick" style="background-image: url(/static/background_low/rock.jpg);"></form>
+            <form method="post" action="/background/pick?waterfall"><input type="submit" value="" class="backgroundpick" style="background-image: url(/static/background_low/waterfall.jpg);"></form>
 		</div>
         <input type="text" name="photo" value="none" id="photo" class="hidden">
         <footer>

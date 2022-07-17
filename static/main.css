@@ -26,7 +26,7 @@
 body{
     height:auto;
     background-color:var(--back);
-    background-image: url(none);
+    background-image: none;
     background-position:center;
     background-repeat:no-repeat;
     background-size:cover;
@@ -54,7 +54,7 @@ body{
 }
 
 .replit-auth-button:hover{
-    opacity:.8;
+    filter: brightness(85%);
 }
 .profile{
     margin:20px;
@@ -78,7 +78,7 @@ body{
     background-color: var(--color);
 }
 .profile:hover{
-    opacity:.8;
+    filter: brightness(85%);
 }
 
 .logo{
@@ -106,7 +106,7 @@ body{
     }
 }
 .logo:hover{
-    opacity:.8;
+    filter: brightness(85%);
 }
 .user_list{
     text-align:center;
@@ -162,7 +162,7 @@ body{
 
 #usershover:hover{
 	border: 2px solid var(--color);
-    opacity:.8;
+    filter: brightness(85%);
 }
 
 .booogle_users{
@@ -189,7 +189,7 @@ body{
 }
 .last_online:hover{
     border: 2px solid var(--color);
-    opacity:.8;
+    filter: brightness(85%);
 }
 
 .datatext{
@@ -243,7 +243,7 @@ body{
 }
 
 .home a:hover{
-    opacity:.8;
+    filter: brightness(85%);
 }
 
 @media (max-width: 1300px) {
@@ -328,7 +328,7 @@ body{
 }
 
 .feedback a:hover{
-    opacity:.8;
+    filter: brightness(85%);
 }
 
 .bugs{
@@ -355,7 +355,7 @@ body{
 }
 
 .bug_yes_no:hover{
-    opacity:.8;
+    filter: brightness(85%);
 }
 
 .bug_no{
@@ -483,7 +483,7 @@ body{
 }
 
 .sumbmitbug:hover{
-    opacity:.8;
+    filter: brightness(85%);
 }
 
 .mode{
@@ -596,7 +596,7 @@ body{
 }
 
 .suggest:hover{
-    opacity:.8;
+    filter: brightness(85%);
 }
 
 .suggest2_box{
@@ -617,7 +617,7 @@ body{
 }
 
 .suggest2:hover{
-    opacity: .8;
+    filter: brightness(85%);
 }
 
 .hidden{
@@ -698,7 +698,7 @@ body{
     border:2px solid var(--color);
 }
 .sumbmitnum:active{
-    opacity: 0.8;
+    filter: brightness(85%);
     border:2px solid var(--color2);
 }
 @media (max-width: 500px){
@@ -819,7 +819,7 @@ body{
 }
 
 .but1:active{
-    opacity: 0.8;
+    filter: brightness(85%);
 }
 .but2{
     color:var(--dark);
@@ -838,7 +838,7 @@ body{
     border:2px solid var(--back);
 }
 .but2:active{
-    opacity: 0.8;
+    filter: brightness(85%);
 }
 .but3{
     cursor: pointer;
@@ -857,7 +857,7 @@ body{
     border:2px solid #var(--back);
 }
 .but3:active{
-    opacity: 0.8;
+    filter: brightness(85%);
 }
 @media (max-width: 550px){
     .but1{
@@ -909,10 +909,10 @@ body{
 }
 
 .add:hover{
-    opacity: .8;
+    filter: brightness(85%);
 }
 .add2:hover{
-    opacity: .8;
+    filter: brightness(85%);
 }
 
 
@@ -1109,7 +1109,7 @@ body{
 }
 
 .colorbut:hover{
-    opacity:.8;
+    filter: brightness(85%);
 }
 
 .start{
@@ -1164,7 +1164,7 @@ body{
     border-radius: 5px;
 }
 .theme:hover{
-    opacity:.8;
+    filter: brightness(85%);
     border:2px solid var(--color)
 }
 
@@ -1204,26 +1204,26 @@ body{
 }
 
 .bush{
-    background-image: url(/static/background/bush.jpg);
+    background-image: url(/static/background_low/bush.jpg);
 }
 .flower{
-    background-image: url(/static/background/flower.jpg);
+    background-image: url(/static/background_low/flower.jpg);
 }
 .flowers{
-    background-image: url(/static/background/flowers.jpg);
+    background-image: url(/static/background_low/flowers.jpg);
 }
 .grass{
-    background-image: url(/static/background/grass.jpg);
+    background-image: url(/static/background_low/grass.jpg);
 }
 .leaf{
-    background-image: url(/static/background/leaf.jpg);
+    background-image: url(/static/background_low/leaf.jpg);
 }
 .wall{
-    background-image: url(/static/background/wall.jpg);
+    background-image: url(/static/background_low/wall.jpg);
 }
 .wall2{
-    background-image: url(/static/background/wall2.jpg);
+    background-image: url(/static/background_low/wall2.jpg);
 }
 .water{
-    background-image: url(/static/background/water.jpg);
+    background-image: url(/static/background_low/water.jpg);
 }
