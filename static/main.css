@@ -24,7 +24,10 @@
     }
 }
 body{
-    height:auto;
+    outline:none;
+    border:none;
+    margin:none;
+    padding:none;
     background-color:var(--back);
     background-image: none;
     background-position:center;
@@ -35,6 +38,7 @@ body{
     color:var(--light);
     transition: background 1s;
 }
+
 .replit-auth-button{
     color: var(--back);
     background-color: var(--light);
@@ -247,9 +251,12 @@ body{
 }
 
 @media (max-width: 1300px) {
-  .home {
-    flex-direction: column;
-  }
+    .home {
+        flex-direction: column;
+    }
+    body{
+        background-image:none;
+    }
 }
 @media (max-width: 1040px) {
   .profile {
@@ -1194,7 +1201,7 @@ body{
     cursor:pointer;
     width:400px;
     height:185px;
-    background-color:var(--back);
+    background-color:var(--backborder);
     background-position:center;
     background-repeat:no-repeat;
     background-size:cover;
@@ -1203,27 +1210,123 @@ body{
     border:2px solid var(--color)
 }
 
-.bush{
-    background-image: url(/static/background_low/bush.jpg);
+.weather{
+    border-radius:10px;
+    position:absolute;
+    top:200px;
+    height:300px;
+    width:500px;
+    background-color:var(--backborder);
+    border:2px solid var(--border);
+    left: 50%;
+    -ms-transform: translate(-50%, 0%);
+    transform: translate(-50%, 0%);  
+    padding:10px;
 }
-.flower{
-    background-image: url(/static/background_low/flower.jpg);
+
+#temp{
+    position:absolute;
+    font-size:60;
+    font-weight:800;
+    top:130px;
+    left: 20px;
 }
-.flowers{
-    background-image: url(/static/background_low/flowers.jpg);
+#feel{
+    position:absolute;
+    font-size:20;
+    font-weight:500;
+    top:200px;
+    left: 20px;
 }
-.grass{
-    background-image: url(/static/background_low/grass.jpg);
+#type{
+    position:absolute;
+    font-size:20;
+    font-weight:500;
+    top:95px;
+    left: 20px;
+    text-transform:capitalize;
 }
-.leaf{
-    background-image: url(/static/background_low/leaf.jpg);
+
+#location{
+    position:absolute;
+    font-size:40;
+    font-weight:700;
+    top:50px;
+    left: 20px;
 }
-.wall{
-    background-image: url(/static/background_low/wall.jpg);
+
+#humid{
+    position:absolute;
+    font-size:30;
+    font-weight:600;
+    top:150px;
+    left: 220px;
 }
-.wall2{
-    background-image: url(/static/background_low/wall2.jpg);
+
+#min{
+    position:absolute;
+    font-size:15;
+    font-weight:400;
+    bottom:40px;
+    left: 20px;
 }
-.water{
-    background-image: url(/static/background_low/water.jpg);
+#max{
+    position:absolute;
+    font-size:15;
+    font-weight:400;
+    bottom:40px;
+    left: 90px;
+}
+
+#link{
+    position:absolute;
+    top:35px;
+    left: 220px;
+}
+
+#speed{
+    position:absolute;
+    font-size:15;
+    font-weight:400;
+    top:200px;
+    left: 220px;
+}
+#deg{
+    position:absolute;
+    font-size:15;
+    font-weight:400;
+    top:220px;
+    left: 220px;
+}
+
+#city{
+    color:var(--light);
+    height:30px;
+    width:400px;
+    border-radius:5px;
+    background:var(--backborder);
+    border:2px solid var(--border);
+    transition:.2s all;
+}
+#city:hover,#subcity:hover{
+    border:2px solid var(--color);
+}
+#city:focus{
+    outline:none;
+    border:2px solid var(--color2);
+}
+
+#subcity{
+    cursor:pointer;
+    color:var(--light);
+    height:30px;
+    width:80px;
+    border-radius:5px;
+    background:var(--backborder);
+    border:2px solid var(--border);
+    transition:.2s all;
+}
+
+#error{
+    color:var(--light)
 }

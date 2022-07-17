@@ -13,8 +13,9 @@
         <link rel="manifest" href="/static/manifest.json">
     </head>
     <body>
-        <input type="image" src="{{url_for('static',filename='logo.png')}}" width="500" height="90" class="logo" onclick="window.open('/time','_self')">
+        <input type="image" src="{{url_for('static',filename='logo.png')}}" width="500" height="90" class="logo" onclick="window.open('/home','_self')">
         <button id="name" class="profile" onclick="window.open('/home','_self')"></button>
+        <h2 class="name">Pick A Image</h2>
         <div class="backgroundpick_box">
             <form method="post" action="/background/pick?bush"><input type="submit" value="" class="backgroundpick" style="background-image: url(/static/background_low/bush.jpg);"></form>
             <form method="post" action="/background/pick?flower"><input type="submit" value="" class="backgroundpick" style="background-image: url(/static/background_low/flower.jpg);"></form>

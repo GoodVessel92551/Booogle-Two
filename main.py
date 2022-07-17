@@ -2,21 +2,21 @@ from better_profanity import profanity
 from flask import Flask, render_template, redirect, request, current_app
 from replit import web, db
 from datetime import datetime
+import os,json,requests
 
 app = Flask(__name__)
 users = web.UserStore()
-version = "1.5.3"
+version = "1.6"
+apikey = os.environ["API"]
+base_url = "http://api.openweathermap.org/data/2.5/weather?"
 
 @app.route("/")
 def index():
-    vists = db["vists"]
     name = web.auth.name
     if name != "":
-        if name != "GoodVessel92551":
-            db["vists"] = vists + 1
         return redirect("/home")
+            
     else:
-        db["vists"] = vists + 1
         return render_template("index.html", version=version)
     
 
@@ -25,6 +25,9 @@ def index():
 @web.authenticated
 def home():
     name = web.auth.name
+    vists = db["vists"]
+    if name != "GoodVessel92551":
+        db["vists"] = vists + 1
     names = db["names"]
     online = db["online"]
     try:
@@ -443,4 +446,49 @@ def water():
     if request.method == "POST":
         users.current["photo"] = "water.jpg"
     return redirect("/home")
+
+@app.route("/weather", methods=["GET", "POST"])
+@web.authenticated
+def weather():
+    if request.method == "POST":
+        users.current["city"] = request.form["city"]
+    try:
+        users.current["city"]
+    except:
+        users.current["city"] = "London"
+    weather_list=[]
+    city = users.current["city"]
+    url = base_url + "&units=metric&appid=" + apikey + "&q=" + city
+    response = requests.get(url)
+    data = json.loads(response.text)
+    if data["cod"] == 200:
+        main = data["main"]
+        name = data["name"]
+        wind = data["wind"]
+        weather = data["weather"]
+        type = weather[0]["description"]
+        icon = weather[0]["icon"]
+        temp = int(main["temp"])
+        feel = int(main["feels_like"])
+        min = int(main["temp_min"])
+        max = int(main["temp_max"])
+        humid = int(main["humidity"])
+        speed = int(wind["speed"])
+        deg = int(wind["deg"])
+        weather_list.append(type)
+        weather_list.append(temp)
+        weather_list.append(feel)
+        weather_list.append(min)
+        weather_list.append(max)
+        weather_list.append(humid)
+        weather_list.append(name)
+        weather_list.append(speed)
+        weather_list.append(icon)
+        weather_list.append(deg)
+    else:
+        users.current["city"] = "london"
+        return render_template("error.html", error="City dose not exsist")
+    color = users.current["color"]
+    name = web.auth.name
+    return render_template("weather.html", color=color, theme=users.current["theme"], name=name,version=version, weather=weather_list, photo=users.current["photo"])
 web.run(app, port=8080, debug=True)

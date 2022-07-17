@@ -42,6 +42,7 @@
             console.log(photo)
             var j = true
             var r = document.querySelector(":root")
+            window.addEventListener('resize', size);
             if (theme == "dark"){
                 r.style.setProperty("--border","#1a1a1a")
                 r.style.setProperty("--light","#fff")
@@ -61,7 +62,18 @@
             document.getElementById("theme").content=color[0]
             r.style.setProperty("--color",color[0])
             r.style.setProperty("--color2",color[1])
-            document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
+            if (window.innerWidth >= "1300"){
+                document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
+            }
+            function size() {
+                console.log(window.innerWidth)
+                if (window.innerWidth <= "1300"){
+                    document.querySelector("body").style.setProperty("background-image","none")
+                }else{
+                    document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
+                }
+            }
+        
             function show() {
                 if (j == true){
                     const time = setInterval(set, 200);
