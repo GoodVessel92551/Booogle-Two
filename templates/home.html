@@ -21,8 +21,8 @@
             <a href="/tasks"><input type="image" src="{{url_for('static',filename='task2.png')}}" width="200" height="200"></a>
             <a href="/number"><input type="image" src="{{url_for('static',filename='number2.png')}}" width="200" height="200"></a>
             <a href="/games"><input type="image" src="{{url_for('static',filename='game.png')}}" width="200" height="200"></a>
+            <a id="weather" class="hidden" href="/weather"><input type="image" src="{{url_for('static',filename='weather.png')}}" width="200" height="200"></a>
             <a id="admin" class="hidden" href="/admin"><input type="image" src="{{url_for('static',filename='admin2.png')}}" width="200" height="200"></a>
-        
         
         </div>
         <div class="suggest2_box">
@@ -65,12 +65,15 @@
             document.getElementById("theme").content=color[0]
             r.style.setProperty("--color",color[0])
             r.style.setProperty("--color2",color[1])
-            if (window.innerWidth >= "1300"){
+            var av_height = screen.availHeight
+            var scoll_height = document.body.scrollHeight
+            if (av_height-scoll_height > 0){
                 document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
             }
             function size() {
-                console.log(window.innerWidth)
-                if (window.innerWidth <= "1300"){
+                var av_height = screen.availHeight
+                var scoll_height = document.body.scrollHeight
+                if (av_height-scoll_height < 0){
                     document.querySelector("body").style.setProperty("background-image","none")
                 }else{
                     document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
@@ -78,6 +81,7 @@
             }
             if (name === "GoodVessel92551"){
                 document.getElementById("admin").style.display = "block"
+                document.getElementById("weather").style.display = "block"
             }
         
             function show() {
