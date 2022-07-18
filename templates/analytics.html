@@ -15,7 +15,7 @@
     <body>
         <input type="image" src="{{url_for('static',filename='admin.png')}}" width="500" height="90" class="logo" onclick="window.open('/home','_self')">
         <button id="name" class="profile" onclick="window.open('/home','_self')"></button>
-        <h2 class="name" id="hi"></h2>
+        <h2 class="name textback" id="hi"></h2>
 		<div class="data">
             <a id="usershover" href="/admin/users" class="data2">Users<br><br><br><br><br><br><b class="datatext" id="users"></b><p id="trend"></p></a>
             <a class="data2">Theme Changes<br><br><br><br><br><br><b class="datatext" id="themes"></b><p id="trend2"></p></a>
@@ -38,6 +38,22 @@
             bug = {{bug|tojson}};
             color = {{color|tojson}};
             theme = {{theme|tojson}};
+            photo = {{photo|tojson}};
+            window.addEventListener('resize', size);
+            var av_height = screen.availHeight
+            var scoll_height = document.body.scrollHeight
+            if (av_height-scoll_height > 0){
+                document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
+            }
+            function size() {
+                var av_height = screen.availHeight
+                var scoll_height = document.body.scrollHeight
+                if (av_height-scoll_height < 0){
+                    document.querySelector("body").style.setProperty("background-image","none")
+                }else{
+                    document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
+                }
+            }
             theme_count = {{theme_count|tojson}};
             var r = document.querySelector(":root")
             if (theme == "dark"){

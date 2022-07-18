@@ -20,102 +20,118 @@
     <input type="image" src="{{url_for('static',filename='logo.png')}}" width="500" height="90" class="logo" onclick="window.open('/time','_self')">
     <button id="name" class="profile" onclick="window.open('/home','_self')"></button>
     <div class="time2" id="time2">
-    <b class="time" id="time"></b>
+    <b class="time textback" id="time"></b>
     </div>
     <div class="suggest2_box">
         <input type="image" src="/static/fullscreen.png" width="20" height="20" class="suggest2" onclick="full()">
     </div>
         <div id="lap" class="laps">
-            <h2>Laps</h2>
+            <h2 class="textback">Laps</h2>
         </div>
 		<footer>
 			<div id="version" class="version" onclick="window.open('/changelog','_self')"></div>
 		</footer>
-    <script>
-        var full2 = false
-        function full() {
-            if (full2 != true){
-                document.body.requestFullscreen()
-                full2 = true
+        <script>
+            var full2 = false
+            function full() {
+                if (full2 != true){
+                    document.body.requestFullscreen()
+                    full2 = true
+                }
+                else{
+                    console.log("exit")
+                    document.exitFullscreen()
+                    full2 = false
+                }
             }
-            else{
-                console.log("exit")
-                document.exitFullscreen()
-                full2 = false
+            name = {{name|tojson}};
+            version = {{version|tojson}};
+            color = {{color|tojson}};
+            theme = {{theme|tojson}};
+            photo = {{photo|tojson}};
+            window.addEventListener('resize', size);
+            var av_height = screen.availHeight
+            var scoll_height = document.body.scrollHeight
+            if (av_height-scoll_height > 0){
+                document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
             }
-        }
-        name = {{name|tojson}};
-        version = {{version|tojson}};
-        color = {{color|tojson}};
-        theme = {{theme|tojson}};
-        var r = document.querySelector(":root")
-        if (theme == "dark"){
-            r.style.setProperty("--border","#1a1a1a")
-            r.style.setProperty("--light","#fff")
-            r.style.setProperty("--dark","#242424")
-            r.style.setProperty("--backborder","#292929")
-            r.style.setProperty("--back","#202124")
-        }
-        else if (theme == "light"){
-            r.style.setProperty("--border","#d4d4d4")
-            r.style.setProperty("--light","#242424")
-            r.style.setProperty("--dark","#242424")
-            r.style.setProperty("--backborder","#f2f2f2")
-            r.style.setProperty("--back","#fff")
-        }
-        document.getElementById("theme").content=color[0]
-        r.style.setProperty("--color",color[0])
-        r.style.setProperty("--color2",color[1])
-        document.getElementById("version").innerText = "Version "+version
-        time = [0,0,0,0]
-        document.getElementById("name").innerText = name
-        document.getElementById("time").innerText = time[0]+" : "+time[1]+" : "+time[2]+" : "+time[3]
-        document.getElementById("timetitle").innerText = "Time: "+time[0]+" : "+time[1]+" : "+time[2]
-        let id
-        let alarm
-        let start2 = true
-        function start() {
-            if (start2 == true){
-                document.getElementById("start").value = "Stop"
-                id = setInterval(countup, 100)
-                start2 = false
-            }else{
-                stop()
+            function size() {
+                var av_height = screen.availHeight
+                var scoll_height = document.body.scrollHeight
+                if (av_height-scoll_height < 0){
+                    document.querySelector("body").style.setProperty("background-image","none")
+                }else{
+                    document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
+                }
             }
-        }
-        function stop() {
-            document.getElementById("start").value = "Start"
-            start2 = true
-            clearInterval(id)
-        }
-        function countup() {
-            if (time[3] == 9){
-                time[3] = 0
-                time[2] += 1
-                document.getElementById("timetitle").innerText = "Time: "+time[0]+" : "+time[1]+" : "+time[2]
-                document.getElementById("time").innerText = time[0]+" : "+time[1]+" : "+time[2]+" : "+time[3]
+            var r = document.querySelector(":root")
+            if (theme == "dark"){
+                r.style.setProperty("--border","#1a1a1a")
+                r.style.setProperty("--light","#fff")
+                r.style.setProperty("--dark","#242424")
+                r.style.setProperty("--backborder","#292929")
+                r.style.setProperty("--back","#202124")
             }
-            else if (time[2] == 60){
-                
-                time[2] = 0
-                time[1] += 1
+            else if (theme == "light"){
+                r.style.setProperty("--border","#d4d4d4")
+                r.style.setProperty("--light","#242424")
+                r.style.setProperty("--dark","#242424")
+                r.style.setProperty("--backborder","#f2f2f2")
+                r.style.setProperty("--back","#fff")
             }
-            else if (time[1] == 60){
-                time[1] = 0
-                time[0] += 1
-            }else{
-                time[3] += 1
-                document.getElementById("time").innerText = time[0]+" : "+time[1]+" : "+time[2]+" : "+time[3]
+            document.getElementById("theme").content=color[0]
+            r.style.setProperty("--color",color[0])
+            r.style.setProperty("--color2",color[1])
+            document.getElementById("version").innerText = "Version "+version
+            time = [0,0,0,0]
+            document.getElementById("name").innerText = name
+            document.getElementById("time").innerText = time[0]+" : "+time[1]+" : "+time[2]+" : "+time[3]
+            document.getElementById("timetitle").innerText = "Time: "+time[0]+" : "+time[1]+" : "+time[2]
+            let id
+            let alarm
+            let start2 = true
+            function start() {
+                if (start2 == true){
+                    document.getElementById("start").value = "Stop"
+                    id = setInterval(countup, 100)
+                    start2 = false
+                }else{
+                    stop()
+                }
             }
+            function stop() {
+                document.getElementById("start").value = "Start"
+                start2 = true
+                clearInterval(id)
             }
-        function lap() {
-            var gettime = document.getElementById("lap")
-            var lap_it = document.createElement('li')
-            lap_it.innerText = time[0]+" : "+time[1]+" : "+time[2]+" : "+time[3]
-            gettime.appendChild(lap_it)
-        }
+            function countup() {
+                if (time[3] == 9){
+                    time[3] = 0
+                    time[2] += 1
+                    document.getElementById("timetitle").innerText = "Time: "+time[0]+" : "+time[1]+" : "+time[2]
+                    document.getElementById("time").innerText = time[0]+" : "+time[1]+" : "+time[2]+" : "+time[3]
+                }
+                else if (time[2] == 60){
+                    
+                    time[2] = 0
+                    time[1] += 1
+                }
+                else if (time[1] == 60){
+                    time[1] = 0
+                    time[0] += 1
+                }else{
+                    time[3] += 1
+                    document.getElementById("time").innerText = time[0]+" : "+time[1]+" : "+time[2]+" : "+time[3]
+                }
+                }
+            function lap() {
+                var gettime = document.getElementById("lap")
+                var lap_it = document.createElement('li')
+                lap_it.innerText = time[0]+" : "+time[1]+" : "+time[2]+" : "+time[3]
+                gettime.appendChild(lap_it)
+            }
 
-    </script>
+        </script>
 		<script src="/static/app.js"></script>
 </body>
 </html>

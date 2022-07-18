@@ -9,6 +9,8 @@
         --color:#202124;
         --color2:#202124;
         --ccc:#ccc;
+        --tranback: rgba(41, 41, 41,.5);
+        --tranborder:rgba(26, 26, 26,.5);
     }
 }
 @media (prefers-color-scheme: light){
@@ -21,6 +23,8 @@
         --color:#fff;
         --color2:#fff;
         --ccc:#ccc;
+        --tranback: rgba(242, 242, 242,.5);
+        --tranborder:rgba(212, 212, 212,.5);
     }
 }
 body{
@@ -755,7 +759,7 @@ body{
     font-size: 20px;
     font-weight:700;
     position: absolute;
-    right: 0px;
+    right: 60px;
     bottom:0px;
 }
 @media (max-width: 1200px){
@@ -763,15 +767,15 @@ body{
         width:700px;
     }
     .date{
-        right:100px;
+        right:30px;
     }
 }
-@media (max-width: 500px){
+@media (max-width: 642px){
     .time{
         font-size:50px;
     }
     .date{
-        right:5px
+        right:50px;
         font-size:20px;
     }
     .time2{
@@ -822,7 +826,7 @@ body{
 }
 
 .but1:hover{
-    border:2px solid var(--back);
+    border-color:transparent;
 }
 
 .but1:active{
@@ -842,7 +846,7 @@ body{
 }
 
 .but2:hover{
-    border:2px solid var(--back);
+    border-color:transparent;
 }
 .but2:active{
     filter: brightness(85%);
@@ -861,7 +865,7 @@ body{
 }
 
 .but3:hover{
-    border:2px solid #var(--back);
+    border-color:transparent;
 }
 .but3:active{
     filter: brightness(85%);
@@ -1346,4 +1350,11 @@ body{
 }
 #openweather:hover{
     color:var(--color)
+}
+
+.textback{
+    padding:5px;
+    border-radius:5px;
+    background: var(--tranback);
+    border:2px solid var(--tranborder);
 }

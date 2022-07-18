@@ -17,10 +17,10 @@
         <input type="image" src="{{url_for('static',filename='logo.png')}}" width="500" height="90" class="logo" onclick="window.open('/home','_self')">
         <button id="name" class="profile" onclick="window.open('/home','_self')"></button>
             <form class="makebug" method="post">
-                <h2>Pick Color</h2>
-                <label>Main Color</label>
+                <h2 class="textback">Pick Color</h2>
+                <label class="textback">Main Color</label>
                 <p><input class="color" id="color1" type="color" value="#ffffff" name="color1" autofocus></p>
-                <label>Second Color (This is recommended to be slightly darker than the main color)</label>
+                <label class="textback">Second Color (This is recommended to be slightly darker than the main color)</label>
                 <p><input class="color" id="color2" type="color" value="#ffffff" name="color2"></p>
                 <p><input class="colorbut colorbut1" type="submit" value="Submit">
                 <input class="colorbut colorbut2" type="button" onclick="reset_it()" value="Reset"></p>
@@ -33,6 +33,22 @@
             version = {{version|tojson}};
             color = {{color|tojson}};
             theme = {{theme|tojson}};
+            photo = {{photo|tojson}};
+            window.addEventListener('resize', size);
+            var av_height = screen.availHeight
+            var scoll_height = document.body.scrollHeight
+            if (av_height-scoll_height > 0){
+                document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
+            }
+            function size() {
+                var av_height = screen.availHeight
+                var scoll_height = document.body.scrollHeight
+                if (av_height-scoll_height < 0){
+                    document.querySelector("body").style.setProperty("background-image","none")
+                }else{
+                    document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
+                }
+            }
             var r = document.querySelector(":root")
             if (theme == "dark"){
                 r.style.setProperty("--border","#1a1a1a")

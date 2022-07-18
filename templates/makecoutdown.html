@@ -16,7 +16,7 @@
         <input type="image" src="{{url_for('static',filename='logo.png')}}" width="500" height="90" class="logo" onclick="window.open('/time','_self')">
         <button id="name" class="profile" onclick="window.open('/home','_self')"></button>
             <form class="makebug" method="post">
-                <h2>Pick Time</h2>
+                <h2 class="textback">Pick Time</h2>
                 <p><input class="title" max="24" min="0" type="number" name="hour" list="none" placeholder="Hours" required autofocus></p>
                 <p><input class="title" max="60" min="0" type="number" name="min" list="none" placeholder="Minutes" required></p>
                  <p><input class="title" max="60" min="0" type="number" name="sec" list="none" placeholder="Seconds" required></p>
@@ -30,6 +30,22 @@
             version = {{version|tojson}};
             color = {{color|tojson}};
             theme = {{theme|tojson}};
+            photo = {{photo|tojson}};
+            window.addEventListener('resize', size);
+            var av_height = screen.availHeight
+            var scoll_height = document.body.scrollHeight
+            if (av_height-scoll_height > 0){
+                document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
+            }
+            function size() {
+                var av_height = screen.availHeight
+                var scoll_height = document.body.scrollHeight
+                if (av_height-scoll_height < 0){
+                    document.querySelector("body").style.setProperty("background-image","none")
+                }else{
+                    document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
+                }
+            }
             var r = document.querySelector(":root")
             if (theme == "dark"){
                 r.style.setProperty("--border","#1a1a1a")

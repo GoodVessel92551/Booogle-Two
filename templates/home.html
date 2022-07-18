@@ -21,7 +21,9 @@
             <a href="/tasks"><input type="image" src="{{url_for('static',filename='task2.png')}}" width="200" height="200"></a>
             <a href="/number"><input type="image" src="{{url_for('static',filename='number2.png')}}" width="200" height="200"></a>
             <a href="/games"><input type="image" src="{{url_for('static',filename='game.png')}}" width="200" height="200"></a>
-            <a id="weather" class="hidden" href="/weather"><input type="image" src="{{url_for('static',filename='weather.png')}}" width="200" height="200"></a>
+            <a href="/weather"><input type="image" src="{{url_for('static',filename='weather.png')}}" width="200" height="200"></a>
+            <a href="/convert" id="convert" class="hidden"><input type="image" src="{{url_for('static',filename='convert.png')}}" width="200" height="200"></a>
+            <a href="/images" id="image" class="hidden"><input type="image" src="{{url_for('static',filename='image.png')}}" width="200" height="200"></a>
             <a id="admin" class="hidden" href="/admin"><input type="image" src="{{url_for('static',filename='admin2.png')}}" width="200" height="200"></a>
         
         </div>
@@ -81,7 +83,8 @@
             }
             if (name === "GoodVessel92551"){
                 document.getElementById("admin").style.display = "block"
-                document.getElementById("weather").style.display = "block"
+                document.getElementById("convert").style.display = "block"
+                document.getElementById("image").style.display = "block"
             }
         
             function show() {

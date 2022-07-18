@@ -16,8 +16,8 @@
         <input type="image" src="{{url_for('static',filename='logo.png')}}" width="500" height="90" class="logo" onclick="window.open('/time','_self')">
         <button id="name" class="profile" onclick="window.open('/home','_self')"></button>
     <div class="time2" id="time2">
-    <b class="time" id="time"></b>
-    <b class="date" id="date"></b>
+    <b class="time textback" id="time"></b>
+    <b class="date textback" id="date"></b>
     </div>
     <div class="suggest2_box">
         <input type="image" src="/static/fullscreen.png" width="20" height="20" class="suggest2" onclick="full()">
@@ -25,85 +25,101 @@
 		<footer>
 			<div id="version" class="version" onclick="window.open('/changelog','_self')"></div>
 		</footer>
-    <script>
-        var full2 = false
-        function full() {
-            if (full2 != true){
-                document.body.requestFullscreen()
-                full2 = true
+        <script>
+            var full2 = false
+            function full() {
+                if (full2 != true){
+                    document.body.requestFullscreen()
+                    full2 = true
+                }
+                else{
+                    console.log("exit")
+                    document.exitFullscreen()
+                    full2 = false
+                }
             }
-            else{
-                console.log("exit")
-                document.exitFullscreen()
-                full2 = false
+            
+            name = {{name|tojson}};
+            version = {{version|tojson}};
+            color = {{color|tojson}};
+            theme = {{theme|tojson}};
+            photo = {{photo|tojson}};
+            window.addEventListener('resize', size);
+            var av_height = screen.availHeight
+            var scoll_height = document.body.scrollHeight
+            if (av_height-scoll_height > 0){
+                document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
             }
-        }
-        
-        name = {{name|tojson}};
-        version = {{version|tojson}};
-        color = {{color|tojson}};
-        theme = {{theme|tojson}};
-        var r = document.querySelector(":root")
-        if (theme == "dark"){
-            r.style.setProperty("--border","#1a1a1a")
-            r.style.setProperty("--light","#fff")
-            r.style.setProperty("--dark","#242424")
-            r.style.setProperty("--backborder","#292929")
-            r.style.setProperty("--back","#202124")
-        }
-        else if (theme == "light"){
-            r.style.setProperty("--border","#d4d4d4")
-            r.style.setProperty("--light","#242424")
-            r.style.setProperty("--dark","#242424")
-            r.style.setProperty("--backborder","#f2f2f2")
-            r.style.setProperty("--back","#fff")
-        }
-        document.getElementById("theme").content=color[0]
-        r.style.setProperty("--color",color[0])
-        r.style.setProperty("--color2",color[1])
-        document.getElementById("version").innerText = "Version "+version
-        document.getElementById("name").innerText = name
-        var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-        function Time() {
-            const date = new Date()
-            var dateletter = ""
-            var hour = date.getHours()
-            var minute = date.getMinutes()
-            var second = date.getSeconds()
-            var datenum = date.getDate()
-            var fullyear = date.getFullYear()
-            if(datenum == 13 || datenum == 12 || datenum == 11){
-                dateletter = "th"
-            }else if (datenum == 1 || datenum == 21 || datenum == 31){
-                dateletter = "st"
-            }else if (datenum == 2 || datenum == 22){
-                dateletter = "nd"
-            }else if (datenum == 3 || datenum == 23){
-                dateletter = "rd"
-            }else{
-                dateletter = "th"
+            function size() {
+                var av_height = screen.availHeight
+                var scoll_height = document.body.scrollHeight
+                if (av_height-scoll_height < 0){
+                    document.querySelector("body").style.setProperty("background-image","none")
+                }else{
+                    document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
+                }
             }
-            hour = update(hour);
-            minute = update(minute)
-            second = update(second)
-            datenum = update(datenum)
-            fullyear = update(fullyear)
-            document.getElementById("time").innerText = hour + " : " + minute + " : " + second
-            document.getElementById("timetitle").innerText = "Time: "+hour + " : " + minute
-            document.getElementById("date").innerText = days[date.getDay()] + " " + datenum + dateletter + " " + months[date.getMonth()] + " " + fullyear
-            setTimeout(Time, 1000)
+            var r = document.querySelector(":root")
+            if (theme == "dark"){
+                r.style.setProperty("--border","#1a1a1a")
+                r.style.setProperty("--light","#fff")
+                r.style.setProperty("--dark","#242424")
+                r.style.setProperty("--backborder","#292929")
+                r.style.setProperty("--back","#202124")
             }
-            function update(t) {
-            if (t < 10) {
-            return "0" + t
+            else if (theme == "light"){
+                r.style.setProperty("--border","#d4d4d4")
+                r.style.setProperty("--light","#242424")
+                r.style.setProperty("--dark","#242424")
+                r.style.setProperty("--backborder","#f2f2f2")
+                r.style.setProperty("--back","#fff")
             }
-            else {
-            return t
+            document.getElementById("theme").content=color[0]
+            r.style.setProperty("--color",color[0])
+            r.style.setProperty("--color2",color[1])
+            document.getElementById("version").innerText = "Version "+version
+            document.getElementById("name").innerText = name
+            var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+            var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+            function Time() {
+                const date = new Date()
+                var dateletter = ""
+                var hour = date.getHours()
+                var minute = date.getMinutes()
+                var second = date.getSeconds()
+                var datenum = date.getDate()
+                var fullyear = date.getFullYear()
+                if(datenum == 13 || datenum == 12 || datenum == 11){
+                    dateletter = "th"
+                }else if (datenum == 1 || datenum == 21 || datenum == 31){
+                    dateletter = "st"
+                }else if (datenum == 2 || datenum == 22){
+                    dateletter = "nd"
+                }else if (datenum == 3 || datenum == 23){
+                    dateletter = "rd"
+                }else{
+                    dateletter = "th"
+                }
+                hour = update(hour);
+                minute = update(minute)
+                second = update(second)
+                datenum = update(datenum)
+                fullyear = update(fullyear)
+                document.getElementById("time").innerText = hour + " : " + minute + " : " + second
+                document.getElementById("timetitle").innerText = "Time: "+hour + " : " + minute
+                document.getElementById("date").innerText = days[date.getDay()] + " " + datenum + dateletter + " " + months[date.getMonth()] + " " + fullyear
+                setTimeout(Time, 1000)
+                }
+                function update(t) {
+                if (t < 10) {
+                return "0" + t
+                }
+                else {
+                return t
+                }
             }
-        }
-        Time()
-    </script>
+            Time()
+        </script>
 		<script src="/static/app.js"></script>
 </body>
 </html>

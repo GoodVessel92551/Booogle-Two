@@ -16,7 +16,7 @@
         <input type="image" src="{{url_for('static',filename='logo.png')}}" width="500" height="90" class="logo" onclick="window.open('/home','_self')">
         <button id="name" class="profile" onclick="window.open('/home','_self')"></button>
             <form class="makebug" method="post">
-                <h2>Make A Task</h2>
+                <h2 class="textback">Make A Task</h2>
                 <p><input class="title" type="text" name="title" list="none" maxlength="40" placeholder="Title" required autofocus></p>
                 <p><textarea class="desc" placeholder="Description" name="description" list="none" maxlength="120" spellcheck="true"required ></textarea></p>
                 <p><input class="sumbmitbug" type="submit" value="Submit"></p>
@@ -29,6 +29,22 @@
             version = {{version|tojson}};
             color = {{color|tojson}};
             theme = {{theme|tojson}};
+            photo = {{photo|tojson}};
+            window.addEventListener('resize', size);
+            var av_height = screen.availHeight
+            var scoll_height = document.body.scrollHeight
+            if (av_height-scoll_height > 0){
+                document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
+            }
+            function size() {
+                var av_height = screen.availHeight
+                var scoll_height = document.body.scrollHeight
+                if (av_height-scoll_height < 0){
+                    document.querySelector("body").style.setProperty("background-image","none")
+                }else{
+                    document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
+                }
+            }
             var r = document.querySelector(":root")
             if (theme == "dark"){
                 r.style.setProperty("--border","#1a1a1a")

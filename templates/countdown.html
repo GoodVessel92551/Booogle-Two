@@ -17,7 +17,7 @@
         <input type="image" src="{{url_for('static',filename='logo.png')}}" width="500" height="90" class="logo" onclick="window.open('/time','_self')">
         <button id="name" class="profile" onclick="window.open('/home','_self')"></button>
     <div class="time2" id="time2">
-    <b class="time" id="time"></b>
+    <b class="time textback" id="time"></b>
     </div>
     <div class="suggest2_box">
         <input type="image" src="/static/edit.png" width="20" height="20" class="suggest2" onclick="window.open('/time/countdown/make','_self')">
@@ -44,6 +44,22 @@
         version = {{version|tojson}};
         color = {{color|tojson}};
         theme = {{theme|tojson}};
+        photo = {{photo|tojson}};
+        window.addEventListener('resize', size);
+        var av_height = screen.availHeight
+        var scoll_height = document.body.scrollHeight
+        if (av_height-scoll_height > 0){
+            document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
+        }
+        function size() {
+            var av_height = screen.availHeight
+            var scoll_height = document.body.scrollHeight
+            if (av_height-scoll_height < 0){
+                document.querySelector("body").style.setProperty("background-image","none")
+            }else{
+                document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
+            }
+        }
         var r = document.querySelector(":root")
         if (theme == "dark"){
             r.style.setProperty("--border","#1a1a1a")
