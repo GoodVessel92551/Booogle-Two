@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en-GB">
     <head>
         <title>Booogle</title>
@@ -11,17 +10,17 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
         <link rel = "icon" href = "{{ url_for('static',filename='toplogo.png')}}" type = "image/x-icon">
-        <link rel="manifest" href="static/manifest.json">
+        <link rel="manifest" href="/static/manifest.json">
     </head>
     <body>
         <input type="image" src="{{url_for('static',filename='logo.png')}}" width="500" height="90" class="logo" onclick="window.open('/home','_self')">
         <button id="name" class="profile" onclick="window.open('/home','_self')"></button>
             <form class="makebug" method="post">
-                <h2 class="textback">Pick Theme</h2>
+                <b class="textback">Pick Theme</b>
                     <br><br>
-                    <input class="themebut" name="theme" id="system" type="radio" value="system" checked><span>System Theme</span><br>
-                    <input class="themebut" name="theme" id="dark" type="radio" value="dark"><span>Dark Theme</span><br>
-                    <input class="themebut" name="theme" id="light" type="radio" value="light"><span>Light Theme</span><br>
+                    <input class="themebut" name="theme" id="system" type="radio" value="system" checked><span class="textback">System Theme</span><br><br>
+                    <input class="themebut" name="theme" id="dark" type="radio" value="dark"><span class="textback">Dark Theme</span ><br><br>
+                    <input class="themebut" name="theme" id="light" type="radio" value="light"><span class="textback">Light Theme</span><br><br>
                 </select>
                 <p><input class="sumbmitbug" type="submit" value="Submit">
             </form> 
@@ -69,7 +68,6 @@
             r.style.setProperty("--color2",color[1])
             document.getElementById("version").innerText = "Version "+version
             document.getElementById("name").innerText = name
- 
         </script>
         <script src="/static/app.js"></script>
     </body>

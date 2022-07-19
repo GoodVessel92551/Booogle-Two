@@ -145,7 +145,7 @@ body{
 }
 
 .data2{
-	border: 2px solid var(--border);
+	border: 2px solid var(--tranborder);
     line-hight:40px;
     text-decoration:none;
 	position:relative;
@@ -158,7 +158,7 @@ body{
     float:right;
     width:170px;
     min-height:190px;
-    background:var(--backborder);
+    background:var(--tranback);
     border-radius:10px;
 	transition: all .2s;
 }
@@ -269,12 +269,12 @@ body{
 }
 
 .navebarside{
+    border-right: 2px solid var(--tranborder);
     border-radius: 0px 5px 5px 0px;
-	border:2px solid var(--border);
     text-align:left;
     height:100%;
     width:200px;
-    background:var(--backborder);
+    background:var(--tranborder);
     position:fixed;
     top:0px;
     left: 0px;
@@ -387,6 +387,12 @@ body{
     -ms-transform: translate(-50%, 0%);
     transform: translate(-50%, 0%); 
 }
+
+.makebug b{
+    font-size:30;
+}
+
+
 
 .getbug{
     width:620px;
@@ -654,14 +660,14 @@ body{
     font-size:60px;
     font-wight:700;
     color:var(--light);
-    background:var(--backborder);
+    background:var(--tranback);
     border-radius:5px;
     border:none;
     height:200px;
     min-width:430px;
     margin:auto;
     padding: 10px;
-    border:2px solid var(--border);
+    border:2px solid var(--tranborder);
     left: 50%;
     top:204px;
     -ms-transform: translate(-50%, -50%); 
@@ -672,13 +678,13 @@ body{
     text-align:center;
     font-size:16px;
     color:var(--light);
-    background:var(--backborder);
+    background:var(--tranback);
     border-radius:5px;
     border:none;
     height:44px;
     width:224px;
     padding: 10px;
-    border:2px solid var(--border);
+    border:2px solid var(--tranborder);
     transition:.2s all;
 }
 
@@ -692,12 +698,12 @@ body{
     text-align: center;
     font-size: 16px;
     color: var(--light);
-    background: var(--backborder);
+    background: var(--tranback);
     border-radius: 5px;
     height: 40px;
     width: 454px;
     padding: 10px;
-    border: 2px solid var(--border);
+    border: 2px solid var(--tranborder);
     transition: .2s all;
     left: 50%;
     top:68px;
@@ -946,8 +952,8 @@ body{
     min-height:120px;
     margin:auto;
     width:600px;
-    background:var(--backborder);
-    border:2px solid var(--border);
+    background:var(--tranback);
+    border:2px solid var(--tranborder);
     color:var(--light);
     transition: .2s all;
 }
@@ -1070,8 +1076,8 @@ body{
 }
 
 .game{
-    background:var(--backborder);
-    border:2px solid var(--border);
+    background:var(--tranback);
+    border:2px solid var(--tranborder);
     padding:5px;
     text-align:left;
     height:600px;
@@ -1094,8 +1100,8 @@ body{
 }
 
 .game a iframe{
+    border: 2px solid var(--color);
     border-radius: 10px;
-    border:none;
     height:489px;
     width:100%;
     left: 50%;
@@ -1203,8 +1209,8 @@ body{
     border:2px solid var(--border);
     transition: all .2s;
     cursor:pointer;
-    width:400px;
-    height:185px;
+    width:500px;
+    height:220px;
     background-color:var(--backborder);
     background-position:center;
     background-repeat:no-repeat;
@@ -1220,8 +1226,8 @@ body{
     top:200px;
     height:300px;
     width:500px;
-    background-color:var(--backborder);
-    border:2px solid var(--border);
+    background-color:var(--tranback);
+    border:2px solid var(--tranborder);
     left: 50%;
     -ms-transform: translate(-50%, 0%);
     transform: translate(-50%, 0%);  
@@ -1436,3 +1442,24 @@ body{
 .enter:active{
     border: 2px solid var(--color2);
 }
+
+.welcome{
+    font-size:30;
+}
+
+.credit{
+    position:absolute;
+    top:250px;
+    left:50%;
+    -ms-transform: translate(-50%, 0%);
+    transform: translate(-50%, 0%);
+}
+
+.photos{
+    position:absolute;
+    top:160px;
+    left:50%;
+    -ms-transform: translate(-50%, 0%);
+    transform: translate(-50%, 0%);
+}
+

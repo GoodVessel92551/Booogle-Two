@@ -18,9 +18,7 @@ def index():
         db["vists"] = vists + 1
     if name != "":
         return redirect("/home")
-            
-    else:
-        return render_template("index.html", version=version)
+    return render_template("index.html", version=version)
     
 
 
@@ -41,26 +39,25 @@ def home():
     try:
         users.current["photo"]
     except:
-        users.current["photo"] = "none"
-    if users.current["color"] == "" or users.current["color"] == ["#f6600","#a8531a"]:
-        users.current["color"] = ["#ff6600","#a8531a"]
+        users.current["photo"] = "green2"
+    if users.current["photo"] == "none":
+        users.current["photo"] = "green2"
     if name not in names:
         users.current["color"] = ["#ff6600","#a8531a"]
         users.current["time"] = [0,10,0]
         names.append(name)
         db["names"] = names
-    else:
-        if name in online:
-            for i in range(len(online)):
-                if online[i] == name:
-                    online.pop(i)
-                    online.pop(i)
-                    break
-        now = datetime.now()
-        now = now.strftime("%d/%m/%y %H:%M UTC")
-        online.append(name)
-        online.append(now)
-        db["online"] = online
+    if name in online:
+        for i in range(len(online)):
+            if online[i] == name:
+                online.pop(i)
+                online.pop(i)
+                break
+    now = datetime.now()
+    now = now.strftime("%d/%m/%y %H:%M UTC")
+    online.append(name)
+    online.append(now)
+    db["online"] = online
     color = users.current["color"]
     return render_template("home.html", name=name, version=version, photo=users.current["photo"], color=color, theme=users.current["theme"])
 
@@ -308,9 +305,10 @@ def task_remove():
         id = request.form["id"]
         for i in range(len(tasks)):
             if tasks[i] == int(id):
+                print(tasks)
                 tasks.pop(i)
-                tasks.pop(i - 1)
-                tasks.pop(i - 2)
+                tasks.pop(i-1)
+                tasks.pop(i-2)
                 users.current["tasks"] = tasks
                 break
         return redirect("/tasks")

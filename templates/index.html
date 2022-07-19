@@ -11,14 +11,15 @@
         <link rel="manifest" href="/static/manifest.json">
     </head>
     <body>
-        <h1>Welcome To <b>Booogle 2</b></h1>
-        <h5>You Have To Log In With Replit For Booogle To Work</h5>
+        <br><b class="textback welcome">Welcome To <b>Booogle 2</b></b><br><br>
+        <b class="textback login">You Have To Log In With Replit For Booogle To Work</b><br><br>
 		<footer>
 			<div id="version" class="version" onclick="window.open('/changelog','_self')"></div>
 		</footer>
         <script>
             version = {{version|tojson}};
             document.getElementById("version").innerText = "Version "+version
+                document.querySelector("body").style.setProperty("background-image","url(/static/background/rock4.jpg)")
             ;(function() {
   var selem = document.currentScript;
 

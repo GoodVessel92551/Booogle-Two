@@ -16,7 +16,7 @@
         <input type="image" src="{{url_for('static',filename='logo.png')}}" width="500" height="90" class="logo" onclick="window.open('/home','_self')">
         <button id="name" class="profile" onclick="window.open('/home','_self')"></button>
             <form class="makebug" method="post">
-                <h2 class="textback">Bug Report</h2>
+                <b class="textback">Bug Report</b>
                 <p><input class="title" type="text" name="title" list="none" maxlength="70" placeholder="Title" required autofocus></p>
                 <p><textarea class="desc" placeholder="Description" name="description" list="none" maxlength="250" spellcheck="true"required ></textarea></p>
                 <p><input class="sumbmitbug" type="submit" value="Submit"></p>

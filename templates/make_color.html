@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en-GB">
     <head>
         <title>Booogle</title>
@@ -11,7 +10,7 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
         <link rel = "icon" href = "{{ url_for('static',filename='toplogo.png')}}" type = "image/x-icon">
-        <link rel="manifest" href=/"static/manifest.json">
+        <link rel="manifest" href="/static/manifest.json">
     </head>
     <body>
         <input type="image" src="{{url_for('static',filename='logo.png')}}" width="500" height="90" class="logo" onclick="window.open('/home','_self')">
@@ -25,7 +24,6 @@
                 <p><input class="colorbut colorbut1" type="submit" value="Submit">
                 <input class="colorbut colorbut2" type="button" onclick="reset_it()" value="Reset"></p>
             </form> 
-		<footer>
 			<div id="version" class="version" onclick="window.open('/changelog','_self')"></div>
 		</footer>
         <script>
@@ -67,15 +65,8 @@
             document.getElementById("theme").content=color[0]
             r.style.setProperty("--color",color[0])
             r.style.setProperty("--color2",color[1])
-            var col1 = document.getElementById("color1")
-            document.getElementById("color1").value = color[0]
-            document.getElementById("color2").value = color[1]
             document.getElementById("version").innerText = "Version "+version
             document.getElementById("name").innerText = name
-            function reset_it() {
-                document.getElementById("color1").value = "#ff6600"
-                document.getElementById("color2").value = "#a8531a"
-            }
         </script>
         <script src="/static/app.js"></script>
     </body>
