@@ -6,7 +6,7 @@ import os,json,requests
 
 app = Flask(__name__)
 users = web.UserStore()
-version = "1.7"
+version = "1.8"
 apikey = os.environ["API"]
 base_url = "http://api.openweathermap.org/data/2.5/weather?"
 

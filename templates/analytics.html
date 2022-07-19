@@ -39,21 +39,7 @@
             color = {{color|tojson}};
             theme = {{theme|tojson}};
             photo = {{photo|tojson}};
-            window.addEventListener('resize', size);
-            var av_height = screen.availHeight
-            var scoll_height = document.body.scrollHeight
-            if (av_height-scoll_height > 0){
-                document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
-            }
-            function size() {
-                var av_height = screen.availHeight
-                var scoll_height = document.body.scrollHeight
-                if (av_height-scoll_height < 0){
-                    document.querySelector("body").style.setProperty("background-image","none")
-                }else{
-                    document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
-                }
-            }
+            document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
             theme_count = {{theme_count|tojson}};
             var r = document.querySelector(":root")
             if (theme == "dark"){

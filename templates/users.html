@@ -15,9 +15,9 @@
     <body>
         <input type="image" src="{{url_for('static',filename='admin.png')}}" width="500" height="90" class="logo" onclick="window.open('/home','_self')">
         <button id="name" class="profile" onclick="window.open('/home','_self')"></button>
-            <h3 class="booogle_users">Booogle Users:</h3>
+            <b style="font-size:25;" class="booogle_users textback">Booogle Users:</b>
             <button onclick="which()" id="last_online_but" class="last_online">Last Online</button>
-        <div class="user_list">
+        <div class="user_list textback">
             <a id="users"></a>
         </div>
         <div class="navebarside">
@@ -34,6 +34,8 @@
             color = {{color|tojson}};
             online = {{online|tojson}};
             theme = {{theme|tojson}};
+            photo = {{photo|tojson}};
+            document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
             var r = document.querySelector(":root")
             if (theme == "dark"){
                 r.style.setProperty("--border","#1a1a1a")

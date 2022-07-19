@@ -37,6 +37,7 @@ body{
     background-position:center;
     background-repeat:no-repeat;
     background-size:cover;
+    background-attachment: fixed;
     text-align:center;
     font-family: IBM Plex Sans;
     color:var(--light);
@@ -1449,7 +1450,7 @@ body{
 
 .credit{
     position:absolute;
-    top:250px;
+    top:230px;
     left:50%;
     -ms-transform: translate(-50%, 0%);
     transform: translate(-50%, 0%);
@@ -1457,7 +1458,7 @@ body{
 
 .photos{
     position:absolute;
-    top:160px;
+    top:150px;
     left:50%;
     -ms-transform: translate(-50%, 0%);
     transform: translate(-50%, 0%);

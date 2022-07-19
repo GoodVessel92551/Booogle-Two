@@ -65,22 +65,7 @@
             theme = {{theme|tojson}};
             photo = {{photo|tojson}};
             var mult
-            window.addEventListener('resize', size);
-            var av_height = screen.availHeight
-            var scoll_height = document.body.scrollHeight
-            if (av_height-scoll_height > 0){
-                document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
-            }
-            function size() {
-                photo = {{photo|tojson}};
-                var av_height = screen.availHeight
-                var scoll_height = document.body.scrollHeight
-                if (av_height-scoll_height < 0){
-                    document.querySelector("body").style.setProperty("background-image","none")
-                }else{
-                    document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
-                }
-            }
+            document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
             var r = document.querySelector(":root")
             var photo = document.getElementById("photo")
             if (theme == "dark"){

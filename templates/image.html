@@ -15,7 +15,7 @@
     <body>
         <input type="image" src="{{url_for('static',filename='logo.png')}}" width="500" height="90" class="logo" onclick="window.open('/home','_self')">
         <button id="name" class="profile" onclick="window.open('/home','_self')"></button>
-        <h2 class="name">Pick A Image</h2>
+        <b style="font-size:30;" class="name textback">Pick A Image</b>
         <div class="backgroundpick_box">
             <form method="post" action="/background/pick?bush"><input type="submit" value="" class="backgroundpick" style="background-image: url(/static/background_low/bush.jpg);"></form>
             <form method="post" action="/background/pick?flower"><input type="submit" value="" class="backgroundpick" style="background-image: url(/static/background_low/flower.jpg);"></form>
@@ -67,21 +67,7 @@
             color = {{color|tojson}};
             theme = {{theme|tojson}};
             photo = {{photo|tojson}};
-            window.addEventListener('resize', size);
-            var av_height = screen.availHeight
-            var scoll_height = document.body.scrollHeight
-            if (av_height-scoll_height > 0){
-                document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
-            }
-            function size() {
-                var av_height = screen.availHeight
-                var scoll_height = document.body.scrollHeight
-                if (av_height-scoll_height < 0){
-                    document.querySelector("body").style.setProperty("background-image","none")
-                }else{
-                    document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
-                }
-            }
+            document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
             var r = document.querySelector(":root")
             var photo = document.getElementById("photo")
             if (theme == "dark"){

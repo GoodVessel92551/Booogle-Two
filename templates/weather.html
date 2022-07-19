@@ -48,14 +48,14 @@
                 full2 = false
             }
         }
-        name = {{name|tojson}};
-        weather = {{weather|tojson}};
-        version = {{version|tojson}};
-        color = {{color|tojson}};
-        theme = {{theme|tojson}};
-        photo = {{photo|tojson}};
+            name = {{name|tojson}};
+            weather = {{weather|tojson}};
+            version = {{version|tojson}};
+            color = {{color|tojson}};
+            theme = {{theme|tojson}};
+            photo = {{photo|tojson}};
             var r = document.querySelector(":root")
-            window.addEventListener('resize', size);
+            document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
             if (theme == "dark"){
                 r.style.setProperty("--border","#1a1a1a")
                 r.style.setProperty("--light","#fff")
@@ -75,31 +75,16 @@
             document.getElementById("theme").content=color[0]
             r.style.setProperty("--color",color[0])
             r.style.setProperty("--color2",color[1])
-            var av_height = screen.availHeight
-            var scoll_height = document.body.scrollHeight
-            console.log(av_height-scoll_height)
-            if (av_height-scoll_height > 0){
-                document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
-            }
-            function size() {
-                var av_height = screen.availHeight
-                var scoll_height = document.body.scrollHeight
-                if (av_height-scoll_height < 0){
-                    document.querySelector("body").style.setProperty("background-image","none")
-                }else{
-                    document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
-                }
-            }
-        document.getElementById("temp").innerText = weather[1]+"°C"
-        document.getElementById("feel").innerText = "Feels like: "+weather[2]+"°C"
-        document.getElementById("type").innerText = weather[0]
-        document.getElementById("min").innerText = "Min "+weather[3]+"°C"
-        document.getElementById("max").innerText = "Max "+weather[4]+"°C"
-        document.getElementById("humid").innerText = "Humidity: "+weather[5]+"%"
-        document.getElementById("speed").innerText = "Wind Speed: "+weather[7]+"km/h"
-        document.getElementById("deg").innerText = "Wind Direction: "+weather[9]+"°"
-        document.getElementById("location").innerText = weather[6]
-        document.getElementById("link").src = "https://openweathermap.org/img/wn/"+weather[8]+"@2x.png"
+            document.getElementById("temp").innerText = weather[1]+"°C"
+            document.getElementById("feel").innerText = "Feels like: "+weather[2]+"°C"
+            document.getElementById("type").innerText = weather[0]
+            document.getElementById("min").innerText = "Min "+weather[3]+"°C"
+            document.getElementById("max").innerText = "Max "+weather[4]+"°C"
+            document.getElementById("humid").innerText = "Humidity: "+weather[5]+"%"
+            document.getElementById("speed").innerText = "Wind Speed: "+weather[7]+"km/h"
+            document.getElementById("deg").innerText = "Wind Direction: "+weather[9]+"°"
+            document.getElementById("location").innerText = weather[6]
+            document.getElementById("link").src = "https://openweathermap.org/img/wn/"+weather[8]+"@2x.png"
     </script>
         <script src="/static/weather.js"></script>
 		<script src="/static/app.js"></script>
