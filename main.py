@@ -13,11 +13,14 @@ base_url = "http://api.openweathermap.org/data/2.5/weather?"
 @app.route("/")
 def index():
     name = web.auth.name
+    vists = db["vists"]
+    if name != "GoodVessel92551":
+        db["vists"] = vists + 1
     if name != "":
         return redirect("/home")
             
     else:
-        return render_template("index.html", version=version, photo=users.current["photo"])
+        return render_template("index.html", version=version)
     
 
 
@@ -25,9 +28,6 @@ def index():
 @web.authenticated
 def home():
     name = web.auth.name
-    vists = db["vists"]
-    if name != "GoodVessel92551":
-        db["vists"] = vists + 1
     names = db["names"]
     online = db["online"]
     try:
@@ -493,5 +493,10 @@ def images():
     name = web.auth.name
     return render_template("images.html", color=color, theme=users.current["theme"], name=name,version=version, photo=users.current["photo"])
 
-
+@app.route("/convert")
+@web.authenticated
+def convert():
+    color = users.current["color"]
+    name = web.auth.name
+    return render_template("convert.html", color=color, theme=users.current["theme"], name=name,version=version, photo=users.current["photo"])
 web.run(app, port=8080, debug=True)
