@@ -1016,7 +1016,7 @@ body{
     padding:0px 5px;
 	height:25px;
 	line-height:25px;
-	min-width:150px;
+	width:150px;
 	position:fixed;
 	bottom:0px;
 	left:0px;
@@ -1462,5 +1462,43 @@ body{
     left:50%;
     -ms-transform: translate(-50%, 0%);
     transform: translate(-50%, 0%);
+}
+
+.leavefeed{
+    padding:0px 5px;
+    border-radius:0px 5px 5px 0px;
+    position:fixed;
+    bottom:50px;
+    left:0px;
+    background:var(--tranback);
+    border:2px solid var(--tranborder);
+    height:100px;
+    width:150px;
+}
+
+.leavefeed a{
+    font-size:12;
+    text-decoration:none;
+    position: absolute;
+    color:var(--dark);
+    background: var(--color);
+    line-height:30px;
+    height:30px;
+    width:70px;
+    border-radius:5px;
+    border:none;
+    cursor:pointer;
+    top:65px; 
+    transition:.2s all;
+}
+
+.leavefeed a:hover{
+    filter: brightness(85%);
+}
+
+@media (max-width: 600px){
+    .leavefeed{
+        display:none;
+    }
 }
 
