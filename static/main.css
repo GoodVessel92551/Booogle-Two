@@ -23,6 +23,7 @@
         --color:#fff;
         --color2:#fff;
         --ccc:#ccc;
+        --darkback: rgba(41, 41, 41,.6);
         --tranback: rgba(242, 242, 242,.6);
         --tranborder:rgba(212, 212, 212,.6);
     }
@@ -1168,7 +1169,7 @@ body{
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%); 
 }
-.start2:hover{opacity:.8}
+.start2:hover{filter:brightness(85%);}
 
 .theme{
     cursor:pointer;
@@ -1500,5 +1501,45 @@ body{
     .leavefeed{
         display:none;
     }
+}
+
+.like{
+    font-size:20px;
+    height:40px;
+    width:40px;
+    border:none;
+    cursor:pointer;
+    padding:5px;
+    border-radius:5px;
+    background:var(--darkback);
+    position:absolute;
+    top:20px;
+    right:20px;
+    color:var(--ccc);
+    filter:brightness(70%);
+}
+.like:hover{
+    filter:brightness(100%);
+}
+
+.counter{
+    line-height:200px;
+    font-size:60;
+    font-weight:700;
+    cursor:pointer;
+    border-radius:5px;
+    background:var(--tranback);
+    border:2px solid var(--tranborder);
+    width:530px;
+    height:200px;
+    position:absolute;
+    top:300px;
+    left:50%;
+    -ms-transform: translate(-50%, 0%);
+    transform: translate(-50%, 0%);
+}
+
+.counter:active{
+    border:2px solid var(--color)
 }
 

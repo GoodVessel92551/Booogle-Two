@@ -13,26 +13,23 @@
         <link rel="manifest" href="/static/manifest.json">
     </head>
     <body>
-        <input type="image" src="{{url_for('static',filename='logo.png')}}" width="500" height="90" class="logo" onclick="window.open('/home','_self')">
+        <input type="image" src="{{url_for('static',filename='logo.png')}}" width="500" height="90" class="logo" onclick="window.open('/time','_self')">
         <button id="name" class="profile" onclick="window.open('/home','_self')"></button>
-        <div class="change">
-            <h1>Change Log</h1>
-            <h3 id="version"></h3>
-                What is new in v1.9:
-                <li>Booogle CPS test has been added!!</li>
-                <li>Some of the games on Booogle Games have been updated.</li>
-                <li>If you have any Feedback or know of any bugs please tell me through the website.</li>
-                <li>Fixed some bugs.<li>
-                Thank you for all the people that use Booogle.
-        </div>
+            <form class="makebug" method="post">
+                <b class="textback">Pick Time</b>
+                 <p><input class="title" max="60" min="0" type="number" name="sec" list="none" placeholder="Seconds" required autofocus></p>
+                <p><input class="sumbmitbug" type="submit" value="Submit"></p>
+            </form>
 		<footer>
-			<div id="version2" class="version" onclick="window.open('/changelog','_self')"></div>
+			<div id="version" class="version" onclick="window.open('/changelog','_self')"></div>
 		</footer>
         <script>
             name = {{name|tojson}};
             version = {{version|tojson}};
             color = {{color|tojson}};
             theme = {{theme|tojson}};
+            photo = {{photo|tojson}};
+            document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
             var r = document.querySelector(":root")
             if (theme == "dark"){
                 r.style.setProperty("--border","#1a1a1a")
@@ -52,9 +49,8 @@
             r.style.setProperty("--color",color[0])
             r.style.setProperty("--color2",color[1])
             document.getElementById("version").innerText = "Version "+version
-            document.getElementById("name").innerText = name;
-            document.getElementById("version2").innerText = "Version "+version
+            document.getElementById("name").innerText = name
         </script>
-		<script src="/static/app.js"></script>
+        <script src="/static/app.js"></script>
     </body>
 </html>

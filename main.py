@@ -6,7 +6,7 @@ import os,json,requests
 
 app = Flask(__name__)
 users = web.UserStore()
-version = "1.8"
+version = "1.9"
 apikey = os.environ["API"]
 base_url = "http://api.openweathermap.org/data/2.5/weather?"
 
@@ -28,6 +28,10 @@ def home():
     name = web.auth.name
     names = db["names"]
     online = db["online"]
+    try:
+        users.current["cps_time"]
+    except:
+        users.current["cps_time"] = 10
     try:
         users.current["theme"]
     except:
@@ -497,4 +501,35 @@ def convert():
     color = users.current["color"]
     name = web.auth.name
     return render_template("convert.html", color=color, theme=users.current["theme"], name=name,version=version, photo=users.current["photo"])
+
+@app.route("/cps")
+@web.authenticated
+def cps():
+    return render_template("cps.html", color=users.current["color"], theme=users.current["theme"], name=web.auth.name,version=version, photo=users.current["photo"], time=users.current["cps_time"])
+
+@app.route("/cps/make", methods=["GET", "POST"])
+@web.authenticated
+def cps_make():
+    color = users.current["color"]
+    name = web.auth.name
+    if request.method == "POST":
+        time = []
+        sec = request.form["sec"]
+        try:
+            int(sec)
+        except:
+            return "You need to enter a number"
+        else:
+            if sec == "":
+                return render_template("error.html",error="Enter a number")
+            elif int(sec) < 0:
+                return render_template("error.html",error="One of the numbers is to big or small")
+            else:
+                time.append(sec)
+                print(time)
+                users.current["cps_time"]=time
+                return redirect("/cps")
+    else:
+        return render_template("makecps.html", color=color, theme=users.current["theme"], name=name, version=version, photo=users.current["photo"])
+
 web.run(app, port=8080, debug=True)
