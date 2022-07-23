@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en-GB">
     <head>
         <title>Booogle</title>
@@ -38,7 +39,8 @@
             <input type="image" id="suggest1" src="{{url_for('static',filename='feedback.png')}}" width="20" height="20" class="suggest2 hide" onclick="window.open('/feedback','_self')">
             <input type="image" id="suggest2" src="{{url_for('static',filename='color.png')}}" width="20" height="20" class="suggest2 hide" onclick="window.open('/color','_self')">
             <input type="image" id="suggest3" src="{{url_for('static',filename='darkandlight.png')}}" width="20" height="20" class="suggest2 hide" onclick="window.open('/theme','_self')">
-            <input type="image" id="suggest4" src="{{url_for('static',filename='background.png')}}" width="20" height="20" class="suggest2 hide" onclick="window.open('/background','_self')">
+            <input type="image" id="suggest4" src="{{url_for('static',filename='logout.png')}}" width="20" height="20" class="suggest2 hide" onclick="window.open('/logout','_self')">
+            <input type="image" id="suggest5" src="{{url_for('static',filename='background.png')}}" width="20" height="20" class="suggest2 hide" onclick="window.open('/background','_self')">
             <input type="image" src="{{url_for('static',filename='settings2.png')}}" width="20" height="20" class="suggest2 settings" onclick="show()">
         </div>
 		<footer>
@@ -86,7 +88,7 @@
                         console.log(i)
                         document.getElementById("suggest"+i).style.display = "inline"
                         i++
-                        if(i >= 5){
+                        if(i >= 6){
                             clearInterval(time)
                         }
                     }

@@ -29,26 +29,26 @@ def home():
     names = db["names"]
     online = db["online"]
     try:
-        users.current["cps_time"]
+        users.current["data"]
     except:
-        users.current["cps_time"] = 10
-    try:
-        users.current["theme"]
-    except:
-        users.current["theme"] = "system"
-    try:
-        color = users.current["color"]
-    except:
-        users.current["color"] = ["#ff6600","#a8531a"]
-    try:
-        users.current["photo"]
-    except:
-        users.current["photo"] = "green2"
-    if users.current["photo"] == "none":
-        users.current["photo"] = "green2"
+        try:
+            users.current["cps_time"]
+            users.current["theme"]
+            users.current["color"]
+            users.current["photo"]
+            users.current["city"]
+            users.current["units"]
+        except:
+            users.current["data"] = ["system",["#ff6600","#a8531a"],"green2",10,[0,10,0],"london","metric"]
+        else:
+            users.current["data"] = [users.current["theme"],["#ff6600","#a8531a"],users.current["photo"],users.current["time"],[0,10,0],users.current["city"],"metric"]
+            del users.current["city"]
+            del users.current["units"]
+            del users.current["cps_time"]
+            del users.current["theme"]
+            del users.current["color"]
+            del users.current["photo"]
     if name not in names:
-        users.current["color"] = ["#ff6600","#a8531a"]
-        users.current["time"] = [0,10,0]
         names.append(name)
         db["names"] = names
     if name in online:
@@ -62,8 +62,8 @@ def home():
     online.append(name)
     online.append(now)
     db["online"] = online
-    color = users.current["color"]
-    return render_template("home.html", name=name, version=version, photo=users.current["photo"], color=color, theme=users.current["theme"])
+    color = users.current["data"][1]
+    return render_template("home.html", name=name, version=version, photo=users.current["data"][2], color=color, theme=users.current["data"][0])
 
 
 @app.route("/admin")
@@ -78,8 +78,8 @@ def admin():
         user = len(user)
         db["names2"] = user
         db["vists2"] = views
-        color = users.current["color"]
-        return render_template("admin.html", color=color, theme=users.current["theme"],name=name,users=user,views=views,users2=users2,views2=views2, version=version, photo=users.current["photo"])
+        color = users.current["data"][1]
+        return render_template("admin.html", color=color, theme=users.current["data"][0],name=name,users=user,views=views,users2=users2,views2=views2, version=version, photo=users.current["data"][2])
     else:
         return render_template("no.html")
 
@@ -91,8 +91,8 @@ def adminusers():
     user = db["names"]
     online = db["online"]
     if name == "GoodVessel92551":
-        color = users.current["color"]
-        return render_template("users.html", color=color, theme=users.current["theme"], name=name,online=online, users=user, version=version, photo=users.current["photo"])
+        color = users.current["data"][1]
+        return render_template("users.html", color=color, theme=users.current["data"][0], name=name,online=online, users=user, version=version, photo=users.current["data"][2])
     else:
         return render_template("no.html")
 
@@ -112,8 +112,8 @@ def analytics():
     if name == "GoodVessel92551":
         db["names2"] = user
         db["vists2"] = views
-        color = users.current["color"]
-        return render_template("analytics.html", color=color, theme=users.current["theme"],name=name,users=user,views=views,bug=bug,feed=feed, version=version, photo=users.current["photo"], theme_count=theme_count)
+        color = users.current["data"][1]
+        return render_template("analytics.html", color=color, theme=users.current["data"][0],name=name,users=user,views=views,bug=bug,feed=feed, version=version, photo=users.current["data"][2], theme_count=theme_count)
     else:
         return render_template("no.html")
 
@@ -128,8 +128,8 @@ def feedback():
     bug = len(bug) / 3
     feed = len(feed) / 3
     if name == "GoodVessel92551":
-        color = users.current["color"]
-        return render_template("suggestions.html", color=color, theme=users.current["theme"],name=name, users=user,bug=bug,feed=feed, version=version, photo=users.current["photo"])
+        color = users.current["data"][1]
+        return render_template("suggestions.html", color=color, theme=users.current["data"][0],name=name, users=user,bug=bug,feed=feed, version=version, photo=users.current["data"][2])
     else:
         return render_template("no.html")
 
@@ -144,7 +144,7 @@ def feedback():
 def setbugs():
     name = web.auth.name
     bug = db["Bug"]
-    color = users.current["color"]
+    color = users.current["data"][1]
     if request.method == "POST":
         if len(bug)/3 > 100:
             return render_template("error.html",error="There are too meny bugs reports at the moment")
@@ -164,13 +164,13 @@ def setbugs():
                 
                 return redirect("/home")
     else:
-        return render_template("makebug.html", color=color, theme=users.current["theme"], name=name, version=version, photo=users.current["photo"])
+        return render_template("makebug.html", color=color, theme=users.current["data"][0], name=name, version=version, photo=users.current["data"][2])
 
 
 @app.route("/admin/suggestions/bugs/get", methods=["GET", "POST"])
 @web.authenticated
 def get_bugs():
-    color = users.current["color"]
+    color = users.current["data"][1]
     bug = db["Bug"]
     name = web.auth.name
     if request.method == "POST":
@@ -178,7 +178,7 @@ def get_bugs():
         db["Bug"] = bug
         return redirect("/admin/suggestions")
     elif name == "GoodVessel92551":
-        return render_template("getbug.html", color=color, theme=users.current["theme"], name=name, bug=bug, photo=users.current["photo"])
+        return render_template("getbug.html", color=color, theme=users.current["data"][0], name=name, bug=bug, photo=users.current["data"][2])
 
     else:
         return render_template("no.html")
@@ -193,9 +193,9 @@ def alive():
 @app.route("/number")
 @web.authenticated
 def number():
-    color = users.current["color"]
+    color = users.current["data"][1]
     name = web.auth.name
-    return render_template("number.html", color=color, theme=users.current["theme"], name=name, version=version, photo=users.current["photo"])
+    return render_template("number.html", color=color, theme=users.current["data"][0], name=name, version=version, photo=users.current["data"][2])
 
 
 @app.route("/feedback", methods=["POST", "GET"])
@@ -206,7 +206,7 @@ def number():
     get_ratelimited_res=(lambda left: f"Too many requests, try again after {left} sec"),
 )
 def setfeed():
-    color = users.current["color"]
+    color = users.current["data"][1]
     name = web.auth.name
     bug = db["Feed"]
     if request.method == "POST":
@@ -227,13 +227,13 @@ def setfeed():
                 db["Feed"] = bug
                 return redirect("/home")
     else:
-        return render_template("makefeed.html", color=color, theme=users.current["theme"], name=name, version=version, photo=users.current["photo"])
+        return render_template("makefeed.html", color=color, theme=users.current["data"][0], name=name, version=version, photo=users.current["data"][2])
 
 
 @app.route("/admin/suggestions/feedback/get", methods=["GET", "POST"])
 @web.authenticated
 def get_feed():
-    color = users.current["color"]
+    color = users.current["data"][1]
     feed = db["Feed"]
     name = web.auth.name
     if request.method == "POST":
@@ -241,29 +241,29 @@ def get_feed():
         db["Feed"] = feed
         return redirect("/admin/suggestions")
     elif name == "GoodVessel92551":
-        return render_template("getfeed.html", color=color, theme=users.current["theme"], name=name, feed=feed, photo=users.current["photo"])
+        return render_template("getfeed.html", color=color, theme=users.current["data"][0], name=name, feed=feed, photo=users.current["data"][2])
 
 
 @app.route("/time/time")
 @web.authenticated
 def time():
-    color = users.current["color"]
+    color = users.current["data"][1]
     name = web.auth.name
-    return render_template("time.html", color=color, theme=users.current["theme"], name=name, version=version, photo=users.current["photo"])
+    return render_template("time.html", color=color, theme=users.current["data"][0], name=name, version=version, photo=users.current["data"][2])
 
 
 @app.route("/calculator")
 @web.authenticated
 def maths():
-    color = users.current["color"]
+    color = users.current["data"][1]
     name = web.auth.name
-    return render_template("maths.html", color=color, theme=users.current["theme"], name=name, version=version, photo=users.current["photo"])
+    return render_template("maths.html", color=color, theme=users.current["data"][0], name=name, version=version, photo=users.current["data"][2])
 
 
 @app.route("/tasks", methods=["GET", "POST"])
 @web.authenticated
 def tasks():
-    color = users.current["color"]
+    color = users.current["data"][1]
     name = web.auth.name
     try:
         users.current["tasks"]
@@ -273,13 +273,13 @@ def tasks():
         tasks = users.current["tasks"]
     else:
         tasks = users.current["tasks"]
-    return render_template("tasks.html", color=color, theme=users.current["theme"], name=name, tasks=tasks, version=version, photo=users.current["photo"])
+    return render_template("tasks.html", color=color, theme=users.current["data"][0], name=name, tasks=tasks, version=version, photo=users.current["data"][2])
 
 
 @app.route("/tasks/make", methods=["GET", "POST"])
 @web.authenticated
 def task_make():
-    color = users.current["color"]
+    color = users.current["data"][1]
     name = web.auth.name
     if request.method == "POST":
         if len(users.current["tasks"]) / 3 < 2:
@@ -296,13 +296,13 @@ def task_make():
         else:
             return render_template("error.html",error="You have used up all of your task slots")
     else:
-        return render_template("maketasks.html", color=color, theme=users.current["theme"], name=name, version=version, photo=users.current["photo"])
+        return render_template("maketasks.html", color=color, theme=users.current["data"][0], name=name, version=version, photo=users.current["data"][2])
 
 
 @app.route("/tasks/complete", methods=["GET", "POST"])
 @web.authenticated
 def task_remove():
-    color = users.current["color"]
+    color = users.current["data"][1]
     name = web.auth.name
     if request.method == "POST":
         tasks = users.current["tasks"]
@@ -317,7 +317,7 @@ def task_remove():
                 break
         return redirect("/tasks")
     else:
-        return render_template("removetasks.html", color=color, theme=users.current["theme"], name=name, version=version, photo=users.current["photo"])
+        return render_template("removetasks.html", color=color, theme=users.current["data"][0], name=name, version=version, photo=users.current["data"][2])
 
 
 @app.route("/sw.js", methods=["GET"])
@@ -327,15 +327,15 @@ def sw():
 @app.route("/time/countdown-timer")
 @web.authenticated
 def countdown_timer():
-    color = users.current["color"]
+    color = users.current["data"][1]
     name = web.auth.name
-    countdown = users.current["time"]
-    return render_template("countdown.html", color=color, theme=users.current["theme"], name=name,time=countdown, version=version, photo=users.current["photo"])
+    countdown = users.current["data"][4]
+    return render_template("countdown.html", color=color, theme=users.current["data"][0], name=name,time=countdown, version=version, photo=users.current["data"][2])
 
 @app.route("/time/countdown/make", methods=["GET", "POST"])
 @web.authenticated
 def countdown_make():
-    color = users.current["color"]
+    color = users.current["data"][1]
     name = web.auth.name
     if request.method == "POST":
         time = []
@@ -358,88 +358,88 @@ def countdown_make():
                 time.append(min)
                 time.append(sec)
                 print(time)
-                users.current["time"]=time
+                users.current["data"][4]=time
                 return redirect("/time/countdown-timer")
     else:
-        return render_template("makecoutdown.html", color=color, theme=users.current["theme"], name=name, version=version, photo=users.current["photo"])
+        return render_template("makecoutdown.html", color=color, theme=users.current["data"][0], name=name, version=version, photo=users.current["data"][2])
 
 @app.route("/time/stopwatch")
 @web.authenticated
 def stopwatch():
-    color = users.current["color"]
+    color = users.current["data"][1]
     name = web.auth.name
-    return render_template("stopwatch.html", color=color, theme=users.current["theme"], name=name, version=version, photo=users.current["photo"])
+    return render_template("stopwatch.html", color=color, theme=users.current["data"][0], name=name, version=version, photo=users.current["data"][2])
 
 @app.route("/time")
 @web.authenticated
 def time_home():
-    color = users.current["color"]
+    color = users.current["data"][1]
     name = web.auth.name
-    return render_template("time_home.html", name=name, version=version, photo=users.current["photo"], color=color, theme=users.current["theme"])
+    return render_template("time_home.html", name=name, version=version, photo=users.current["data"][2], color=color, theme=users.current["data"][0])
     
 @app.route("/changelog")
 @web.authenticated
 def changelog():
-    color = users.current["color"]
+    color = users.current["data"][1]
     name = web.auth.name
-    return render_template("change.html", color=color, theme=users.current["theme"], name=name, version=version, photo=users.current["photo"])
+    return render_template("change.html", color=color, theme=users.current["data"][0], name=name, version=version, photo=users.current["data"][2])
 
 @app.route("/shell")
 @web.authenticated
 def shell():
-    color = users.current["color"]
+    color = users.current["data"][1]
     name = web.auth.name
-    return render_template("shell.html", color=color, theme=users.current["theme"], name=name)
+    return render_template("shell.html", color=color, theme=users.current["data"][0], name=name)
 
 @app.route("/games")
 @web.authenticated
 def games():
-    color = users.current["color"]
+    color = users.current["data"][1]
     name = web.auth.name
-    return render_template("game.html", color=color, theme=users.current["theme"], name=name, version=version, photo=users.current["photo"])
+    return render_template("game.html", color=color, theme=users.current["data"][0], name=name, version=version, photo=users.current["data"][2])
 
 
 @app.route("/color", methods=["GET", "POST"])
 @web.authenticated
 def color():
-    color = users.current["color"]
+    color = users.current["data"][1]
     name = web.auth.name
     if request.method == "POST":
         color_1 = request.form["color1"]
         color_2 = request.form["color2"]
         print(color_1+" "+color_2)
-        users.current["color"] = [color_1,color_2]
+        users.current["data"][1] = [color_1,color_2]
         return redirect("/home")
     else:
-        return render_template("make_color.html", color=color, theme=users.current["theme"], name=name, version=version, photo=users.current["photo"])
+        return render_template("make_color.html", color=color, theme=users.current["data"][0], name=name, version=version, photo=users.current["data"][2])
 
 @app.route("/theme", methods=["GET", "POST"])
 @web.authenticated
 def theme():
-    color = users.current["color"]
+    color = users.current["data"][1]
     name = web.auth.name
     if request.method == "POST":
         theme = request.form["theme"]
-        users.current["theme"] = theme
+        users.current["data"][0] = theme
         if name != "GoodVessel92551":
             db["theme_count"] += 1
         return redirect("/home")
     else:
-        return render_template("theme.html", color=color, theme=users.current["theme"], name=name, version=version, photo=users.current["photo"])
+        return render_template("theme.html", color=color, theme=users.current["data"][0], name=name, version=version, photo=users.current["data"][2])
 
 @app.route("/background")
 @web.authenticated
 def background():
-    color = users.current["color"]
+    color = users.current["data"][1]
     name = web.auth.name
-    return render_template("image.html", color=color, theme=users.current["theme"], name=name,version=version, photo=users.current["photo"])
+    return render_template("image.html", color=color, theme=users.current["data"][0], name=name,version=version, photo=users.current["data"][2])
 
 @app.route("/background/pick", methods=["GET", "POST"])
 @web.authenticated
 def pick():
     if request.method == "POST":
         url = request.full_path
-        users.current["photo"]=url[17:]
+        users.current["data"][2]=url[17:]
     return redirect("/home")
 
 
@@ -447,14 +447,11 @@ def pick():
 @web.authenticated
 def weather():
     if request.method == "POST":
-        users.current["city"] = request.form["city"]
-    try:
-        users.current["city"]
-    except:
-        users.current["city"] = "London"
+        users.current["data"][5] = request.form["city"]
     weather_list=[]
-    city = users.current["city"]
-    url = base_url + "&units=metric&appid=" + apikey + "&q=" + city
+    city = users.current["data"][5]
+    unit = users.current["data"][6]
+    url = base_url + "&units="+unit+"&appid=" + apikey + "&q=" + city
     response = requests.get(url)
     data = json.loads(response.text)
     if data["cod"] == 200:
@@ -482,35 +479,44 @@ def weather():
         weather_list.append(icon)
         weather_list.append(deg)
     else:
-        users.current["city"] = "london"
+        users.current["data"][5] = "london"
         return render_template("error.html", error="City dose not exsist")
-    color = users.current["color"]
+    color = users.current["data"][1]
     name = web.auth.name
-    return render_template("weather.html", color=color, theme=users.current["theme"], name=name,version=version, photo=users.current["photo"], weather=weather_list)
+    return render_template("weather.html", color=color, theme=users.current["data"][0], name=name,version=version, photo=users.current["data"][2], weather=weather_list, unit=users.current["data"][6])
+
+@app.route("/weather/change", methods=["GET", "POST"])
+@web.authenticated
+def weather_change():
+    if users.current["data"][6] == "metric":
+        users.current["data"][6] = "imperial"
+    else:
+        users.current["data"][6] = "metric"
+    return redirect("/weather")
 
 @app.route("/images")
 @web.authenticated
 def images():
-    color = users.current["color"]
+    color = users.current["data"][1]
     name = web.auth.name
-    return render_template("images.html", color=color, theme=users.current["theme"], name=name,version=version, photo=users.current["photo"])
+    return render_template("images.html", color=color, theme=users.current["data"][0], name=name,version=version, photo=users.current["data"][2])
 
 @app.route("/convert")
 @web.authenticated
 def convert():
-    color = users.current["color"]
+    color = users.current["data"][1]
     name = web.auth.name
-    return render_template("convert.html", color=color, theme=users.current["theme"], name=name,version=version, photo=users.current["photo"])
+    return render_template("convert.html", color=color, theme=users.current["data"][0], name=name,version=version, photo=users.current["data"][2])
 
 @app.route("/cps")
 @web.authenticated
 def cps():
-    return render_template("cps.html", color=users.current["color"], theme=users.current["theme"], name=web.auth.name,version=version, photo=users.current["photo"], time=users.current["cps_time"])
+    return render_template("cps.html", color=users.current["data"][1], theme=users.current["data"][0], name=web.auth.name,version=version, photo=users.current["data"][2], time=users.current["data"][3])
 
 @app.route("/cps/make", methods=["GET", "POST"])
 @web.authenticated
 def cps_make():
-    color = users.current["color"]
+    color = users.current["data"][3]
     name = web.auth.name
     if request.method == "POST":
         time = []
@@ -527,9 +533,13 @@ def cps_make():
             else:
                 time.append(sec)
                 print(time)
-                users.current["cps_time"]=time
+                users.current["data"][3]=time
                 return redirect("/cps")
     else:
-        return render_template("makecps.html", color=color, theme=users.current["theme"], name=name, version=version, photo=users.current["photo"])
+        return render_template("makecps.html", color=color, theme=users.current["data"][0], name=name, version=version, photo=users.current["data"][2])
+@app.route("/logout")
+@web.authenticated
+def logout():
+    return render_template("index.html", version=version)
 
 web.run(app, port=8080, debug=True)

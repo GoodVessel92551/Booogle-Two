@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en-GB">
     <head>
         <title id=timetitle>Booogle</title>
@@ -17,8 +18,9 @@
         <button id="name" class="profile" onclick="window.open('/home','_self')"></button>
     <div class="weather">
         <form method="post">
+        <a href="/weather/change"><input type="button" id="change" class="subcity"></a>
         <a><input type="text" placeholder="Enter A City" id="city" name="city"></a>
-        <a><input type="submit" id="subcity"></a>
+        <a><input type="submit" class="subcity"></a>
         </form>
         <a id="temp">Temp</a>
         <a id="feel">Feels</a>
@@ -36,24 +38,36 @@
 			<div id="version" class="version" onclick="window.open('/changelog','_self')"></div>
 		</footer>
     <script>
-        var full2 = false
-        function full() {
-            if (full2 != true){
-                document.body.requestFullscreen()
-                full2 = true
+            var full2 = false
+            function full() {
+                if (full2 != true){
+                    document.body.requestFullscreen()
+                    full2 = true
+                }
+                else{
+                    console.log("exit")
+                    document.exitFullscreen()
+                    full2 = false
+                }
             }
-            else{
-                console.log("exit")
-                document.exitFullscreen()
-                full2 = false
-            }
-        }
             name = {{name|tojson}};
             weather = {{weather|tojson}};
             version = {{version|tojson}};
             color = {{color|tojson}};
             theme = {{theme|tojson}};
             photo = {{photo|tojson}};
+            unit = {{unit|tojson}};
+            var end_unit
+            var end_unit2
+            if (unit == "imperial"){
+                document.getElementById("change").value = "°F > °C"
+                end_unit = "°F"
+                end_unit2 = "mph"
+            }else{
+                document.getElementById("change").value = "°C > °F"
+                end_unit = "°C"
+                end_unit2 = "km/h"
+            }
             var r = document.querySelector(":root")
             document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
             if (theme == "dark"){
@@ -75,13 +89,13 @@
             document.getElementById("theme").content=color[0]
             r.style.setProperty("--color",color[0])
             r.style.setProperty("--color2",color[1])
-            document.getElementById("temp").innerText = weather[1]+"°C"
-            document.getElementById("feel").innerText = "Feels like: "+weather[2]+"°C"
+            document.getElementById("temp").innerText = weather[1]+end_unit
+            document.getElementById("feel").innerText = "Feels like: "+weather[2]+end_unit
             document.getElementById("type").innerText = weather[0]
-            document.getElementById("min").innerText = "Min "+weather[3]+"°C"
-            document.getElementById("max").innerText = "Max "+weather[4]+"°C"
+            document.getElementById("min").innerText = "Min "+weather[3]+end_unit
+            document.getElementById("max").innerText = "Max "+weather[4]+end_unit
             document.getElementById("humid").innerText = "Humidity: "+weather[5]+"%"
-            document.getElementById("speed").innerText = "Wind Speed: "+weather[7]+"km/h"
+            document.getElementById("speed").innerText = "Wind Speed: "+weather[7]+end_unit2
             document.getElementById("deg").innerText = "Wind Direction: "+weather[9]+"°"
             document.getElementById("location").innerText = weather[6]
             document.getElementById("link").src = "https://openweathermap.org/img/wn/"+weather[8]+"@2x.png"

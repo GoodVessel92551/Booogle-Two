@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en-GB">
     <head>
         <title>Booogle</title>
@@ -32,6 +33,7 @@
             color = {{color|tojson}};
             theme = {{theme|tojson}};
             photo = {{photo|tojson}};
+            console.log(color)
             document.querySelector("body").style.setProperty("background-image","url(/static/background/"+photo+".jpg)")
             var r = document.querySelector(":root")
             if (theme == "dark"){
@@ -49,6 +51,8 @@
                 r.style.setProperty("--back","#fff")
             }
             document.getElementById("theme").content=color[0]
+            document.getElementById("color1").value = color[0]
+            document.getElementById("color2").value = color[1]
             r.style.setProperty("--color",color[0])
             r.style.setProperty("--color2",color[1])
             document.getElementById("version").innerText = "Version "+version
