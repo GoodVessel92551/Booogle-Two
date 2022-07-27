@@ -450,7 +450,7 @@ body{
     border:none;
     height:40px;
     width:500px;
-    padding: 10px;
+    padding: 5px;
     border:2px solid var(--border);
     transition:.2s all;
 }
